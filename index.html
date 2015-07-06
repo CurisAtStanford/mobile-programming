@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+	<title>Location App Block Coding using Interact</title>
+	<script src='js/libs/interact.js'></script>
+	<script src='js/libs/jquery-1.11.3.min.js'></script>
+	<script src='js/libs/jquery.simpleWeather.3.0.2.min.js'></script>
+	<script src='js/libs/wait.js'></script>
+	<!--<script src='http://maps.googleapis.com/maps/api/js'></script>-->
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+
+	<script src='js/app.js'></script>
+	<script src='js/location.js'></script>
+
+	<link rel='stylesheet' href='css/weather_icons/css/weather-icons.css'>
+	<link rel='stylesheet' href='css/app.css'>
+</head>
+
+<body>
+	<div class="block_bank_wrapper">
+		<div id='block_bank' class='text'>BLOCK BANK</div>
+		<div id='drag1' class='draggable block1'>MY LOCATION</div>
+		<div id='drag2' class='draggable block2'><div id = "weather" class='wi wi-umbrella'></div></div>
+		<div id='drag3' class='draggable operator'>= =</div>
+		<div id='drag4' class='draggable block3'>DING</div>
+		<div id='drag5' class='draggable block2'><div id='google_map'></div></div>
+		<div id='drag6' class='draggable block3'>SIREN</div>
+	</div>
+
+	<div class='dropzone_wrapper'>
+		<div id='if' class="text" >IF</div>
+		<div id='block1' class="dropzone">BLOCK1</div>
+		<div id='operator' class="dropzone">________</div>
+		<div id='block2' class='dropzone'>BLOCK2</div>
+		<div id='then' class='text'>THEN</div>
+		<div id='block3' class='dropzone'>DO THIS</div>
+	</div>
+
+	<button id='doIFTTT' type='button'>Run IFTTT</button>
+<body>

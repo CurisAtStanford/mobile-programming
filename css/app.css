@@ -1,0 +1,114 @@
+/* Referenced interact.js-master/demo/css/dropzones.css */
+
+/* map block */
+#google_map{
+    width:200px;
+    height:200px;
+    left: 20px;
+    top: 20px;
+    line-height: 0px;
+}
+
+#doIFTTT {
+    position: absolute;
+    top: 1480px;
+    left: 330px;
+    width: 300px;
+    height: 100px;
+    font-size: 44px;
+}
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    width: 970px;
+    height: 1730px;
+}
+
+div {
+    border-radius: 10px;
+}
+
+.dropzone_wrapper {
+    position: relative;
+    top: 700px;
+}
+
+.dropzone {
+    float: left;
+    width: 250px;
+    height: 250px;
+    line-height: 250px;
+    color: #666;
+    text-align: center;
+    background: #ccc;
+    border: 15px dashed transparent;
+    margin: 20px;
+}
+
+.dropzone.drop_possible {
+    border-color: #666;
+}
+
+.block_bank_wrapper {
+    z-index: 10;
+    position: absolute;
+    top: 50px;
+}
+
+.text {
+    font-size: 50px;
+    margin-left: 20px
+}
+
+.dropzone.drop_over {
+    background: #666;
+    color: #fff;
+}
+
+.not_draggable {
+    float: left;
+    width: 240px;
+    height: 240px;
+    background-color: #00D6D4;
+    color: white;
+    text-align: center;
+    vertical-align: center;
+    line-height: 240px;
+    margin: 20px;
+}
+
+.draggable {
+    float: left;
+    width: 240px;
+    height: 240px;
+    background-color: #00D6D4;
+    color: white;
+    text-align: center;
+    vertical-align: center;
+    line-height: 240px;
+    margin: 20px;
+}
+
+.draggable.drop_possible {
+    background-color: #33D633;
+}
+
+.draggable.drop_over {
+    background-color: #CF2261;
+}
+
+.wi {
+    font-size: 130px;
+    text-align: center;
+    vertical-align: center;
+    line-height: 240px;
+}
+
+.not_draggable.drop_possible {
+    background-color: #33D633;
+}
+
+.not_draggable.drop_over {
+    background-color: #CF2261;
+}
