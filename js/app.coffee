@@ -42,8 +42,8 @@ $ ->
 	# ------
 	# Takes in x and y coordinates and creates an object to be a target in snap function
 	snap_to = (drop_x, drop_y) ->
-		x: drop_x + 20
-		y: drop_y + 20
+		x: drop_x + 10
+		y: drop_y + 10 #was 20
 		range: 400
 
 	#ARRAY that shows what areas are filled

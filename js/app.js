@@ -28,8 +28,8 @@ $(function() {
   };
   snap_to = function(drop_x, drop_y) {
     return {
-      x: drop_x + 20,
-      y: drop_y + 20,
+      x: drop_x + 10,
+      y: drop_y + 10,
       range: 400
     };
   };

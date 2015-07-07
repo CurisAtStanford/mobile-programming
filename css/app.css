@@ -43,15 +43,23 @@ div {
     top: 700px;
 }
 
+/*.dropzone, .text {
+    border-top: none;
+}*/
+
 .dropzone {
     float: left;
     width: 250px;
     height: 250px;
     line-height: 250px;
-    color: #666;
+    /*color: #666;*/
     text-align: center;
-    background: #ccc;
-    border: 15px dashed transparent;
+    /* added for box area */
+    border: 5px dashed black;
+    /*border-top: none;*/
+    /*background: #ccc;*/
+    /* added for dahsed frame scenario */
+    /* border: 15px dashed black; */
     margin: 20px;
 }
 
