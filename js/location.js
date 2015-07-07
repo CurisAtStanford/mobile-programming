@@ -16,7 +16,7 @@ $(function() {
   
   	actions is an array of the action indicators
    */
-  var BUZZ, IS_IN, IS_NOT_IN, MAP, MY_AREA, MY_LOCATION, SIREN, WEATHER, audio, blockIDs, check_if_contains, cloudy_codes, count, doIFTTT, get_rectangle_coords, load_weather, make_audio_sound, map, myLat, myLng, myLocation, polygonArea, rain_codes, sunny_codes;
+  var BUZZ, IS_IN, IS_NOT_IN, MAP, MY_AREA, MY_LOCATION, SIREN, WEATHER, audio, blockIDs, check_if_contains, cloudy_codes, count, get_rectangle_coords, load_weather, make_audio_sound, map, myLat, myLng, myLocation, polygonArea, rain_codes, run, sunny_codes;
   IS_IN = 6;
   IS_NOT_IN = 7;
   MY_AREA = 0;
@@ -25,7 +25,7 @@ $(function() {
 
   /*
   	operators: and operator ID
-  	is in: 
+  	is in:
   	is not in:
    */
   polygonArea = null;
@@ -33,7 +33,7 @@ $(function() {
   myLng = null;
 
   /*
-  	weatherInfo = 
+  	weatherInfo =
   		"0": "tornado"
   		"1": "tropical storm"
   		"2": "hurricane"
@@ -84,7 +84,7 @@ $(function() {
   		47: isolated thundershowers
   		3200: "not available"
    */
-  doIFTTT = function(triggers, actions) {
+  run = function(triggers, actions) {
     var action, bounds, firstBlock, interval, operator, promise, rectangle, secondBlock;
     console.log(triggers);
     firstBlock = triggers.firstBlock;
@@ -161,7 +161,7 @@ $(function() {
 
       /*
       			google.maps.event.addListener map,'click',(event)->
-      				obj = 
+      				obj =
       					position: event.latLng
       					map: map
       				marker = new google.maps.Marker obj
@@ -249,7 +249,7 @@ $(function() {
   $("#reset").click(function() {
     return location.reload();
   });
-  return $("#doIFTTT").click(function() {
+  return $("#run").click(function() {
     var actions, curID, element, elementsInEnvironment, firstBlockAccountedFor, i, len, result, triggers;
     triggers = {};
     actions = null;
@@ -280,6 +280,6 @@ $(function() {
         }
       }
     }
-    return result = doIFTTT(triggers, actions);
+    return result = run(triggers, actions);
   });
 });

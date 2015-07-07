@@ -21,9 +21,10 @@ $ ->
 	MY_AREA = 0
 	MY_LOCATION = 1
 	WEATHER = 2
+
 	###
 	operators: and operator ID
-	is in: 
+	is in:
 	is not in:
 
 	###
@@ -34,7 +35,7 @@ $ ->
 
 	#This has all the weather information
 	###
-	weatherInfo = 
+	weatherInfo =
 		"0": "tornado"
 		"1": "tropical storm"
 		"2": "hurricane"
@@ -87,7 +88,7 @@ $ ->
 	###
 
 	# This will run with given parameters
-	doIFTTT = (triggers, actions) ->
+	run = (triggers, actions) ->
 		console.log triggers
 		firstBlock = triggers.firstBlock
 		operator = triggers.operator
@@ -95,10 +96,6 @@ $ ->
 		action = actions
 
 		if (firstBlock is MY_LOCATION and secondBlock is MY_AREA) or (firstBlock is MY_AREA and secondBlock is MY_LOCATION)
-			#return check_if_contains() if operator is IS_IN
-			#return not check_if_contains()
-			# "GOT HERE SO IT SHOULD WORK"
-
 			bounds = map.getBounds()
 			rectangle = get_rectangle_coords bounds
 			polygonArea = new google.maps.Polygon
@@ -110,39 +107,30 @@ $ ->
 					fillOpacity: 0.35
 			polygonArea.setMap map
 
-
 			check_if_contains action
 
-			# interval = doAndRepeat 7000, ->
 			interval = setInterval ->
 				check_if_contains action
 			,7000
 
 		else if firstBlock is secondBlock
-			#return true if operator is IS_IN
-			#return false
 			action()
 		else if (firstBlock is MY_LOCATION and secondBlock is WEATHER) or
 		(firstBlock is WEATHER and secondBlock is MY_LOCATION)
-			#CALL ON WEATHER WITH MY LOCATION
+			# CALL ON WEATHER WITH MY LOCATION
 			promise = myLocation()
 			promise.done ->
 				load_weather "#{myLat},#{myLng}",action
 		else console.log "An error ocurred unfortunately"
-		
-
 
 	myLocation = ->
 		defObject = $.Deferred()
 		navigator.geolocation.getCurrentPosition (position) ->
 			myLat = position.coords.latitude
 			myLng = position.coords.longitude
-			# "Latitude: #{position.coords.latitude}"
-			# "Longitude: #{position.coords.longitude}"
 			defObject.resolve()
 			return
 		defObject.promise()
-
 
 	get_rectangle_coords = (bounds) ->
 		northEast = bounds.getNorthEast()
@@ -164,7 +152,6 @@ $ ->
 
 	audio = null
 	map = null
-	#TODO only put one marker at a time
 	google.maps.event.addDomListener window,'load',->
 		promise = myLocation()
 		promise.done ->
@@ -179,10 +166,9 @@ $ ->
 
 			map = new google.maps.Map document.getElementById("google_map"),mapProp
 
-			
 			###
 			google.maps.event.addListener map,'click',(event)->
-				obj = 
+				obj =
 					position: event.latLng
 					map: map
 				marker = new google.maps.Marker obj
@@ -205,7 +191,7 @@ $ ->
 		# callback
 		count++
 		myLoc = myLocation()
-		myLoc.done -> 
+		myLoc.done ->
 			myLatLng = new google.maps.LatLng(myLat, myLng)
 
 			if google.maps.geometry.poly.containsLocation(myLatLng, polygonArea)
@@ -219,11 +205,12 @@ $ ->
 	rain_codes = [3, 4, 5, 6, 8, 9, 10, 11, 12, 35, 37, 38, 39, 40, 45, 47]
 	cloudy_codes = [26, 27, 28, 29, 30, 44]
 	sunny_codes = [32, 34, 36]
+
 	#Loads the weather
 	load_weather = (location, callback)->
 		curClass = ($(".wi").attr("class").toString().split(' '))[1]
 		$.simpleWeather
-			location: location 
+			location: location
 			unit: 'f'
 			success: (weather) ->
 				code = parseInt weather.todayCode
@@ -248,6 +235,7 @@ $ ->
 	MAP = 3
 	BUZZ = 4
 	SIREN = 10
+
 	# This shows what the corresponding id's are for the blocks
 	blockIDs =
 		drag1: MY_LOCATION #ME
@@ -255,13 +243,13 @@ $ ->
 		drag3: IS_IN #==
 		drag4: BUZZ #action
 		drag5: MY_AREA #map block
-		drag6: SIREN 
+		drag6: SIREN
+
 	#This is when the user runs
-	
 	$("#reset").click ->
 		location.reload()
 
-	$("#doIFTTT").click ->
+	$("#run").click ->
 		triggers = {}
 		actions = null
 
@@ -273,7 +261,7 @@ $ ->
 			curID = element.id
 			# curID
 
-			#IS_IN or == 
+			#IS_IN or ==
 			if curID is "drag3"
 				triggers.operator = blockIDs[curID]
 				# triggers.operator
@@ -288,12 +276,10 @@ $ ->
 				audio.play()
 				audio.pause()
 			else
-				#console.log "ID: BELOW"
-				#console.log curID
 				if firstBlockAccountedFor is not true
 					firstBlockAccountedFor = true
 					triggers.firstBlock = blockIDs[curID]
-				else 
+				else
 					triggers.secondBlock = blockIDs[curID]
 
-		result = doIFTTT triggers, actions
+		result = run triggers, actions

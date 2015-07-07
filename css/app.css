@@ -6,8 +6,8 @@ body {
     color: #777;
     width: 970px;
     height: 1730px;
-/*    background-color: #ACF0F2;
-*/}
+    /*background-color: #ACF0F2;*/
+}
 
 div {
     border-radius: 10px;
@@ -49,7 +49,7 @@ div {
 }
 
 .dropzone.drop_over {
-    background: #666;
+    background: #ACF0F2;
     color: #fff;
 }
 

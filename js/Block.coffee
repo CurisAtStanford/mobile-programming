@@ -1,33 +1,22 @@
-###
-Creating a new block 
-This class has five fields:
-	blockID
-	type
-	subtype
-	info
-	name
-###
 
+# Creating a new block
+# This class has five fields:
+# 	blockID
+# 	type
+# 	subtype
 
 class Block
-	###
-	Types
-	###
+	# Types
 	@location = "location"
 
-	###
-	Subtypes
-	###
+	# Subtypes
 	@point = "point"
 
-	###
-	blockIDs
-	###
+	# BlockIDs
 	@MY_LOCATION = 0
 	@MY_AREA = 1
 
-	constructor: (@blockID, @info) ->
-		
+	constructor: (@blockID) ->
 		switch @blockID
 			when @MY_LOCATION
 				createMyLocation()
@@ -35,9 +24,4 @@ class Block
 				createMyArea()
 			else console.log "BAD!"
 
-	###
-	Methods that don;t need to be accessed 
-	by the client
-	###
-	createMyLocation: ->
 
