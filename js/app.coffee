@@ -3,16 +3,16 @@ $ ->
 	# it is dragged out)
 	# checks to see if block is in correct area
 	check_area = (block, area) ->
-		console.log area
+		# console.log area
 		areaType = area.attr("id").toString()
 		blockTypes = block.attr("class").toString().split(' ')
-		console.log areaType
-		console.log blockTypes
+		# console.log areaType
+		# console.log blockTypes
 
 		#first is value, second is array
-		console.log $.inArray areaType, blockTypes
+		# console.log $.inArray areaType, blockTypes
 		if parseInt($.inArray areaType, blockTypes) isnt -1
-			console.log "#{areaType} is in the array"
+			# console.log "#{areaType} is in the array"
 			return true
 		return false
 
@@ -31,19 +31,22 @@ $ ->
 		y = (parseFloat(event.target.getAttribute('data-y')) or 0) + event.dy
 
 		# Transform element
-		target.style.webkitTransform = 
+		target.style.webkitTransform =
 		target.style.transform = "translate(#{x}px, #{y}px)"
 
 		# Update position
 		target.setAttribute 'data-x', x
 		target.setAttribute 'data-y', y
 
+		# target.css
+		# 	'zIndex': 10
+
 	# snap_to
 	# ------
 	# Takes in x and y coordinates and creates an object to be a target in snap function
 	snap_to = (drop_x, drop_y) ->
 		x: drop_x + 10
-		y: drop_y + 10 #was 20
+		y: drop_y + 10
 		range: 400
 
 	#ARRAY that shows what areas are filled
@@ -52,7 +55,7 @@ $ ->
 	areaBlockInfo = {}
 
 	checkAreasFilled = (target) ->
-		console.log target
+		# console.log target
 		targetID = target.attr("id")
 		switch targetID
 			when "block1" #first
@@ -63,8 +66,8 @@ $ ->
 				return areasFilled[3]
 			when "operator" #operator
 				return areasFilled[1]
-			else 
-				console.log "ojsL"
+			else
+				# console.log "ojsL"
 				return false
 
 	toggleArea = (target) ->
@@ -86,7 +89,7 @@ $ ->
 				if areasFilled[1]
 					areasFilled[1] = false
 				else areasFilled[1] = true
-			else 
+			else
 				console.log "error on toggle"
 
 
@@ -122,7 +125,7 @@ $ ->
 			target.addClass 'drop_possible'
 			related_target.addClass 'drop_possible'
 			target.text 'Drop here!'
-			
+
 		.on 'dropdeactivate', (event) ->
 			target = $ event.target
 			$(event.target).removeClass 'drop_possible'
@@ -152,17 +155,17 @@ $ ->
 			result = checkAreasFilled target
 
 			if check_area(related_target, target) && (result is false)
-				console.log "CORRECT!"
+				# console.log "CORRECT!"
 				related_target.addClass 'drop_over'
 				related_target.addClass 'in_zone'
 				toggleArea target
 
-			else 
-				console.log "WRONG"
+			else
+				# console.log "WRONG"
 				# Transform element
 				x = 0
 				y = 0
-				related_target[0].style.webkitTransform = 
+				related_target[0].style.webkitTransform =
 				related_target[0].style.transform = "translate(#{x}px, #{y}px)"
 
 				# Update position
@@ -180,9 +183,23 @@ $ ->
 			x: dropzone.getBoundingClientRect().left
 			y: dropzone.getBoundingClientRect().top
 
+	for draggable in $('.draggable')
+		$(draggable).css
+			zIndex: 0
+
 	interact('.draggable').draggable
 		onmove: (event) ->
 			drag_move event
+		onstart: (event) ->
+			target = $ event.target
+			target.css
+				zIndex: 10
+				webkitTransform: "translate3d(0px, 0px, 0px)"
+		onend: (event) ->
+			target = $ event.target
+			target.css
+				zIndex: 0
+				webkitTransform: "translate3d(0px, 0px, 0px)"
 		snap:
 			targets: [
 				snap_to zones[0].x, zones[0].y
@@ -227,8 +244,8 @@ $ ->
 	# block_map
 	# --------
 	# Todo: Code needs work - Brad
-	$("#google_map").bind 'touchstart mousedown' ,-> 
+	$("#google_map").bind 'touchstart mousedown' ,->
 		$("#drag5").removeClass("draggable").addClass "not_draggable"
 
-	$("body").bind 'touchend mouseup', -> 
+	$("body").bind 'touchend mouseup', ->
 		$("#drag5").removeClass("not_draggable").addClass "draggable"

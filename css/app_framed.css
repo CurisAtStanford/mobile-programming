@@ -9,9 +9,9 @@ body {
 /*    background-color: #ACF0F2;
 */}
 
-div {
+/*div {
     border-radius: 10px;
-}
+}*/
 
 .block_bank_wrapper {
     z-index: 10;
@@ -27,7 +27,7 @@ div {
 .text {
     font-size: 50px;
     color: #777;
-    margin-left: 20px
+    margin-left: 20px;
 }
 
 /* INTERACTABLES */
@@ -36,24 +36,25 @@ div {
     width: 260px;
     height: 260px;
     line-height: 250px;
-    color: #666;
+    /*color: #666;*/
     text-align: center;
-    background: #ACF0F2;
-    /*border: 5px dashed black;*/
+    /*background: #F3FFE2;*/
+    border: 4px dashed #ACF0F2;
     margin: 20px;
 }
 
 .dropzone.drop_possible {
     /*border-color: #666;*/
-    box-shadow:0 0 20px #777; /* glow */
+    box-shadow:0 0 20px #ACF0F2; /* glow */
 }
 
 .dropzone.drop_over {
-    background: #666;
+    /*background: #666;*/
     color: #fff;
 }
 
 .draggable {
+    border-radius: 10px;
     position: relative;
     float: left;
     width: 240px;
