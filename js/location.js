@@ -86,12 +86,12 @@ $(function() {
    */
   doIFTTT = function(triggers, actions) {
     var action, bounds, firstBlock, interval, operator, promise, rectangle, secondBlock;
+    console.log(triggers);
     firstBlock = triggers.firstBlock;
     operator = triggers.operator;
     secondBlock = triggers.secondBlock;
     action = actions;
     if ((firstBlock === MY_LOCATION && secondBlock === MY_AREA) || (firstBlock === MY_AREA && secondBlock === MY_LOCATION)) {
-      console.log("GOT HERE SO IT SHOULD WORK");
       bounds = map.getBounds();
       rectangle = get_rectangle_coords(bounds);
       polygonArea = new google.maps.Polygon({
@@ -124,8 +124,6 @@ $(function() {
     navigator.geolocation.getCurrentPosition(function(position) {
       myLat = position.coords.latitude;
       myLng = position.coords.longitude;
-      console.log("Latitude: " + position.coords.latitude);
-      console.log("Longitude: " + position.coords.longitude);
       defObject.resolve();
     });
     return defObject.promise();
@@ -167,8 +165,8 @@ $(function() {
       					position: event.latLng
       					map: map
       				marker = new google.maps.Marker obj
-      				console.log map.getBounds().getSouthWest().lat()
-      				console.log event.latLng.lat()
+      				 * map.getBounds().getSouthWest().lat()
+      				 * event.latLng.lat()
       				bounds = map.getBounds()
       				rectangle = get_rectangle_coords bounds
       				polygonArea = new google.maps.Polygon
@@ -185,7 +183,6 @@ $(function() {
   count = 0;
   check_if_contains = function(callback) {
     var myLoc;
-    console.log(callback);
     count++;
     myLoc = myLocation();
     return myLoc.done(function() {
@@ -203,7 +200,7 @@ $(function() {
   };
   rain_codes = [3, 4, 5, 6, 8, 9, 10, 11, 12, 35, 37, 38, 39, 40, 45, 47];
   cloudy_codes = [26, 27, 28, 29, 30, 44];
-  sunny_codes = [32, 36];
+  sunny_codes = [32, 34, 36];
   load_weather = function(location, callback) {
     var curClass;
     curClass = ($(".wi").attr("class").toString().split(' '))[1];
@@ -215,25 +212,23 @@ $(function() {
         code = parseInt(weather.todayCode);
         console.log(code);
         if (curClass === "wi-umbrella") {
-          console.log("Got in umbrella");
           if ($.inArray(code, rain_codes) !== -1) {
-            callback();
+            return callback();
           }
         } else if (curClass === "wi-cloudy") {
           if ($.inArray(code, cloudy_codes) !== -1) {
-            callback();
+            return callback();
           }
         } else if (curClass === "wi-day-sunny") {
           if ($.inArray(code, sunny_codes) !== -1) {
-            callback();
+            return callback();
           }
         } else {
-          console.log("DIDN'T MATCH");
+
         }
       },
       error: function(error) {
         $("#message").text("Error");
-        console.log("ERROR on WEATHER");
       }
     });
   };
@@ -251,20 +246,21 @@ $(function() {
     drag5: MY_AREA,
     drag6: SIREN
   };
+  $("#reset").click(function() {
+    return location.reload();
+  });
   return $("#doIFTTT").click(function() {
     var actions, curID, element, elementsInEnvironment, firstBlockAccountedFor, i, len, result, triggers;
     triggers = {};
     actions = null;
-    elementsInEnvironment = document.getElementsByClassName("drop_over");
-    console.log(elementsInEnvironment.length);
+    elementsInEnvironment = document.querySelectorAll(".drop_over.draggable");
     firstBlockAccountedFor = false;
     for (i = 0, len = elementsInEnvironment.length; i < len; i++) {
       element = elementsInEnvironment[i];
+      console.log(element);
       curID = element.id;
-      console.log(curID);
       if (curID === "drag3") {
         triggers.operator = blockIDs[curID];
-        console.log(triggers.operator);
       } else if (curID === "drag4") {
         actions = make_audio_sound;
         audio = new Audio("sound/Ding.mp3");

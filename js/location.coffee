@@ -88,6 +88,7 @@ $ ->
 
 	# This will run with given parameters
 	doIFTTT = (triggers, actions) ->
+		console.log triggers
 		firstBlock = triggers.firstBlock
 		operator = triggers.operator
 		secondBlock = triggers.secondBlock
@@ -96,7 +97,7 @@ $ ->
 		if (firstBlock is MY_LOCATION and secondBlock is MY_AREA) or (firstBlock is MY_AREA and secondBlock is MY_LOCATION)
 			#return check_if_contains() if operator is IS_IN
 			#return not check_if_contains()
-			console.log "GOT HERE SO IT SHOULD WORK"
+			# "GOT HERE SO IT SHOULD WORK"
 
 			bounds = map.getBounds()
 			rectangle = get_rectangle_coords bounds
@@ -136,8 +137,8 @@ $ ->
 		navigator.geolocation.getCurrentPosition (position) ->
 			myLat = position.coords.latitude
 			myLng = position.coords.longitude
-			console.log "Latitude: #{position.coords.latitude}"
-			console.log "Longitude: #{position.coords.longitude}"
+			# "Latitude: #{position.coords.latitude}"
+			# "Longitude: #{position.coords.longitude}"
 			defObject.resolve()
 			return
 		defObject.promise()
@@ -185,8 +186,8 @@ $ ->
 					position: event.latLng
 					map: map
 				marker = new google.maps.Marker obj
-				console.log map.getBounds().getSouthWest().lat()
-				console.log event.latLng.lat()
+				# map.getBounds().getSouthWest().lat()
+				# event.latLng.lat()
 				bounds = map.getBounds()
 				rectangle = get_rectangle_coords bounds
 				polygonArea = new google.maps.Polygon
@@ -201,7 +202,7 @@ $ ->
 	count = 0
 
 	check_if_contains = (callback) ->
-		console.log callback
+		# callback
 		count++
 		myLoc = myLocation()
 		myLoc.done -> 
@@ -217,7 +218,7 @@ $ ->
 
 	rain_codes = [3, 4, 5, 6, 8, 9, 10, 11, 12, 35, 37, 38, 39, 40, 45, 47]
 	cloudy_codes = [26, 27, 28, 29, 30, 44]
-	sunny_codes = [32, 36]
+	sunny_codes = [32, 34, 36]
 	#Loads the weather
 	load_weather = (location, callback)->
 		curClass = ($(".wi").attr("class").toString().split(' '))[1]
@@ -228,17 +229,17 @@ $ ->
 				code = parseInt weather.todayCode
 				console.log code
 				if curClass is "wi-umbrella"
-					console.log "Got in umbrella"
+					# "Got in umbrella"
 					callback() if $.inArray(code, rain_codes) isnt -1
 				else if curClass is "wi-cloudy"
 					callback() if $.inArray(code, cloudy_codes) isnt -1
 				else if curClass is "wi-day-sunny"
 					callback() if $.inArray(code, sunny_codes) isnt -1
-				else console.log "DIDN'T MATCH"
-				return
+				else # "DIDN'T MATCH"
+					return
 			error: (error) ->
 				$("#message").text "Error"
-				console.log "ERROR on WEATHER"
+				# "ERROR on WEATHER"
 				return
 
 	make_audio_sound = ->
@@ -256,21 +257,26 @@ $ ->
 		drag5: MY_AREA #map block
 		drag6: SIREN 
 	#This is when the user runs
+	
+	$("#reset").click ->
+		location.reload()
+
 	$("#doIFTTT").click ->
 		triggers = {}
 		actions = null
 
-		elementsInEnvironment = document.getElementsByClassName("drop_over");
-		console.log elementsInEnvironment.length
+		elementsInEnvironment = document.querySelectorAll(".drop_over.draggable");
+		# elementsInEnvironment.length
 		firstBlockAccountedFor = false
 		for element in elementsInEnvironment
+			console.log element
 			curID = element.id
-			console.log curID
+			# curID
 
 			#IS_IN or == 
 			if curID is "drag3"
 				triggers.operator = blockIDs[curID]
-				console.log triggers.operator
+				# triggers.operator
 			else if curID is "drag4"
 				actions = make_audio_sound
 				audio = new Audio "sound/Ding.mp3"
@@ -282,6 +288,8 @@ $ ->
 				audio.play()
 				audio.pause()
 			else
+				#console.log "ID: BELOW"
+				#console.log curID
 				if firstBlockAccountedFor is not true
 					firstBlockAccountedFor = true
 					triggers.firstBlock = blockIDs[curID]

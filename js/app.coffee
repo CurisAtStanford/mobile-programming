@@ -1,6 +1,9 @@
 $ ->
+	#TODO fix map block bug (still has drop over class when
+	# it is dragged out)
 	# checks to see if block is in correct area
-	checkArea = (block, area) ->
+	check_area = (block, area) ->
+		console.log area
 		areaType = area.attr("id").toString()
 		blockTypes = block.attr("class").toString().split(' ')
 		console.log areaType
@@ -17,10 +20,10 @@ $ ->
 	previousLeft = 0
 	previousUp = 0
 
-	# dragMove
+	# drag_move
 	# --------
 	# Implements dragging functionality, called by the onMovevent in Interact.draggable
-	dragMove = (event) ->
+	drag_move = (event) ->
 		target = event.target
 
 		# Change position
@@ -35,10 +38,63 @@ $ ->
 		target.setAttribute 'data-x', x
 		target.setAttribute 'data-y', y
 
-	# setupDropzone
+	# snap_to
+	# ------
+	# Takes in x and y coordinates and creates an object to be a target in snap function
+	snap_to = (drop_x, drop_y) ->
+		x: drop_x + 20
+		y: drop_y + 20
+		range: 400
+
+	#ARRAY that shows what areas are filled
+	#              block1  operator block2 dothis
+	areasFilled = [false, false, false, false]
+	areaBlockInfo = {}
+
+	checkAreasFilled = (target) ->
+		console.log target
+		targetID = target.attr("id")
+		switch targetID
+			when "block1" #first
+				return areasFilled[0]
+			when "block2" #second
+				return areasFilled[2]
+			when "block3" #action
+				return areasFilled[3]
+			when "operator" #operator
+				return areasFilled[1]
+			else 
+				console.log "ojsL"
+				return false
+
+	toggleArea = (target) ->
+		targetID = target.attr("id")
+		switch targetID
+			when "block1" #first
+				if areasFilled[0]
+					areasFilled[0] = false
+				else areasFilled[0] = true
+			when "block2" #second
+				if areasFilled[2]
+					areasFilled[2] = false
+				else areasFilled[2] = true
+			when "block3" #action
+				if areasFilled[3]
+					areasFilled[3] = false
+				else areasFilled[3] = true
+			when "operator" #operator
+				if areasFilled[1]
+					areasFilled[1] = false
+				else areasFilled[1] = true
+			else 
+				console.log "error on toggle"
+
+
+
+	# setup_dropzone
 	# -------------
 	# Implements dropzone functionality by adding and removing classes to elements
-	setupDropzone = (el, accept) ->
+	setup_dropzone = (el, accept) ->
 		interact(el)
 		#changing accept
 		.dropzone
@@ -55,11 +111,11 @@ $ ->
 			target = $ event.target
 			related_target = $ event.relatedTarget
 
-			if checkArea(related_target, target) is false
-				target.addClass 'rejectzone'
-				interact(".rejectzone").unset()
-				return
+			return if check_area(related_target, target) is false
 
+			if related_target.hasClass "in_zone"
+				related_target.removeClass "in_zone"
+				toggleArea target
 
 
 			target.prop 'dropzoneName', target.text()
@@ -69,7 +125,6 @@ $ ->
 			
 		.on 'dropdeactivate', (event) ->
 			target = $ event.target
-			#checkArea target
 			$(event.target).removeClass 'drop_possible'
 			$(event.relatedTarget).removeClass 'drop_possible'
 			target.text target.prop 'dropzoneName'
@@ -78,31 +133,45 @@ $ ->
 		.on 'dragenter', (event) ->
 			target = $ event.target
 			related_target = $ event.relatedTarget
-			return if checkArea(related_target, target) is false
+			return if check_area(related_target, target) is false
+			return if checkAreasFilled target
 			target.addClass 'drop_over'
 
 		.on 'dragleave', (event) ->
 			target = $ event.target
 			related_target = $ event.relatedTarget
-			# console.log "Target: #{target[0]}"
-			# console.log "related_target: #{related_target[0]}"
+			return if checkAreasFilled target
 			target.removeClass 'drop_over'
 			related_target.removeClass 'drop_over'
 
 		.on 'drop', (event) ->
 			target = $ event.target
 			related_target = $ event.relatedTarget
-			console.log target[0] #area
-			console.log related_target[0] #draggable block
-			target.removeClass 'drop_over'
-			if checkArea related_target, target
+			related_target.removeClass 'drop_over'
+
+			result = checkAreasFilled target
+
+			if check_area(related_target, target) && (result is false)
 				console.log "CORRECT!"
 				related_target.addClass 'drop_over'
+				related_target.addClass 'in_zone'
+				toggleArea target
+
 			else 
 				console.log "WRONG"
+				# Transform element
+				x = 0
+				y = 0
+				related_target[0].style.webkitTransform = 
+				related_target[0].style.transform = "translate(#{x}px, #{y}px)"
+
+				# Update position
+				related_target[0].setAttribute 'data-x', x
+				related_target[0].setAttribute 'data-y', y
 
 	# elements in dropzone class can accept elements in draggable class
-	setupDropzone '.dropzone', '.draggable'
+	setup_dropzone '.dropzone', '.draggable'
+
 
 	# make an array of objects representing the x and y coordinates of each dropzone
 	zones = []
@@ -113,27 +182,13 @@ $ ->
 
 	interact('.draggable').draggable
 		onmove: (event) ->
-			dragMove event
+			drag_move event
 		snap:
 			targets: [
-				# TODO: clean up redundant code?
-				# for dropzone in zones
-				(x, y) ->
-					x: zones[0].x
-					y: zones[0].y
-					range: 400
-				(x, y) ->
-					x: zones[1].x
-					y: zones[1].y
-					range: 400
-				(x, y) ->
-					x: zones[2].x
-					y: zones[2].y
-					range: 400
-				(x, y) ->
-					x: zones[3].x
-					y: zones[3].y
-					range: 400
+				snap_to zones[0].x, zones[0].y
+				snap_to zones[1].x, zones[1].y
+				snap_to zones[2].x, zones[2].y
+				snap_to zones[3].x, zones[3].y
 			]
 			# TODO: Fix snapping to top left corner HERE?
 			relativePoints: [
@@ -168,7 +223,6 @@ $ ->
 			icon = weather_icons[weather_block_count]
 			$("#weather").removeClass previous_icon
 			$("#weather").addClass icon
-			#console.log $("#weather").attr('class')
 
 	# block_map
 	# --------
