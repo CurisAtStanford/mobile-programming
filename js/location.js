@@ -16,7 +16,7 @@ $(function() {
   
   	actions is an array of the action indicators
    */
-  var BUZZ, IS_IN, IS_NOT_IN, MAP, MY_AREA, MY_LOCATION, SIREN, WEATHER, audio, blockIDs, check_if_contains, cloudy_codes, count, get_rectangle_coords, load_weather, make_audio_sound, map, myLat, myLng, myLocation, polygonArea, rain_codes, run, sunny_codes;
+  var BUZZ, CLOCK, IS_IN, IS_NOT_IN, MAP, MY_AREA, MY_LOCATION, MY_TIME, SIREN, WEATHER, audio, blockIDs, checkMatchingTime, check_if_contains, cloudy_codes, count, get_rectangle_coords, load_weather, make_audio_sound, map, myLat, myLng, myLocation, polygonArea, rain_codes, run, sunny_codes, timeMatches;
   IS_IN = 6;
   IS_NOT_IN = 7;
   MY_AREA = 0;
@@ -25,7 +25,7 @@ $(function() {
 
   /*
   	operators: and operator ID
-  	is in:
+  	is in: 
   	is not in:
    */
   polygonArea = null;
@@ -33,7 +33,7 @@ $(function() {
   myLng = null;
 
   /*
-  	weatherInfo =
+  	weatherInfo = 
   		"0": "tornado"
   		"1": "tropical storm"
   		"2": "hurricane"
@@ -114,9 +114,43 @@ $(function() {
       return promise.done(function() {
         return load_weather(myLat + "," + myLng, action);
       });
+    } else if ((firstBlock === MY_TIME && secondBlock === CLOCK) || (firstBlock === CLOCK && secondBlock === MY_TIME)) {
+      if (checkMatchingTime()) {
+        action();
+        return;
+      }
+      return interval = setInterval(function() {
+        if (checkMatchingTime()) {
+          action();
+          return clearInterval(interval);
+        }
+      }, 7000);
     } else {
       return console.log("An error ocurred unfortunately");
     }
+  };
+  checkMatchingTime = function() {
+    var currentTime;
+    currentTime = new Date();
+    return timeMatches(currentTime.getHours(), currentTime.getMinutes());
+  };
+  timeMatches = function(hours, minutes) {
+    var clock_hour, clock_minutes, clock_time, hours_match, minutes_match;
+    console.log("GOT IN HERE!!!!!!!!!");
+    clock_hour = $("#hours").text();
+    clock_minutes = $("#minutes").text();
+    clock_time = $("#time").text();
+    console.log(clock_hour);
+    if (clock_time === "PM") {
+      clock_hour = parseInt(clock_hour) + 12;
+    }
+    console.log(clock_hour);
+    console.log(typeof parseInt(clock_minutes));
+    hours_match = parseInt(hours) === parseInt(clock_hour);
+    minutes_match = parseInt(minutes) === parseInt(clock_minutes);
+    console.log(hours_match);
+    console.log(minutes_match);
+    return hours_match && minutes_match;
   };
   myLocation = function() {
     var defObject;
@@ -161,7 +195,7 @@ $(function() {
 
       /*
       			google.maps.event.addListener map,'click',(event)->
-      				obj =
+      				obj = 
       					position: event.latLng
       					map: map
       				marker = new google.maps.Marker obj
@@ -203,7 +237,8 @@ $(function() {
   sunny_codes = [32, 34, 36];
   load_weather = function(location, callback) {
     var curClass;
-    curClass = ($(".wi").attr("class").toString().split(' '))[1];
+    curClass = $("#info").attr('class').toString();
+    console.log(curClass);
     return $.simpleWeather({
       location: location,
       unit: 'f',
@@ -238,13 +273,17 @@ $(function() {
   MAP = 3;
   BUZZ = 4;
   SIREN = 10;
+  CLOCK = 8;
+  MY_TIME = 9;
   blockIDs = {
     drag1: MY_LOCATION,
     drag2: WEATHER,
     drag3: IS_IN,
     drag4: BUZZ,
     drag5: MY_AREA,
-    drag6: SIREN
+    drag6: SIREN,
+    drag7: CLOCK,
+    drag8: MY_TIME
   };
   $("#reset").click(function() {
     return location.reload();

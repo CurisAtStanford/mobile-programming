@@ -5,25 +5,51 @@
 	<script src='js/libs/jquery-1.11.3.min.js'></script>
 	<script src='js/libs/jquery.simpleWeather.3.0.2.min.js'></script>
 	<script src='js/libs/wait.js'></script>
+	<script src="js/libs/velocity.min.js"></script>
+	<link href="http://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css"/>
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
 
 	<script src='js/app.js'></script>
 	<script src='js/location.js'></script>
 
 	<link rel='stylesheet' href='css/weather_icons/css/weather-icons.css'>
-	<link rel='stylesheet' href='css/app.css'>
+	<link rel='stylesheet' href='css/app-framed.css'>
 </head>
 
-
 <body>
+	<div id="info" class="wi-umbrella" style="display:none"></div>
 	<div class="block_bank_wrapper">
 		<div id='block_bank' class='text'>BLOCK BANK</div>
 		<div id='drag1' class='draggable block1'>MY LOCATION</div>
-		<div id='drag2' class='draggable block2'><div id = "weather" class='wi wi-umbrella'></div></div>
+		<div id='drag2' class='draggable block2'>
+			<div id="cloudy" class='wi wi-cloudy'></div>
+			<div id = "weather" class='wi wi-umbrella'></div>
+			<div id="sunny" class='wi wi-day-sunny'></div>
+		</div>
 		<div id='drag3' class='draggable operator'>= =</div>
 		<div id='drag4' class='draggable block3'>DING</div>
 		<div id='drag5' class='draggable block2'><div id='google_map'></div></div>
 		<div id='drag6' class='draggable block3'>SIREN</div>
+		<div id='drag7' class='draggable block2'>
+			<div id="hoursBlock">
+				<div id="hours">12</div>
+				<img class="arrowUp" src="img/RedArrow.png">
+				<img class="arrowDown" src="img/RedArrow.png">
+
+			</div>
+			<div id="colon">:</div>
+			<div id="minutesBlock">
+				<div id="minutes">00</div>
+				<img class="arrowUp" src="img/RedArrow.png">
+				<img class="arrowDown" src="img/RedArrow.png">
+			</div>
+			<div id="timeBlock">
+				<div id="time">AM</div>
+				<img class="arrowUp" src="img/RedArrow.png">
+				<img class="arrowDown" src="img/RedArrow.png">
+			</div>
+		</div>
+		<div id="drag8" class="draggable block1">MY TIME</div>
 	</div>
 
 	<div class='dropzone_wrapper'>

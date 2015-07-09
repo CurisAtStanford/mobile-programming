@@ -6,26 +6,23 @@ body {
     color: #777;
     width: 970px;
     height: 1730px;
-   /* background-color: #ACF0F2;*/
+    background-color: #F3FFE2;
+    -webkit-user-select: none;
 }
-
-/*div {
-    border-radius: 10px;
-}*/
 
 .block_bank_wrapper {
     z-index: 10;
     position: absolute;
-    top: 50px;
+    top: 20px;
 }
 
 .dropzone_wrapper {
     position: relative;
-    top: 700px;
+    top: 720px;
 }
 
 .text {
-    font-size: 50px;
+    font-size: 40px;
     color: #777;
     margin-left: 20px;
 }
@@ -33,19 +30,21 @@ body {
 /* INTERACTABLES */
 .dropzone {
     float: left;
-    width: 260px;
-    height: 260px;
-    line-height: 250px;
+    width: 300px;
+    height: 300px;
+    line-height: 290px;
     /*color: #666;*/
     text-align: center;
     /*background: #F3FFE2;*/
     border: 4px dashed #ACF0F2;
-    margin: 20px;
+    margin: 7px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .dropzone.drop_possible {
     /*border-color: #666;*/
-    box-shadow:0 0 20px #ACF0F2; /* glow */
+    box-shadow: 0 0 250px #ACF0F2; /* glow */
 }
 
 .dropzone.drop_over {
@@ -57,14 +56,14 @@ body {
     border-radius: 10px;
     position: relative;
     float: left;
-    width: 240px;
-    height: 240px;
+    width: 290px;
+    height: 290px;
     background-color: #1695A3;
-    color: white;
+    color: #F3FFE2;
     text-align: center;
     vertical-align: center;
-    line-height: 240px;
-    margin: 20px;
+    line-height: 280px;
+    margin: 15px;
     box-shadow: 0 8px 6px -6px black;
 }
 
@@ -77,15 +76,18 @@ body {
 }
 
 .not_draggable {
+    border-radius: 10px;
+    position: relative;
     float: left;
-    width: 240px;
-    height: 240px;
+    width: 290px;
+    height: 290px;
     background-color: #1695A3;
-    color: white;
+    color: #F3FFE2;
     text-align: center;
     vertical-align: center;
-    line-height: 240px;
-    margin: 20px;
+    line-height: 280px;
+    margin: 15px;
+    box-shadow: 0 8px 6px -6px black;
 }
 
 .not_draggable.drop_possible {
@@ -99,35 +101,162 @@ body {
 /* BUTTONS */
 #run {
     position: absolute;
-    top: 1480px;
+    top: 1570px;
     left: 125px;
     width: 300px;
     height: 100px;
-    font-size: 44px;
+    font-size: 40px;
+    color: #585D5E;
+    background-color: #c9c9c9 ;
+    border-radius: 20px;
+    box-shadow: 0 8px 6px -6px #777;
+}
+
+#run:active {
+    background-color: #777;
 }
 
 #reset {
     position: absolute;
-    top: 1480px;
+    top: 1570px;
     left: 500px;
     width: 300px;
     height: 100px;
-    font-size: 44px;
+    font-size: 40px;
+    color: #585D5E;
+    background-color: #c9c9c9;
+    border-radius: 20px;
+    box-shadow: 0 8px 6px -6px #777;
+}
+
+#reset:active {
+    background-color: #777;
 }
 
 /* WEATHER BLOCK */
-.wi {
+/*.wi {
     font-size: 130px;
     text-align: center;
     vertical-align: center;
-    line-height: 240px;
+    line-height: 280px;
+}*/
+/* Weather things */
+
+#drag2 {
+    position: relative;
+    overflow: hidden;
+}
+
+.wi {
+    font-size: 35px;
+    /*text-align: center;
+    vertical-align: center;
+    line-height: 240px*/
+    line-height: 58px;
+}
+
+#weather {
+    position: absolute;
+    top: 85px;
+    left: 35px;
+    width: 50px;
+    height: 50px;
+    font-size: 157.5px;
+    /*line-height: 0px;*/
+}
+
+#sunny {
+    position: absolute;
+    top: 0px;
+    left: 185px;
+    width: 50px;
+    height: 50px;
+   /* font-size: 40px;*/
+    /*line-height: 0px;*/
+}
+
+#cloudy {
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    width: 50px;
+    height: 50px;
+    /*font-size: 40px;*/
+    /*line-height: 0px;*/
 }
 
 /* MAP BLOCK */
 #google_map{
-    width:200px;
-    height:200px;
-    left: 20px;
-    top: 20px;
-    line-height: 0px;
+    width: 220px;
+    height: 220px;
+    left: 35px;
+    top: 35px;
+}
+
+/* CLOCK BLOCK */
+.arrowUp {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 30px;
+    left: 15px;
+}
+
+.arrowDown {
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 170px;
+    left: 15px;
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
+    transform: rotate(180deg);
+}
+
+#hoursBlock {
+    position: relative;
+    left: 10px;
+    width: 70px;
+}
+
+#minutesBlock {
+    position: relative;
+    left: 90px;
+    width: 70px;
+}
+
+#timeBlock {
+    position: relative;
+    left: 160px;
+    width: 70px;
+}
+
+#drag7 {
+    position: relative;
+    font-family: Orbitron;
+    font-size: 130%;
+}
+
+#hours {
+    position: absolute;
+    /*left: 10px;
+    width: 70px;
+    top: 10px;*/
+}
+
+#colon {
+    position: absolute;
+    left: 80px;
+}
+
+#minutes {
+    position: absolute;
+    /*left: 90px;
+    width: 70px;*/
+}
+
+#time {
+    position: absolute;
+   /* left: 160px;
+    width: 70px;*/
 }

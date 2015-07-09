@@ -1,4 +1,12 @@
 $ ->
+	# transform
+	# ---------
+	# Takes an HTML object and applies a CSS transformation (position and scale)
+	# To shrink, set scale_ratio < 1
+	transform = (element, x, y, scale_ratio) ->
+		element.style.webkitTransform =
+		element.style.transform = "translate(#{x}px, #{y}px) scale(#{scale_ratio})"
+
 	# drag_move
 	# --------
 	# Implements dragging functionality, called by the onMovevent in Interact.draggable
@@ -6,12 +14,11 @@ $ ->
 		target = event.target
 
 		# Change position
-		x = (parseFloat(event.target.getAttribute('data-x')) or 0) + event.dx
-		y = (parseFloat(event.target.getAttribute('data-y')) or 0) + event.dy
+		x = (parseFloat(target.getAttribute('data-x')) or 0) + event.dx
+		y = (parseFloat(target.getAttribute('data-y')) or 0) + event.dy
 
 		# Transform element
-		target.style.webkitTransform =
-		target.style.transform = "translate(#{x}px, #{y}px)"
+		transform target, x, y, 1
 
 		# Update position
 		target.setAttribute 'data-x', x
@@ -21,8 +28,8 @@ $ ->
 	# ------
 	# Takes in x and y coordinates and creates an object to be a target in snap function
 	snap_to = (drop_x, drop_y) ->
-		x: drop_x + 10
-		y: drop_y + 10
+		x: drop_x + 8
+		y: drop_y + 8
 		range: 400
 
 	# check_zone
@@ -134,18 +141,20 @@ $ ->
 			target = $ event.target
 			related_target = $ event.relatedTarget
 
-			related_target.removeClass 'drop_over'
 			result = check_zones_filled target
 			if check_zone(related_target, target) && (result is false)
 				related_target.addClass 'drop_over'
 				related_target.addClass 'in_zone'
 				toggle_area target
+				# SHRINK
+				# x = related_target[0].getAttribute('data-x')
+				# y = related_target[0].getAttribute('data-y')
+				# transform related_target[0], x, y, 0.7
 			else
-				# Transform element
+				# Wrong dropzone, snap back
 				x = 0
 				y = 0
-				related_target[0].style.webkitTransform =
-				related_target[0].style.transform = "translate(#{x}px, #{y}px)"
+				transform related_target[0], x, y, 1
 
 				# Update position
 				related_target[0].setAttribute 'data-x', x
@@ -168,12 +177,10 @@ $ ->
 			target = $ event.target
 			target.css
 				zIndex: 10
-				webkitTransform: "translate3d(0px, 0px, 0px)"
 		onend: (event) ->
 			target = $ event.target
 			target.css
 				zIndex: 0
-				webkitTransform: "translate3d(0px, 0px, 0px)"
 		snap:
 			targets: [
 				snap_to zones[0].x, zones[0].y
@@ -201,18 +208,145 @@ $ ->
 
 	# block_weather
 	# --------
-	# Implements dragging functionality for weather block
-	weather_icons = ["wi wi-umbrella", "wi wi-cloudy", "wi wi-day-sunny"]
+	# Implements dragging functionality, called by the onMove event in Interact.draggable
+	#weather_icons = ["wi wi-umbrella", "wi wi-cloudy", "wi wi-day-sunny"]
 	weather_block_count = 0
 
+	$cloudy = $("#cloudy")
+	$sunny = $("#sunny")
+	$rainy = $("#weather")
+
+	get_previous_class = ->
+		previous = weather_block_count - 1
+		previous = weather_icons.length - 1 if previous < 0
+		return weather_icons[previous]
+
+	get_next_class = ->
+		next = weather_block_count + 1
+		next = 0 if next >= weather_icons.length
+		return weather_icons[next]
+
+	# -> current goes to previous which goes to next
+	weather_icons = [$rainy, $cloudy, $sunny]
+	#$rainy.velocity
+	#	scale: 4.5
+	boolTest = true
+	boolTest2 = true
+	boolTest3 = true
 	interact('#drag2')
 		.on 'tap', (event) ->
-			previous_icon = weather_icons[weather_block_count]
-			weather_block_count++
-			weather_block_count = 0 if weather_block_count is weather_icons.length
-			icon = weather_icons[weather_block_count]
-			$("#weather").removeClass previous_icon
-			$("#weather").addClass icon
+			#this icon will shrink and move to the right
+			$old_icon = weather_icons[0]
+			#this one will just move to the left
+			$shifted = weather_icons[2]
+			#this one will enlarge and move to the right
+			$new_icon = weather_icons[1]
+
+			ymove = 70
+			xmove = 90
+			scale = 1.0
+
+			if $old_icon.hasClass "wi-umbrella"
+				ymove = 370
+				scale = 1/4.5
+				xmove = 610
+
+
+			$old_icon.velocity
+				scale: "#{scale}"
+				translateX: "+=#{xmove}"
+				translateY: "-=#{ymove}"
+			, 100
+
+			xmove_shifted = 180
+			xmove_shifted = 800 if $shifted.hasClass "wi-umbrella"
+
+			$shifted.velocity
+				translateX: "-=#{xmove_shifted}"
+			, 100
+
+			ymove_new = 70
+			scale_new = 4.5
+			xmove_new = 90
+			if $new_icon.hasClass "wi-umbrella"
+				ymove_new = 370
+				scale_new = 1.0
+				xmove_new = 190
+
+
+			$new_icon.velocity
+				translateY: "+=#{ymove_new}"
+				translateX: "+=#{xmove_new}"
+				scale: "#{scale_new}"
+			, 100
+
+			$info = $("#info")
+			$info.removeClass()
+			$info.addClass $new_icon.attr('class').split(' ')[1]
+
+			end_icon = weather_icons.shift()
+			weather_icons.push end_icon
+
+	#clock logic
+	$hours = $("#hours")
+	$minutes = $("#minutes")
+	$time = $("#time")
+
+
+	hours_counter = 12
+	minutes_counter = 0
+	morning = true
+
+	interact('.arrowUp')
+		.on 'tap', (event) ->
+			block = $(event.currentTarget).parent()[0].id.toString()
+			console.log block
+			switch block
+				when "hoursBlock"
+					hours_counter++
+					hours_counter = 1 if hours_counter > 12
+					hours_text = hours_counter.toString()
+					hours_text = "0#{hours_counter}" if hours_counter <= 9
+					$hours.text hours_text
+				when "minutesBlock"
+					minutes_counter++
+					minutes_counter = 0 if minutes_counter > 59
+					minutes_text = minutes_counter.toString()
+					minutes_text = "0#{minutes_counter}" if minutes_counter <= 9
+					$minutes.text minutes_text
+				when "timeBlock"
+					if morning
+						$time.text "PM"
+						morning = false
+					else
+						$time.text "AM"
+						morning = true
+				else console.log "BIG ERROR NOOOOOO"
+
+	interact('.arrowDown')
+		.on 'tap', (event) ->
+			block = $(event.currentTarget).parent()[0].id.toString()
+			switch block
+				when "hoursBlock"
+					hours_counter--
+					hours_counter = 12 if hours_counter <= 0
+					hours_text = hours_counter.toString()
+					hours_text = "0#{hours_counter}" if hours_counter <= 9
+					$hours.text hours_text
+				when "minutesBlock"
+					minutes_counter--
+					minutes_counter = 59 if minutes_counter < 0
+					minutes_text = minutes_counter.toString()
+					minutes_text = "0#{minutes_counter}" if minutes_counter <= 9
+					$minutes.text minutes_text
+				when "timeBlock"
+					if morning
+						$time.text "PM"
+						morning = false
+					else
+						$time.text "AM"
+						morning = true
+				else console.log "BIG ERROR NOOOOOO"
 
 	# block_map
 	# --------
@@ -222,4 +356,3 @@ $ ->
 
 	$("body").bind 'touchend mouseup', ->
 		$("#drag5").removeClass("not_draggable").addClass "draggable"
-
