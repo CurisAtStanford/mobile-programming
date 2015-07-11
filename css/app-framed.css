@@ -1,5 +1,97 @@
 /* Referenced interact.js-master/demo/css/dropzones.css */
 
+/* This is for the weather block */ 
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+}
+
+.swiper-container-reg {
+    position: absolute;
+    width: 500px;
+    height: 200px;
+    left: -110px;
+    top: 45px;
+}
+
+.swiper-container-reg-cpy {
+    position: absolute;
+    width: 500px;
+    height: 200px;
+    left: -100px;
+    top: 45px;
+}
+
+.swiper-slide {
+    text-align: center;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+.swiper-container-ver {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+.swiper-container-hor {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+.swiper-container-par {
+    top: 0px;
+    left: 0px;
+    position: absolute;
+}
+
+#vertical-frame {
+    opacity:0.5;
+    border-style:solid;
+    width:270px;
+    height:270px;
+    border-width:1px;
+    border-radius: 10px;
+    border:1px solid rgba(0,0,0,.2);
+    background:rgba(0,0,0,.25);
+}
+
+#horizontal-frame {
+    opacity:1;
+    border-style:solid;
+    width:240px;
+    height:240px;
+    border-width:1px;
+    border-radius: 10px;
+}
+
+/* end weather block css */
+
+p {
+    color: black;
+}
+
+.swiper-slide img {
+    width: 150px;
+    height: 150px;
+}
+
+
 body {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 30px;
@@ -53,6 +145,8 @@ body {
 }
 
 .draggable {
+    overflow: hidden;
+    border: 2px solid #F3FFE2;
     border-radius: 10px;
     position: relative;
     float: left;
@@ -76,6 +170,8 @@ body {
 }
 
 .not_draggable {
+    overflow: hidden;
+    border: 2px solid #F3FFE2;
     border-radius: 10px;
     position: relative;
     float: left;
@@ -168,7 +264,7 @@ body {
 #sunny {
     position: absolute;
     top: 0px;
-    left: 185px;
+    left: 230px;
     width: 50px;
     height: 50px;
    /* font-size: 40px;*/
@@ -191,23 +287,24 @@ body {
     height: 220px;
     left: 35px;
     top: 35px;
+    line-height: 0px;
 }
 
 /* CLOCK BLOCK */
 .arrowUp {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     position: absolute;
     top: 30px;
-    left: 15px;
+    left: 9px;
 }
 
 .arrowDown {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     position: absolute;
-    top: 170px;
-    left: 15px;
+    top: 200px;
+    left: 9px;
     -ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg); /* Chrome, Safari, Opera */
     transform: rotate(180deg);
@@ -215,19 +312,19 @@ body {
 
 #hoursBlock {
     position: relative;
-    left: 10px;
+    left: 30px;
     width: 70px;
 }
 
 #minutesBlock {
     position: relative;
-    left: 90px;
+    left: 110px;
     width: 70px;
 }
 
 #timeBlock {
     position: relative;
-    left: 160px;
+    left: 200px;
     width: 70px;
 }
 
@@ -246,7 +343,7 @@ body {
 
 #colon {
     position: absolute;
-    left: 80px;
+    left: 90px;
 }
 
 #minutes {
@@ -259,4 +356,71 @@ body {
     position: absolute;
    /* left: 160px;
     width: 70px;*/
+}
+
+/* CAMERA BLOCK */
+#video {
+    position: absolute;
+    top: 35px;
+    -webkit-transform: scale(1.4, 1.4);
+    -webkit-transform-origin: center center;
+}
+
+#photo {
+    position: relative;
+    -webkit-transform: scale(1.4, 1.4);
+    -webkit-transform-origin: center center;
+    top: -310px;
+}
+
+/* YOUTUBE BLOCK */
+#youtube_pic{
+    position: absolute;
+    left:30px;
+    top: 20px;
+}
+
+#image_pic {
+    position: absolute;
+    width: 140px;
+    top: 30px;
+    left: 70px;
+    height: 100px;
+}
+
+#youtube_input, #image_input, #text_input {
+    position: absolute;
+    top: 150px;
+    left: 40px;
+    width: 200px;
+    font-size: 25px;
+}
+
+#youtube_button{
+    position: absolute;
+    top:190px;
+    left: 100px;
+    width: 95px;
+    height: 95px;
+}
+
+
+#youtube_video{
+    position: absolute;
+    left:0px;
+}
+
+/* IMAGE RECOGNITION BLOCK */
+#image_block {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0px;
+}
+
+#text_field{
+    font-size: 90px;
+    position: absolute;
+    top: -40px;
+    left: 30px;
 }

@@ -138,7 +138,42 @@ $ ->
 					action()
 					clearInterval(interval)
 			, 7000
+		else if (firstBlock is MY_IMAGE and secondBlock is MY_TEXT) or
+			(firstBlock is MY_TEXT and secondBlock is MY_IMAGE)
+				get_tags(image_url, checkIfEqual, action)
 		else console.log "An error ocurred unfortunately"
+
+	image_url = null
+	top_tags = []
+	matched = false
+	NMAX_TAGS = 5
+	get_tags = (img_url, callback, action) =>
+		console.log "got here hehe"
+		$.ajax
+			url: "https://api.clarifai.com/v1/tag/?url=" + encodeURI(img_url)
+			headers:
+				Authorization: "Bearer 1uFnHTSieI3VcXsQR23Vtkivo8vYEq"
+			error: (x, textStatus, z)->
+				alert "error"
+			success: (json,textStatus, z)=>
+				top_tags = json.results[0].result.tag.classes[0...NMAX_TAGS]
+				top_probs = json.results[0].result.tag.probs[0...NMAX_TAGS]
+				callback action
+
+	$("#image_input")[0].oninput = =>
+		image_url = $("#image_input").val()
+		$("#drag10").css
+			backgroundImage: "url(#{image_url})"
+			backgroundSize: 'cover'
+
+		$("#image_input").remove()
+		$("#image_pic").remove()
+
+	checkIfEqual = (action)->
+		text = $("#text_input").val()
+		console.log text
+		if text in top_tags
+			action()
 
 	checkMatchingTime = ->
 		currentTime = new Date()
@@ -251,20 +286,27 @@ $ ->
 	#Loads the weather
 	load_weather = (location, callback)->
 		#curClass = ($(".wi").attr("class").toString().split(' '))[1]
-		curClass = $("#info").attr('class').toString()
-		console.log curClass
+		#curClass = $("#info").attr('class').toString()
+		#console.log curClass
+		$active_weather = $(".real-active-slide")
+		# if child.hasClass("sunny-icon")
+		# 	console.log "YAAAAY"
+		# else if child.hasClass("rainy-icon")
+		# 	console.log "rain"
+		# else if child.hasClass("cloudy-icon")
+		# 	console.log "cloud"
 		$.simpleWeather
 			location: location 
 			unit: 'f'
 			success: (weather) ->
 				code = parseInt weather.todayCode
+				console.log "WEATHER CODE"
 				console.log code
-				if curClass is "wi-umbrella"
-					# "Got in umbrella"
+				if $active_weather.hasClass "rainy-icon" 
 					callback() if $.inArray(code, rain_codes) isnt -1
-				else if curClass is "wi-cloudy"
+				else if $active_weather.hasClass "cloudy-icon"
 					callback() if $.inArray(code, cloudy_codes) isnt -1
-				else if curClass is "wi-day-sunny"
+				else if $active_weather.hasClass "sunny-icon"
 					callback() if $.inArray(code, sunny_codes) isnt -1
 				else # "DIDN'T MATCH"
 					return
@@ -276,11 +318,20 @@ $ ->
 	make_audio_sound = ->
 		audio.play()
 
+	play_youtube = ->
+		video_name = $("#youtube_input").val()[32...]
+		$("#drag9").html "<iframe id='youtube_video' width='100%' height='100%'
+				src='https://www.youtube.com/embed/" + video_name + "?modestbranding=1&showinfo=0&iv_load_policy=3&controls=0&autoplay=0"+
+				" frameborder='0' allowfullscreen=1></iframe>"
+
 	MAP = 3
 	BUZZ = 4
 	SIREN = 10
 	CLOCK = 8
 	MY_TIME = 9
+	MY_IMAGE = 100
+	MY_TEXT = 150
+	YOUTUBE = 120
 	# This shows what the corresponding id's are for the blocks
 	blockIDs =
 		drag1: MY_LOCATION #ME
@@ -291,6 +342,9 @@ $ ->
 		drag6: SIREN
 		drag7: CLOCK
 		drag8: MY_TIME
+		drag9: YOUTUBE
+		drag10: MY_IMAGE
+		drag11: MY_TEXT
 	#This is when the user runs
 	
 	$("#reset").click ->
@@ -322,6 +376,10 @@ $ ->
 				audio = new Audio "sound/Siren.mp3"
 				audio.play()
 				audio.pause()
+			else if curID is "drag12"
+				actions = take_picture
+			else if curID = "drag9"
+				actions = play_youtube
 			else
 				#console.log "ID: BELOW"
 				#console.log curID
@@ -332,3 +390,58 @@ $ ->
 					triggers.secondBlock = blockIDs[curID]
 
 		result = run triggers, actions
+
+	##########################################
+	########## CAMERA FUNCTIONALITY ##########
+	##########################################
+	width = 290
+	height = 0
+	streaming = false
+
+	startup = ->
+		video = document.getElementById('video')
+		canvas = document.getElementById('canvas')
+		photo = document.getElementById('photo')
+		# run = document.getElementById('run')
+
+		navigator.getMedia = navigator.getUserMedia or navigator.webkitGetUserMedia
+
+		navigator.getMedia {
+			video: true
+			audio: false
+		},((stream) ->
+			video = document.querySelector('video')
+			video.src = window.URL.createObjectURL(stream)
+			video.onloadedmetadata = (e) ->
+				# do something with the video here
+				video.play()
+				return
+			return
+		),(error) ->
+			console.log 'Camera blocked - the following error occurred: ' + error
+			return
+
+		video.addEventListener 'canplay', ((event) ->
+			if !streaming
+				height = video.videoHeight / (video.videoWidth / width) # compute height based on width & stream
+				video.setAttribute 'width', width
+				video.setAttribute 'height', height
+				canvas.setAttribute 'width', width
+				canvas.setAttribute 'height', height
+				streaming = true
+			return
+		), false
+
+	# Draw video into a canvas, then converting it to a PNG format data URL.
+	take_picture = ->
+		context = canvas.getContext('2d')
+		if width and height
+			canvas.width = width
+			canvas.height = height
+			context.drawImage video, 0, 0, width, height
+			data = canvas.toDataURL('image/png')
+			photo.setAttribute 'src', data
+		return
+
+	# Set up our event listener to run the startup process once loading is complete.
+	window.addEventListener 'load', startup, false

@@ -1,5 +1,68 @@
 $ ->
-	#yay
+	# Swiper logic
+	swiper_reg = new Swiper '.swiper-container-reg',
+		pagination: '.swiper-pagination'
+		nextButton: '.swiper-button-next'
+		prevButton: '.swiper-button-prev'
+		effect: 'coverflow'
+		slideActiveClass: 'fake-active-slide'
+		slideNextClass: 'real-active-slide'
+		noSwiping: true
+		noSwipingClass: 'stop-swiping'
+		slidesPerView: 3
+		spaceBetween: 30
+		speed: 800
+		loop: true
+		coverflow:
+			rotate: 50
+			stretch: 0
+			depth: 100
+			modifier: 1
+			slideShadows : false
+
+	swiper_ver = new Swiper '.swiper-container-ver',
+		noSwiping: true
+		noSwipingClass: 'stop-swiping'
+		effect: 'coverflow'
+		slidesPerView: 1
+		spaceBetween: 30
+		loop: true
+		direction: 'vertical'
+		speed: 800
+		coverflow:
+			rotate: 50
+			stretch: 0
+			depth: 100
+			modifier: 1
+			slideShadows : false
+
+	swiper_hor = new Swiper '.swiper-container-hor',
+		effect: 'coverflow'
+		noSwiping: true
+		noSwipingClass: 'stop-swiping'
+		slidesPerView: 1
+		spaceBetween: 30
+		speed: 800
+		loop: true
+		coverflow:
+			rotate: 50
+			stretch: 0
+			depth: 100
+			modifier: 1
+			slideShadows : false
+
+	interact(".swiper-button-next").on 'tap', ->
+		swiper_reg.slideNext()
+		swiper_ver.slideNext()
+		swiper_hor.slideNext()
+		console.log "BOOM"
+
+	interact(".swiper-button-prev").on 'tap', ->
+		swiper_reg.slidePrev()
+		swiper_ver.slidePrev()
+		swiper_hor.slidePrev()
+		console.log "BAM"
+		
 	# transform
 	# ---------
 	# Takes an HTML object and applies a CSS transformation (position and scale)
@@ -67,9 +130,9 @@ $ ->
 			else
 				return false
 
-	# toggle_area
-	# -----------
-	# Marks dropzone as filled (true) or not filled (false)
+	# # toggle_area
+	# # -----------
+	# # Marks dropzone as filled (true) or not filled (false)
 	toggle_area = (target) ->
 		targetID = target.attr("id")
 		switch targetID
@@ -147,10 +210,6 @@ $ ->
 				related_target.addClass 'drop_over'
 				related_target.addClass 'in_zone'
 				toggle_area target
-				# SHRINK
-				# x = related_target[0].getAttribute('data-x')
-				# y = related_target[0].getAttribute('data-y')
-				# transform related_target[0], x, y, 0.7
 			else
 				# Wrong dropzone, snap back
 				x = 0
@@ -161,10 +220,10 @@ $ ->
 				related_target[0].setAttribute 'data-x', x
 				related_target[0].setAttribute 'data-y', y
 
-	# Elements in dropzone class can accept elements in draggable class
+	# # Elements in dropzone class can accept elements in draggable class
 	setup_dropzone '.dropzone', '.draggable'
 
-	# Array of objects representing the x and y coordinates of each dropzone
+	# # Array of objects representing the x and y coordinates of each dropzone
 	zones = []
 	for dropzone in $('.dropzone')
 		zones.push
@@ -206,87 +265,6 @@ $ ->
 		inertia: true
 		max: Infinity
 		maxPerElement: 2
-
-	# block_weather
-	# --------
-	# Implements dragging functionality, called by the onMove event in Interact.draggable
-	#weather_icons = ["wi wi-umbrella", "wi wi-cloudy", "wi wi-day-sunny"]
-	weather_block_count = 0
-
-	$cloudy = $("#cloudy")
-	$sunny = $("#sunny")
-	$rainy = $("#weather")
-
-	get_previous_class = ->
-		previous = weather_block_count - 1
-		previous = weather_icons.length - 1 if previous < 0
-		return weather_icons[previous]
-
-	get_next_class = ->
-		next = weather_block_count + 1
-		next = 0 if next >= weather_icons.length
-		return weather_icons[next]
-
-	# -> current goes to previous which goes to next
-	weather_icons = [$rainy, $cloudy, $sunny]
-	#$rainy.velocity
-	#	scale: 4.5
-	boolTest = true
-	boolTest2 = true
-	boolTest3 = true
-	interact('#drag2')
-		.on 'tap', (event) ->
-			#this icon will shrink and move to the right
-			$old_icon = weather_icons[0]
-			#this one will just move to the left
-			$shifted = weather_icons[2]
-			#this one will enlarge and move to the right
-			$new_icon = weather_icons[1]
-
-			ymove = 70
-			xmove = 90
-			scale = 1.0
-
-			if $old_icon.hasClass "wi-umbrella"
-				ymove = 370
-				scale = 1/4.5
-				xmove = 610
-
-
-			$old_icon.velocity
-				scale: "#{scale}"
-				translateX: "+=#{xmove}"
-				translateY: "-=#{ymove}"
-			, 100
-
-			xmove_shifted = 180
-			xmove_shifted = 800 if $shifted.hasClass "wi-umbrella"
-
-			$shifted.velocity
-				translateX: "-=#{xmove_shifted}"
-			, 100
-
-			ymove_new = 70
-			scale_new = 4.5
-			xmove_new = 90
-			if $new_icon.hasClass "wi-umbrella"
-				ymove_new = 370
-				scale_new = 1.0
-				xmove_new = 190
-
-
-			$new_icon.velocity
-				translateY: "+=#{ymove_new}"
-				translateX: "+=#{xmove_new}"
-				scale: "#{scale_new}"
-			, 100
-
-			$info = $("#info")
-			$info.removeClass()
-			$info.addClass $new_icon.attr('class').split(' ')[1]
-
-			end_icon = weather_icons.shift()
-			weather_icons.push end_icon
 
 	#clock logic
 	$hours = $("#hours")
@@ -348,6 +326,21 @@ $ ->
 						$time.text "AM"
 						morning = true
 				else console.log "BIG ERROR NOOOOOO"
+
+	#youtube
+	interact("#youtube_input")
+		.on 'tap', (event) ->
+			$("#youtube_input").focus()
+
+	#clairify stuff
+	interact("#image_input")
+		.on 'tap', (event) ->
+			$("#image_input").focus()
+
+	#text field
+	interact("#text_input")
+		.on 'tap', (event) ->
+			$("#text_input").focus()
 
 	# block_map
 	# --------
