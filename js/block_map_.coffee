@@ -10,6 +10,7 @@ class @block_map_
 			line-height: 0px;
 		}
 		"""
+
 		$('<style type="text/css"></style>').html(css).appendTo "head" 
 
 		$("""

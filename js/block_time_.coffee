@@ -19,6 +19,8 @@ class @block_time_
 		#hoursBlock {
 			position: relative;
 			left: 18px;
+			left: 50px;
+			width: 70px;
 		}
 
 		#minutesBlock {
@@ -40,6 +42,14 @@ class @block_time_
 		#colon {
 			position: absolute;
 			left: 32px;
+		}
+
+		#minutes {
+			position: absolute;
+		}
+
+		#time {
+			position: absolute;
 		}
 		"""
 

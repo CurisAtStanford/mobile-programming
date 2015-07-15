@@ -8,7 +8,7 @@ this.block_ding_ = (function() {
 
     css = "";
     $("<style type='text/css'></style>").html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"ding\">\n	DING\n</div>").appendTo(".drag-zone");
+    $("\n<div class=\"drag-wrap draggable\" name=\"ding\">\n	DING\n</div>").appendTo(".drag-zone");
   }
 
   block_ding_.prototype.run = function() {

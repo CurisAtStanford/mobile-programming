@@ -6,6 +6,7 @@ class @block_ding_
 		$("<style type='text/css'></style>").html(css).appendTo "head" 
 
 		$("""
+
 		<div class="drag-wrap draggable" name="ding">
 			DING
 		</div>

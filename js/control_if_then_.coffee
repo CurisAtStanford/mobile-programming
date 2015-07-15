@@ -3,6 +3,7 @@ class @control_if_then_
 	constructor: ()->
 		css = """
 		"""
+
 		$("<style type='text/css'></style>").html(css).appendTo "head"
 
 		$("""

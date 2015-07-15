@@ -74,8 +74,6 @@ this.control_for_loop_ = (function() {
   control_for_loop_.prototype.run = function() {
     var element, _i, _len, _ref, _results;
 
-    this.array = window["block_instagram"];
-    this.action = window["block_display_image"];
     _ref = this.array.run();
     _results = [];
     for (_i = 0, _len = _ref.length; _i < _len; _i++) {

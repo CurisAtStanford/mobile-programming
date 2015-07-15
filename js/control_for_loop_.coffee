@@ -66,8 +66,8 @@ class @control_for_loop_
 				$target.removeClass 'can--drop', 'can--catch'
 
 	run: () =>
-		@array = window["block_instagram"]
-		@action = window["block_display_image"]
+		# @array = window["block_instagram"]
+		# @action = window["block_display_image"]
 
 
 		for element in @array.run()
