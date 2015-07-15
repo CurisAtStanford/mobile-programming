@@ -6,7 +6,7 @@ class @block_instagram_
 			display: none;
 		}
 		"""
-		$('<style type="text/css"></style>').html(css).appendTo "head" 
+		$('<style type="text/css"></style>').html(css).appendTo "head"
 
 		$("""
 		<div class="drag-wrap draggable" name="instagram">
