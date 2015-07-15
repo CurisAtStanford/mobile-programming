@@ -1,154 +1,67 @@
 <!DOCTYPE html>
 <head>
 	<title>Location App Block Coding using Interact</title>
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- css -->
+	<link rel='stylesheet' href='js/libs/font-awesome-4.3.0/css/font-awesome.min.css'>
+	<link rel='stylesheet' href='js/libs/Swiper-master/dist/css/swiper.css'>
+	<link rel='stylesheet' href='js/libs/buttons.css'>
+	<link rel='stylesheet' href='js/libs/FlipClock-master/compiled/flipclock.css'>
+	<link rel='stylesheet' href='css/app.css'>
+
+	<!-- js libs -->
 	<script src='js/libs/interact.js'></script>
 	<script src='js/libs/jquery-1.11.3.min.js'></script>
 	<script src='js/libs/jquery.simpleWeather.3.0.2.min.js'></script>
 	<script src='js/libs/wait.js'></script>
+	<script src='js/libs/textFit.min.js'></script>
 	<script src="js/libs/velocity.min.js"></script>
-	<link href="http://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css"/>
-	<!-- Swiper JS -->
-   <script src='js/libs/Swiper-master/dist/js/swiper.js'></script>
-	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+	<script src='js/libs/Swiper-master/dist/js/swiper.js'></script>
+	<script src='js/libs/lodash.min.js'></script>
+	<script src='js/libs/FlipClock-master/compiled/flipclock.min.js'></script>
+	<script src="js/libs/instafeed.min.js"></script>
 
+
+	<script src='js/libs/moment-develop/min/moment-with-locales.js'></script>
+
+	<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+
+	<link href='http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+	
+	<!-- js blocks -->
+	<script src='js/block_array_.js'></script>
+	<script src='js/block_camera_.js'></script>
+	<script src='js/block_ding_.js'></script>
+	<script src='js/block_display_text_.js'></script>
+	<script src='js/block_image_recognition_.js'></script>
+	<script src='js/block_map_.js'></script>
+	<script src='js/block_my_weather_.js'></script>
+	<script src='js/block_siren_.js'></script>
+	<script src='js/block_text_.js'></script>
+	<script src='js/block_display_image_.js'></script>
+	<script src='js/block_time_.js'></script>
+	<script src='js/block_true_.js'></script>
+	<script src='js/block_weather_.js'></script>
+	<script src='js/block_youtube_.js'></script>
+	<script src='js/block_instagram_.js'></script>
+
+	<!-- js operators -->
+	<script src='js/operator_equals_.js'></script>
+
+	<!-- js control statements -->
+	<script src='js/control_if_then_.js'></script>
+	<script src='js/control_for_loop_.js'></script>
+
+	<!-- js other -->
 	<script src='js/app.js'></script>
-	<script src='js/location.js'></script>
-
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-	<link rel='stylesheet' href='css/weather_icons/css/weather-icons.css'>
-	<link rel='stylesheet' href='js/libs/Swiper-master/dist/css/swiper.css'>
-	<link rel='stylesheet' href='css/app-framed.css'>
-
 </head>
 
 <body>
-	
-	<!-- this is to pass info between files -->
-	<div id="info" style="display:none"></div>
-	<div class="block_bank_wrapper">
-		<div id='block_bank' class='text'>BLOCK BANK</div>
-		<div id='drag1' class='draggable block1'>MY LOCATION</div>
+	<div class='drop-zone'></div>
+	<div class='drag-zone'></div>
 
-		<!--  THE OLD WEATHER BLOCK
-		<div id='drag2' class='draggable block2'>
-			<div id="cloudy" class='wi wi-cloudy'></div>
-			<div id = "weather" class='wi wi-umbrella'></div>
-			<div id="sunny" class='wi wi-day-sunny'></div>
-		</div> -->
-		<div id='drag3' class='draggable operator'>= =</div>
-		<div id='drag4' class='draggable block3'>DING</div>
-		<div id='drag5' class='draggable block2'><div id='google_map'></div></div>
-		<div id='drag6' class='draggable block3'>SIREN</div>
-		<div id='drag7' class='draggable block2'>
-			<div id="hoursBlock">
-				<div id="hours">12</div>
-				<img class="arrowUp" src="img/RedArrow.png">
-				<img class="arrowDown" src="img/RedArrow.png">
-
-			</div>
-			<div id="colon">:</div>
-			<div id="minutesBlock">
-				<div id="minutes">00</div>
-				<img class="arrowUp" src="img/RedArrow.png">
-				<img class="arrowDown" src="img/RedArrow.png">
-			</div>
-			<div id="timeBlock">
-				<div id="time">AM</div>
-				<img class="arrowUp" src="img/RedArrow.png">
-				<img class="arrowDown" src="img/RedArrow.png">
-			</div>
-		</div>
-		<div id="drag8" class="draggable block1">MY TIME</div>
-		<div id="drag2" class="draggable block2">
-    		
-    		<!-- this is for the vertical container, which 
-    		shades up and down -->
-    		<div class="swiper-container swiper-container-ver">
-        		<div class="swiper-wrapper">
-        			<div class="swiper-slide stop-swiping">
-            			<div id="vertical-frame"></div>
-            		</div>
-        		</div>
-    		</div>
-
-    		<!-- this is for the border that glides horizontally -->
-    		<div class="swiper-container swiper-container-hor">
-        		<div class="swiper-wrapper">
-        			<div class="swiper-slide stop-swiping">
-            			<div id="horizontal-frame"></div>
-            		</div>
-        		</div>
-    		</div>
-
-    		<!-- this is for the actual pictures -->
-    		<div id="swiper-container-reg" class="swiper-container swiper-container-reg">
-    			<!-- NOTE: the pictures are repeated because they perfrom better
-    			like this, there used to be lag -->
-        		<div class="swiper-wrapper">
-            		<div class="swiper-slide stop-swiping sunny-icon">
-            			<img src="img/sunny.png">
-            		</div>
-            		<div class="swiper-slide stop-swiping cloudy-icon">
-            			<img src="img/cloudy2.png">
-            		</div>
-            		<div class="swiper-slide stop-swiping rainy-icon">
-            			<img src="img/rainy.png">
-            		</div>
-            		<div class="swiper-slide stop-swiping sunny-icon">
-            			<img src="img/sunny.png">
-            		</div>
-            		<div class="swiper-slide stop-swiping cloudy-icon">
-            			<img src="img/cloudy2.png">
-            		</div>
-            		<div class="swiper-slide stop-swiping rainy-icon">
-            			<img src="img/rainy.png">
-            		</div>
-        		</div>
-        		
-        		<!-- Add Arrows -->
-        		<!-- the logic for this can be found in swiper.css -->
-        		<div class="swiper-button-next"><i class="fa fa-chevron-right fa-3x"></i></div>
-        		<div class="swiper-button-prev"><i class="fa fa-chevron-left fa-3x"></i></div>
-    		</div>
-		</div>
-		<!-- YOUTUBE BLOCK -->
-		<div id="drag9" class="draggable block3">
-				<img src = "img/youtube-logo.png" id="youtube_pic">
-				<form>
-					<input id="youtube_input" type="text" name="youtube"><br>
-				</form>
-		</div>
-		<!-- IMAGE RECOGNITION BLOCK -->
-		<div id="drag10" class="draggable block1">
-				<img src = "img/image_placeholder.png" id="image_pic">
-				<form>
-					<input id="image_input" type="text" name="image" ><br>
-				</form>
-		</div>
-		<div id="drag11" class="draggable block2">
-				<div id="text_field">TEXT</div>
-				<form>
-					<input id="text_input" type="text" name="image" ><br>
-				</form>
-		</div>
-		<!-- CAMERA BLOCK -->
-		<div id='drag12' class='draggable block3'>
-			<video id='video'>Video stream not available.</video>
-			<canvas id='canvas'></canvas>
-			<img id='photo'>
-		</div>
-	</div>
-
-	<div class='dropzone_wrapper'>
-		<div id='if' class="text" >IF</div>
-		<div id='block1' class="dropzone">BLOCK1</div>
-		<div id='operator' class="dropzone">________</div>
-		<div id='block2' class='dropzone'>BLOCK2</div>
-		<div id='then' class='text'>THEN</div>
-		<div id='block3' class='dropzone'>DO THIS</div>
-	</div>
-
-	<button id='run' type='button'>Run</button>
-	<button id='reset' type='button'>Reset</button>
-  </script>
+	<button id='button_run' class="button button-raised button-circle"><i class="fa fa-rocket"></i></button>
+	<button id='button_reset' class="button button-raised button-circle"><i class="fa fa-undo"></i></button>
 <body>
