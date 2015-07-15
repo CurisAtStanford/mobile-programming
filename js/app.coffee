@@ -21,8 +21,8 @@ $ ->
 	# window.block_accelerometer
 
 	# control statements
-	# control = new control_if_then_()
-	control = new control_for_loop_()
+	control = new control_if_then_()
+	# control = new control_for_loop_()
 
 	startPos = null
 	interact('.draggable').draggable

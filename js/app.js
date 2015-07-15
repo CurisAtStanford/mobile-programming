@@ -12,7 +12,7 @@ $(function() {
   window.block_display_text = new block_display_text_();
   window.block_map = new block_map_();
   window.block_instagram = new block_instagram_();
-  control = new control_for_loop_();
+  control = new control_if_then_();
   startPos = null;
   interact('.draggable').draggable({
     snap: {
