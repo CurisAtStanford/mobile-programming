@@ -28,13 +28,19 @@ get_active_slide will return "siren"
 
 class BlockAnimation
 	constructor: (@id) ->
-		create_HTML()
+		console.log "yay got in blokc animation with #{@id}"
+		console.log @id
+		@create_HTML()
 		
-		swiper_reg = make_reg_swiper()
-		swiper_hor = make_horizontal_swiper()
-		swiper_ver = make_vertical_swiper()
+		@swiper_reg = @make_reg_swiper()
+		@swiper_hor = @make_horizontal_swiper()
+		@swiper_ver = @make_vertical_swiper()
 
-		add_interactors()
+		console.log @swiper_reg
+		console.log @swiper_hor
+		console.log @swiper_ver
+
+		@add_interactors(@swiper_reg, @swiper_hor, @swiper_ver)
 
 	### Public Methods ###
 	get_active_slide: ->
@@ -43,8 +49,10 @@ class BlockAnimation
 
 
 	# PRIVATE METHODS #
-	create_HTML = ->
+	create_HTML: ->
 		$main = $("##{@id}")
+		console.log "#{@id}"
+		console.log $main[0]
 		slide_content = $main.html()
 		#Adds the animations to the DOM first
 		#overwrites the html content, but we saved it in slide_content
@@ -83,20 +91,29 @@ class BlockAnimation
 		$("##{@id}-content").children().each ->
 			$(this).addClass "swiper-slide stop-swiping"
 
-	add_interactors = () ->
+	add_interactors: ->
 		interact(".#{@id}-next").on 'tap', ->
-			swiper_reg.slideNext()
-			swiper_ver.slideNext()
-			swiper_hor.slideNext()
+			console.log "got em in next"
+			console.log @swiper_reg
+			console.log @swiper_hor
+			console.log @swiper_ver
+			@swiper_reg.slideNext()
+			@swiper_ver.slideNext()
+			@swiper_hor.slideNext()
 
 		interact(".#{@id}-prev").on 'tap', ->
-			swiper_reg.slidePrev()
-			swiper_ver.slidePrev()
-			swiper_hor.slidePrev()
+			console.log "got em in prev"
+			console.log @swiper_reg
+			console.log @swiper_hor
+			console.log @swiper_ver
+			@swiper_reg.slidePrev()
+			@swiper_ver.slidePrev()
+			@swiper_hor.slidePrev()
 
-	make_reg_swiper = () ->
-		swiper_reg = new Swiper ".#{@id}-reg",
-			swiper_reg = new Swiper ".#{@id}-reg"
+	make_reg_swiper: ->
+		console.log "Got here at least"
+		console.log $(".#{@id}-reg")[0]
+		new Swiper ".#{@id}-reg",
 			nextButton: ".#{@id}-next"
 			prevButton: ".#{@id}-prev"
 			effect: 'coverflow'
@@ -114,8 +131,9 @@ class BlockAnimation
 				modifier: 1
 				slideShadows : false
 
-	make_vertical_swiper = () ->
-		swiper_ver = new Swiper ".#{@id}-ver",
+	make_vertical_swiper: ->
+		console.log "got to ver"
+		new Swiper ".#{@id}-ver",
 			noSwiping: true
 			noSwipingClass: 'stop-swiping'
 			effect: 'coverflow'
@@ -131,8 +149,9 @@ class BlockAnimation
 				modifier: 1
 				slideShadows : false
 
-	make_horizontal_swiper = () ->
-		swiper_hor = new Swiper ".#{@id}-hor",
+	make_horizontal_swiper: ->
+		console.log "got to hor"
+		new Swiper ".#{@id}-hor",
 			effect: 'coverflow'
 			noSwiping: true
 			noSwipingClass: 'stop-swiping'

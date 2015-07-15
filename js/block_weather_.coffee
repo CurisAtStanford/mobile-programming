@@ -139,6 +139,7 @@ class @block_weather_
 		</div>
 		""").appendTo ".block_bank_wrapper"
 
+
 		swiper_reg = new Swiper '.swiper-container-reg',
 			pagination: '.swiper-pagination'
 			nextButton: '.swiper-button-next'

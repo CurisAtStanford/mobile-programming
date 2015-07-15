@@ -30,16 +30,18 @@ get_active_slide will return "siren"
 var BlockAnimation;
 
 BlockAnimation = (function() {
-  var add_interactors, create_HTML, make_horizontal_swiper, make_reg_swiper, make_vertical_swiper;
-
   function BlockAnimation(id) {
-    var swiper_hor, swiper_reg, swiper_ver;
     this.id = id;
-    create_HTML();
-    swiper_reg = make_reg_swiper();
-    swiper_hor = make_horizontal_swiper();
-    swiper_ver = make_vertical_swiper();
-    add_interactors();
+    console.log("yay got in blokc animation with " + this.id);
+    console.log(this.id);
+    this.create_HTML();
+    this.swiper_reg = this.make_reg_swiper();
+    this.swiper_hor = this.make_horizontal_swiper();
+    this.swiper_ver = this.make_vertical_swiper();
+    console.log(this.swiper_reg);
+    console.log(this.swiper_hor);
+    console.log(this.swiper_ver);
+    this.add_interactors(this.swiper_reg, this.swiper_hor, this.swiper_ver);
   }
 
 
@@ -51,9 +53,11 @@ BlockAnimation = (function() {
     return active_slide.attr('id');
   };
 
-  create_HTML = function() {
+  BlockAnimation.prototype.create_HTML = function() {
     var $main, slide_content;
     $main = $("#" + this.id);
+    console.log("" + this.id);
+    console.log($main[0]);
     slide_content = $main.html();
     $main.html("<div class=\"swiper-container swiper-container-ver " + this.id + "-ver\">\n	<div class=\"swiper-wrapper\">\n		<div class=\"swiper-slide stop-swiping\">\n			<div id=\"vertical-frame\"></div>\n		</div>\n	</div>\n</div>\n\n<!-- this is for the border that glides horizontally -->\n<div class=\"swiper-container swiper-container-hor " + this.id + "-hor\">\n	<div class=\"swiper-wrapper\">\n		<div class=\"swiper-slide stop-swiping\">\n			<div id=\"horizontal-frame\"></div>\n		</div>\n	</div>\n</div>\n\n<!-- this is for the actual pictures -->\n<div id=\"swiper-container-reg\" class=\"swiper-container swiper-container-reg " + this.id + "-reg\">\n	<div id=\"" + this.id + "-content\" class=\"swiper-wrapper\">\n		" + slide_content + "\n	</div>\n	<!-- Add Arrows -->\n	<div class=\"swiper-button-next " + this.id + "-next\"><i class=\"fa fa-chevron-right fa-3x\"></i></div>\n	<div class=\"swiper-button-prev " + this.id + "-prev\"><i class=\"fa fa-chevron-left fa-3x\"></i></div>\n</div>");
     return $("#" + this.id + "-content").children().each(function() {
@@ -61,22 +65,31 @@ BlockAnimation = (function() {
     });
   };
 
-  add_interactors = function() {
+  BlockAnimation.prototype.add_interactors = function() {
     interact("." + this.id + "-next").on('tap', function() {
-      swiper_reg.slideNext();
-      swiper_ver.slideNext();
-      return swiper_hor.slideNext();
+      console.log("got em in next");
+      console.log(this.swiper_reg);
+      console.log(this.swiper_hor);
+      console.log(this.swiper_ver);
+      this.swiper_reg.slideNext();
+      this.swiper_ver.slideNext();
+      return this.swiper_hor.slideNext();
     });
     return interact("." + this.id + "-prev").on('tap', function() {
-      swiper_reg.slidePrev();
-      swiper_ver.slidePrev();
-      return swiper_hor.slidePrev();
+      console.log("got em in prev");
+      console.log(this.swiper_reg);
+      console.log(this.swiper_hor);
+      console.log(this.swiper_ver);
+      this.swiper_reg.slidePrev();
+      this.swiper_ver.slidePrev();
+      return this.swiper_hor.slidePrev();
     });
   };
 
-  make_reg_swiper = function() {
-    var swiper_reg;
-    return swiper_reg = new Swiper("." + this.id + "-reg", swiper_reg = new Swiper("." + this.id + "-reg"), {
+  BlockAnimation.prototype.make_reg_swiper = function() {
+    console.log("Got here at least");
+    console.log($("." + this.id + "-reg")[0]);
+    return new Swiper("." + this.id + "-reg", {
       nextButton: "." + this.id + "-next",
       prevButton: "." + this.id + "-prev",
       effect: 'coverflow',
@@ -97,9 +110,9 @@ BlockAnimation = (function() {
     });
   };
 
-  make_vertical_swiper = function() {
-    var swiper_ver;
-    return swiper_ver = new Swiper("." + this.id + "-ver", {
+  BlockAnimation.prototype.make_vertical_swiper = function() {
+    console.log("got to ver");
+    return new Swiper("." + this.id + "-ver", {
       noSwiping: true,
       noSwipingClass: 'stop-swiping',
       effect: 'coverflow',
@@ -118,9 +131,9 @@ BlockAnimation = (function() {
     });
   };
 
-  make_horizontal_swiper = function() {
-    var swiper_hor;
-    return swiper_hor = new Swiper("." + this.id + "-hor", {
+  BlockAnimation.prototype.make_horizontal_swiper = function() {
+    console.log("got to hor");
+    return new Swiper("." + this.id + "-hor", {
       effect: 'coverflow',
       noSwiping: true,
       noSwipingClass: 'stop-swiping',

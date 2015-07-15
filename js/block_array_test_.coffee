@@ -1,4 +1,4 @@
-class @block_siren_
+class @block_array_test_
 
 	constructor: ()->
 		css = """
@@ -6,9 +6,8 @@ class @block_siren_
 		$("<style type='text/css'></style>").html(css).appendTo "head" 
 
 		$("""
-		<div id='drag6' class='draggable block3 block5'>SIREN</div>
+		<div id='drag16' class='draggable block4'>ARRAY_TEST</div>
 		""").appendTo ".block_bank_wrapper"
 
 	run: ()=>
-		audio = new Audio "sound/Siren.mp3"
-		audio.play()
+		[31, 32, 33, 34, 36, 69, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]

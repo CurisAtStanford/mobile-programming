@@ -64,7 +64,7 @@ class @block_map_
 					maxZoom: 17
 				@map = new google.maps.Map document.getElementById("google_map"), map_prop
 
-	run: ()=>
+	run: (action_callback)=>
 		get_rectangle_coords = (bounds) =>
 			northEast = bounds.getNorthEast()
 			southWest = bounds.getSouthWest()
@@ -100,8 +100,10 @@ class @block_map_
 					# fillOpacity: 0.35
 
 			if google.maps.geometry.poly.containsLocation my_lat_lng, polygon_area
+				action_callback()
 				return true
 			else
+				console.log "Got em in not contains location YEEEAAAAHHHH"
 				return false
 
 		# polygon_area.setMap @map

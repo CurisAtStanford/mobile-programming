@@ -16,8 +16,11 @@
 	<script src='js/libs/Swiper-master/dist/js/swiper.js'></script>
 	<script src='js/libs/moment-develop/min/moment-with-locales.js'></script>
 	<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&sensor=false"></script>
+	<script src="js/libs/instafeed.js-master/instafeed.min.js"></script>
+	<script src="js/libs/color-thief-master/dist/color-thief.min.js"></script>
 
 	<!-- js blocks -->
+	<script src='js/BlockAnimation.js'></script>
 	<script src='js/block_camera_.js'></script>
 	<script src='js/block_ding_.js'></script>
 	<script src='js/block_image_recognition_.js'></script>
@@ -30,11 +33,15 @@
 	<script src='js/block_time_.js'></script>
 	<script src='js/block_weather_.js'></script>
 	<script src='js/block_youtube_.js'></script>
+	<script src='js/block_array_test_.js'></script>
+	<script src='js/draggable_control_if_then_.js'></script>
+	<script src='js/block_instagram_.js'></script>
 
 	<!-- js operators -->
 	<script src='js/operator_equals_.js'></script>
 
 	<!-- js control statements -->
+	<script src='js/control_for_loop.js'></script>
 	<script src='js/control_if_then_.js'></script>
 
 	<!-- js other -->
@@ -42,8 +49,15 @@
 </head>
 
 <body>
+	<!-- Ignore this. Nothing to see here. Move along. -->
+	<div id="instafeed" style="display:none;"></div>
 	<div class="block_bank_wrapper"></div>
 	<div class='dropzone_wrapper'></div>
 	<button id='run' type='button'>Run</button>
 	<button id='reset' type='button'>Reset</button>
+
+<script type="text/javascript">
+    var ct = new ColorThief();
+    console.log(ct.getColor("img/sunny.png"));
+</script>
 <body>

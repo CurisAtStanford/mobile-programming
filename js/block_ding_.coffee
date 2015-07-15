@@ -6,7 +6,7 @@ class @block_ding_
 		$("<style type='text/css'></style>").html(css).appendTo "head" 
 
 		$("""
-		<div id='drag4' class='draggable block3'>DING</div>
+		<div id='drag4' class='draggable block3 block5'>DING</div>
 		""").appendTo ".block_bank_wrapper"
 
 	run: ()=>

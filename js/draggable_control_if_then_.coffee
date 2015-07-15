@@ -1,4 +1,4 @@
-class @control_if_then_
+class @draggable_control_if_then_
 
 	constructor: ()->
 		css = """
@@ -6,15 +6,16 @@ class @control_if_then_
 		$("<style type='text/css'></style>").html(css).appendTo "head" 
 
 		$("""
-		<!--<div id="drag17" class="draggable block5">-->
-			<div id='if' class="text" >IF</div>
+		<div id="drag17" class="draggable block5">
+			IF THEN BLOCK
+			<!--<div id='if' class="text" >IF</div>
 			<div id='block1' class="dropzone">BLOCK1</div>
 			<div id='operator' class="dropzone">________</div>
 			<div id='block2' class='dropzone'>BLOCK2</div>
 			<div id='then' class='text'>THEN</div>
-			<div id='block3' class='dropzone'>DO THIS</div>
-		<!--</div>-->
-		""").appendTo ".dropzone_wrapper"
+			<div id='block3' class='dropzone'>DO THIS</div>-->
+		</div>
+		""").appendTo ".block_bank_wrapper"
 
 # 		# check_zones_filled
 # 		# ------------------
