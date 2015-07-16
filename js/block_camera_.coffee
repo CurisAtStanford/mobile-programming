@@ -1,6 +1,7 @@
 class @block_camera_
 
 	constructor: ()->
+
 		css = """
 		#camera_video {
 			position: relative;
@@ -18,11 +19,6 @@ class @block_camera_
 			top: 0px;
 		}
 		"""
-
-			# width: 385px;
-			# height: 290px;
-			# left: -47px;
-
 
 		$('<style type="text/css"></style>').html(css).appendTo "head" 
 
@@ -55,7 +51,6 @@ class @block_camera_
 			return
 
 	run: ()=>
-		console.log "camera"
 		# Takes picture. Draw video into a canvas, then converting it to a PNG format data URL.
 		@context.drawImage @video, 0, 0, 640, 480
 		data = @canvas.toDataURL 'image/png'

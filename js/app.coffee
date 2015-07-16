@@ -14,14 +14,14 @@ $ ->
 	window.block_camera = new block_camera_()
 	window.block_text_to_speech = new block_text_to_speech_()
 
-
-
 	# window.block_image_recognition = new block_image_recognition_()
 	# window.block_my_weather = new block_my_weather_()
 	# window.block_text = new block_text_()
 	# window.block_weather = new block_weather_()
 	# window.block_youtube = new block_youtube_()
 	# window.block_accelerometer
+
+
 # twitter
 # text messagnig
 # urban dictionary - speak back th edefinition to you
@@ -74,5 +74,79 @@ $ ->
 			$target = $ event.target
 			$target.removeClass 'getting--dragged'
 
+	put_text_in_block = (text, block_name) ->
+		$("##{block_name}").val(text)
+
+	commands =
+		'put *text in :block_name block': put_text_in_block
+		'run': control.run
+	annyang.addCommands commands
+	annyang.start
+		continuous: true
+
 	$("#button_run").click =>
 		control.run()
+
+	# Swiper logic
+	swiper_reg = new Swiper '.swiper-container-reg',
+		pagination: '.swiper-pagination'
+		nextButton: '.swiper-button-next'
+		prevButton: '.swiper-button-prev'
+		effect: 'coverflow'
+		slideActiveClass: 'fake-active-slide'
+		slideNextClass: 'real-active-slide'
+		noSwiping: true
+		noSwipingClass: 'stop-swiping'
+		slidesPerView: 3
+		spaceBetween: 30
+		speed: 800
+		loop: true
+		coverflow:
+			rotate: 50
+			stretch: 0
+			depth: 100
+			modifier: 1
+			slideShadows : false
+
+	swiper_ver = new Swiper '.swiper-container-ver',
+		noSwiping: true
+		noSwipingClass: 'stop-swiping'
+		effect: 'coverflow'
+		slidesPerView: 1
+		spaceBetween: 30
+		loop: true
+		direction: 'vertical'
+		speed: 800
+		coverflow:
+			rotate: 50
+			stretch: 0
+			depth: 100
+			modifier: 1
+			slideShadows : false
+
+	swiper_hor = new Swiper '.swiper-container-hor',
+		effect: 'coverflow'
+		noSwiping: true
+		noSwipingClass: 'stop-swiping'
+		slidesPerView: 1
+		spaceBetween: 30
+		speed: 800
+		loop: true
+		coverflow:
+			rotate: 50
+			stretch: 0
+			depth: 100
+			modifier: 1
+			slideShadows : false
+
+	interact(".swiper-button-next").on 'tap', ->
+		swiper_reg.slideNext()
+		swiper_ver.slideNext()
+		swiper_hor.slideNext()
+		console.log "BOOM"
+
+	interact(".swiper-button-prev").on 'tap', ->
+		swiper_reg.slidePrev()
+		swiper_ver.slidePrev()
+		swiper_hor.slidePrev()
+		console.log "BAM"

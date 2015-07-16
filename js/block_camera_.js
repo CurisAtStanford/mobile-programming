@@ -30,7 +30,6 @@ this.block_camera_ = (function() {
   block_camera_.prototype.run = function() {
     var data;
 
-    console.log("camera");
     this.context.drawImage(this.video, 0, 0, 640, 480);
     data = this.canvas.toDataURL('image/png');
     return this.photo.setAttribute('src', data);

@@ -7,9 +7,9 @@ this.block_text_to_speech_ = (function() {
     var css,
       _this = this;
 
-    css = "#text_field{\n	font-size: 30px;\n	text-align: center;\n	position: absolute;\n	top: -40px;\n	left: 40px;\n}\n\n#text_to_speech_input {\n	position: absolute;\n	top: 150px;\n	left: 40px;\n	width: 200px;\n	font-size: 25px;\n}";
+    css = "#text_to_speech_input {\n	top: 30px;\n	left: 10px;\n	width: 80px;\n	font-size: 12px;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div class=\"\">\n	<div id=\"text_field\">SPEAK TO ME</div>\n	<input id=\"text_to_speech_input\" type=\"text\" name=\"image\" value=\"Enter Text\"><br>\n</div>").appendTo(".block_bank_wrapper");
+    $("<div class=\"drag-wrap draggable\" name=\"text_to_speech\">\n	SPEAK TO ME\n	<input id=\"text_to_speech_input\" type=\"text\" name=\"image\" value=\"Enter Text\"><br>\n</div>").appendTo(".drag-zone");
     this.$input = $("#text_to_speech_input");
     interact("#drag16").on('tap', function(event) {
       return _this.$input.focus();
