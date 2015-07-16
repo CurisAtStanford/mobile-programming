@@ -3,16 +3,21 @@ class @block_camera_
 	constructor: ()->
 		css = """
 		#camera_video {
-			left: -47px;
+			position: relative;
+			left: -15px;
 			transform: scaleX(-1);
-			# widt: scaleX(-1);
+			height: 100%;
 		}
 
 		#camera_photo {
+			position: relative;
+			left: -15px;
+			transform: scaleX(-1);
+			height: 100%;
+			position: absolute;
+			top: 0px;
 		}
 		"""
-			# # position: absolute;
-			# top: 0px;
 
 			# width: 385px;
 			# height: 290px;
@@ -34,8 +39,8 @@ class @block_camera_
 		@photo = $('#camera_photo')[0]
 
 		@canvas = $("#camera_canvas")[0]
-		@canvas.width = 385
-		@canvas.height = 290
+		@canvas.width = 640
+		@canvas.height = 480
 
 		@context = @canvas.getContext '2d'
 
@@ -50,7 +55,8 @@ class @block_camera_
 			return
 
 	run: ()=>
+		console.log "camera"
 		# Takes picture. Draw video into a canvas, then converting it to a PNG format data URL.
-		@context.drawImage @video, 0, 0, 385, 290
+		@context.drawImage @video, 0, 0, 640, 480
 		data = @canvas.toDataURL 'image/png'
 		@photo.setAttribute 'src', data

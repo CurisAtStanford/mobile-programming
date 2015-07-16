@@ -14,7 +14,7 @@ $(function() {
   window.block_instagram = new block_instagram_();
   window.block_camera = new block_camera_();
   window.block_text_to_speech = new block_text_to_speech_();
-  control = new control_for_loop_();
+  control = new control_if_then_();
   startPos = null;
   interact('.draggable').draggable({
     snap: {

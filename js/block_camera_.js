@@ -7,14 +7,14 @@ this.block_camera_ = (function() {
     var css,
       _this = this;
 
-    css = "#camera_video {\n	left: -47px;\n	transform: scaleX(-1);\n	# widt: scaleX(-1);\n}\n\n#camera_photo {\n}";
+    css = "#camera_video {\n	position: relative;\n	left: -15px;\n	transform: scaleX(-1);\n	height: 100%;\n}\n\n#camera_photo {\n	position: relative;\n	left: -15px;\n	transform: scaleX(-1);\n	height: 100%;\n	position: absolute;\n	top: 0px;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
     $("<div class=\"drag-wrap draggable\" name=\"camera\">\n	<video id='camera_video' autoplay>Video stream not available.</video>\n	<canvas id='camera_canvas'></canvas>\n	<img id='camera_photo'>\n</div>").appendTo(".drag-zone");
     this.video = $("#camera_video")[0];
     this.photo = $('#camera_photo')[0];
     this.canvas = $("#camera_canvas")[0];
-    this.canvas.width = 385;
-    this.canvas.height = 290;
+    this.canvas.width = 640;
+    this.canvas.height = 480;
     this.context = this.canvas.getContext('2d');
     navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia;
     navigator.getMedia({
@@ -30,7 +30,8 @@ this.block_camera_ = (function() {
   block_camera_.prototype.run = function() {
     var data;
 
-    this.context.drawImage(this.video, 0, 0, 385, 290);
+    console.log("camera");
+    this.context.drawImage(this.video, 0, 0, 640, 480);
     data = this.canvas.toDataURL('image/png');
     return this.photo.setAttribute('src', data);
   };

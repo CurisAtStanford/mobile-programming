@@ -21,7 +21,7 @@ class @block_text_to_speech_
 		$('<style type="text/css"></style>').html(css).appendTo "head" 
 
 		$("""
-		<div id="drag16" class="draggable block3">
+		<div class="">
 			<div id="text_field">SPEAK TO ME</div>
 			<input id="text_to_speech_input" type="text" name="image" value="Enter Text"><br>
 		</div>
