@@ -11,14 +11,25 @@ $ ->
 	window.block_display_text = new block_display_text_()
 	window.block_map = new block_map_()
 	window.block_instagram = new block_instagram_()
+	window.block_camera = new block_camera_()
+	window.block_text_to_speech = new block_text_to_speech_()
 
-	# window.block_camera = new block_camera_()
+
+
 	# window.block_image_recognition = new block_image_recognition_()
 	# window.block_my_weather = new block_my_weather_()
 	# window.block_text = new block_text_()
 	# window.block_weather = new block_weather_()
 	# window.block_youtube = new block_youtube_()
 	# window.block_accelerometer
+# twitter
+# text messagnig
+# urban dictionary - speak back th edefinition to you
+# really cool idea but it would be hard to understand it
+# you are actually programming and not that someone is doing it for you
+# want the user to have the power to make it feel like it si there
+# voice recording
+
 
 	# control statements
 	# control = new control_if_then_()

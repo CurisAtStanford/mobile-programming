@@ -7,9 +7,9 @@ this.block_camera_ = (function() {
     var css,
       _this = this;
 
-    css = "#camera_video {\n	position: absolute;\n	width: 385px;\n	height: 290px;\n	left: -47px;\n	transform: scaleX(-1);\n}\n\n#camera_photo {\n	position: absolute;\n	width: 385px;\n	height: 290px;\n	left: -47px;\n	top: 0px;\n}";
+    css = "#camera_video {\n	left: -47px;\n	transform: scaleX(-1);\n	# widt: scaleX(-1);\n}\n\n#camera_photo {\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div id='drag12' class='draggable block3'>\n	<video id='camera_video' autoplay>Video stream not available.</video>\n	<canvas id='camera_canvas'></canvas>\n	<img id='camera_photo'>\n</div>").appendTo(".block_bank_wrapper");
+    $("<div class=\"drag-wrap draggable\" name=\"camera\">\n	<video id='camera_video' autoplay>Video stream not available.</video>\n	<canvas id='camera_canvas'></canvas>\n	<img id='camera_photo'>\n</div>").appendTo(".drag-zone");
     this.video = $("#camera_video")[0];
     this.photo = $('#camera_photo')[0];
     this.canvas = $("#camera_canvas")[0];

@@ -3,31 +3,31 @@ class @block_camera_
 	constructor: ()->
 		css = """
 		#camera_video {
-			position: absolute;
-			width: 385px;
-			height: 290px;
 			left: -47px;
 			transform: scaleX(-1);
+			# widt: scaleX(-1);
 		}
 
 		#camera_photo {
-			position: absolute;
-			width: 385px;
-			height: 290px;
-			left: -47px;
-			top: 0px;
 		}
 		"""
+			# # position: absolute;
+			# top: 0px;
+
+			# width: 385px;
+			# height: 290px;
+			# left: -47px;
+
 
 		$('<style type="text/css"></style>').html(css).appendTo "head" 
 
 		$("""
-		<div id='drag12' class='draggable block3'>
+		<div class="drag-wrap draggable" name="camera">
 			<video id='camera_video' autoplay>Video stream not available.</video>
 			<canvas id='camera_canvas'></canvas>
 			<img id='camera_photo'>
 		</div>
-		""").appendTo ".block_bank_wrapper"
+		""").appendTo ".drag-zone"
 
 		# The [0] makes it an html object.
 		@video = $("#camera_video")[0]
