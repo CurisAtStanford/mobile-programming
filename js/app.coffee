@@ -13,7 +13,13 @@ $ ->
 	window.block_instagram = new block_instagram_()
 	window.block_camera = new block_camera_()
 	window.block_text_to_speech = new block_text_to_speech_()
-
+	window.block_taylorswift = new block_taylorswift_()
+	window.block_selenagomez = new block_selenagomez_()
+	window.block_kimkardashian = new block_kimkardashian_()
+	window.block_beyonce = new block_beyonce_()
+	window.block_drake = new block_drake_()
+	window.block_rihanna = new block_rihanna_()
+	
 	# window.block_image_recognition = new block_image_recognition_()
 	# window.block_my_weather = new block_my_weather_()
 	# window.block_text = new block_text_()
