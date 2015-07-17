@@ -1,6 +1,8 @@
 $ ->
 	# window.global_block_width = window.global_block_height = 290
 
+	window.counter = 0 # this is to separate logic between conditions
+
 	# ---------------------------
 	# BLOCKS
 	# ---------------------------
@@ -9,6 +11,7 @@ $ ->
 	window.block_beyonce = new block_beyonce_()
 	window.block_background_image = new block_background_image_()
 	window.block_camera = new block_camera_()
+	# window.block_color = new block_color_()
 	window.block_ding = new block_ding_()
 	window.block_display_image = new block_display_image_()
 	window.block_display_text = new block_display_text_()
@@ -24,20 +27,24 @@ $ ->
 	window.block_time = new block_time_()
 	window.block_true = new block_true_()
 
+	# BRAD
+	window.block_for_loop = new draggable_control_for_loop_()
+	window.block_if_then = new draggable_control_if_then_()
+
 	# Place holders for future blocks (9x9 block bank)
-	window.block_19 = new block_place_holder_() # change color (Caroline)
-	window.block_20 = new block_place_holder_() # image_recognition
+	# window.block_19 = new block_place_holder_() # change color (Caroline)
+	# window.block_20 = new block_place_holder_() # draggable for loop
 	window.block_21 = new block_place_holder_() # weather
 	window.block_22 = new block_place_holder_() # youtube
 	window.block_23 = new block_place_holder_() # accelerometer
 	window.block_24 = new block_place_holder_() # color senser
 	window.block_25 = new block_place_holder_() # nlp
 	window.block_26 = new block_place_holder_() # pic recognition
-	window.block_27 = new block_place_holder_() # for loop
+	window.block_27 = new block_place_holder_() # image_recognition
 
 	# Control statements
-	control = new control_if_then_()
-	# control = new control_for_loop_()
+	# control = new control_if_then_()
+	control = new control_for_loop_()
 
 	# NOT WORKING YET
 	# window.block_color = new block_color_()
