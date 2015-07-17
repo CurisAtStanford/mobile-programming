@@ -7,7 +7,7 @@ this.block_taylorswift_ = (function() {
     var css, feed, taylorswift;
     css = "#instafeed {\n	display: none;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"taylorswift\">\n	Taylor Swift\n</div>\n<div id=\"instafeed\"></div>").appendTo(".drag-zone");
+    $("<div class=\"drag-wrap draggable\" name=\"taylorswift\">\n	Taylor Swift\n	<div id=\"instafeed\"></div>\n</div>").appendTo(".drag-zone");
     taylorswift = 11830955;
     feed = new Instafeed({
       get: 'user',

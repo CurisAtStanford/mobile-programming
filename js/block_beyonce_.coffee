@@ -11,8 +11,8 @@ class @block_beyonce_
 		$("""
 		<div class="drag-wrap draggable" name="beyonce">
 			Beyonce
+			<div id="instafeed"></div>
 		</div>
-		<div id="instafeed"></div>
 		""").appendTo ".drag-zone"
 
 		beyonce = 247944034

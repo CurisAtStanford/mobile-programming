@@ -11,7 +11,8 @@ html, body {
 
 body {
   margin: 0;
-  background-color:#568eb9;
+  /*background-color:#568eb9;*/
+  background-color:#1695A3; /* Aspirin TEAL */
   background-image: linear-gradient(rgba(255,255,255,.3) 2px, transparent 2px),
   linear-gradient(90deg, rgba(255,255,255,.3) 2px, transparent 2px),
   linear-gradient(rgba(255,255,255,.2) 1px, transparent 1px),
@@ -28,15 +29,15 @@ body {
 .steps {
   float: left;
   position: relative;
-  height: 100px;
-  width: 100px;
+  height: 115px;
+  width: 115px;
   background: white;
-  border: 1px solid #568eb9;
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
   text-align: center;
   line-height: 100px;
   font-size: 11px;
   vertical-align: center;
+  border-radius: 50%;
 }
 
 .text {
@@ -73,6 +74,7 @@ body {
   background: #6dc001;
   transform-origin: center;
   transform: scale(0);
+  border-radius: 50%;
 }
 
 .can--catch:before {
@@ -91,23 +93,28 @@ body {
 
 .drag-zone {
   position: fixed;
-  width: 100%;
+  width: 1700px; /* increase to allow more blocks per row */
   height: 50%;
-  bottom: 0px;
+  /*bottom: 0px;*/
   background: rgba(255,255,255,.3);
   border-top: 1px solid rgba(255,255,255,.5);
+  padding-left: 360px;
+  left: -645px; /* centers bank on page */
 }
 
 .drag-wrap {
   background-color: #cccccc;
-  width: 100px;
-  height: 100px;
+  width: 115px;
+  height: 115px;
   text-align: center;
   vertical-align: center;
   line-height: 100px;
-  margin: 10px;
+  margin: -5px;
   float: left;
   overflow: hidden;
+  border-radius: 50%;
+  left: -645px;  /* centers bank on page */
+  box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
 
 .draggable {
@@ -117,9 +124,32 @@ body {
 }
 
 .draggable.getting--dragged {
+  background-color: #F3FFE2;
   cursor: -webkit-grabbing;
   cursor:    -moz-grabbing;
   cursor:         grabbing;
+}
+
+/* Apple Watch UI Block Bank ROWS */
+.draggable:nth-child(1),
+.draggable:nth-child(2),
+.draggable:nth-child(3),
+.draggable:nth-child(4),
+.draggable:nth-child(5),
+.draggable:nth-child(6),
+.draggable:nth-child(7),
+.draggable:nth-child(8),
+.draggable:nth-child(9){
+  margin-top: 0px;
+}
+
+.draggable:nth-child(18n+11) {
+  margin-left: 50px;
+  clear: left;
+}
+
+.draggable:nth-child(18n+20) {
+  clear: left;
 }
 
 #button_run {

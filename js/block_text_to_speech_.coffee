@@ -3,18 +3,19 @@ class @block_text_to_speech_
 	constructor: ()->
 		css = """
 		#text_to_speech_input {
-			top: 30px;
-			left: 10px;
-			width: 80px;
-			font-size: 12px;
+			position: absolute;
+			top: 60%;
+			width: 90%;
+			left: 5%;
 		}
 		"""
+
 		$('<style type="text/css"></style>').html(css).appendTo "head"
 
 		$("""
 		<div class="drag-wrap draggable" name="text_to_speech">
 			SPEAK TO ME
-			<input id="text_to_speech_input" type="text" name="image" value="Enter Text"><br>
+			<input id="text_to_speech_input" value="ENTER TEXT">
 		</div>
 		""").appendTo ".drag-zone"
 
@@ -22,6 +23,7 @@ class @block_text_to_speech_
 
 		interact("[name=text_to_speech]")
 		.on 'tap', (event) =>
+			@$input.val ""
 			@$input.focus()
 
 	run: ()=>

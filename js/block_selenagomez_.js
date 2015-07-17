@@ -7,7 +7,7 @@ this.block_selenagomez_ = (function() {
     var css, feed, selenagomez;
     css = "#instafeed {\n	display: none;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"selenagomez\">\n	Selena Gomez\n</div>\n<div id=\"instafeed\"></div>").appendTo(".drag-zone");
+    $("<div class=\"drag-wrap draggable\" name=\"selenagomez\">\n	Selena Gomez\n	<div id=\"instafeed\"></div>\n</div>").appendTo(".drag-zone");
     selenagomez = 460563723;
     feed = new Instafeed({
       get: 'user',

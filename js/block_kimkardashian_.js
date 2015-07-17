@@ -7,7 +7,7 @@ this.block_kimkardashian_ = (function() {
     var css, feed, kimkardashian;
     css = "#instafeed {\n	display: none;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"kimkardashian\">\n	Kim Kardashian\n</div>\n<div id=\"instafeed\"></div>").appendTo(".drag-zone");
+    $("<div class=\"drag-wrap draggable\" name=\"kimkardashian\">\n	Kim Kardashian\n	<div id=\"instafeed\"></div>\n</div>").appendTo(".drag-zone");
     kimkardashian = 18428658;
     feed = new Instafeed({
       get: 'user',

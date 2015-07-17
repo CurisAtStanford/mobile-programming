@@ -7,7 +7,7 @@ this.block_drake_ = (function() {
     var css, drake, feed;
     css = "#instafeed {\n	display: none;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"drake\">\n	Drake\n</div>\n<div id=\"instafeed\"></div>").appendTo(".drag-zone");
+    $("<div class=\"drag-wrap draggable\" name=\"drake\">\n	Drake\n	<div id=\"instafeed\"></div>\n</div>").appendTo(".drag-zone");
     drake = 14455831;
     feed = new Instafeed({
       get: 'user',
