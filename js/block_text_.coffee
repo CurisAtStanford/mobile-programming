@@ -17,7 +17,7 @@ class @block_text_
 			font-size: 25px;
 		}
 		"""
-		$('<style type="text/css"></style>').html(css).appendTo "head" 
+		$('<style type="text/css"></style>').html(css).appendTo "head"
 
 		$("""
 		<div id="drag11" class="draggable block2">

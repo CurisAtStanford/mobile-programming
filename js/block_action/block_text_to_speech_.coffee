@@ -26,6 +26,8 @@ class @block_text_to_speech_
 			@$input.val ""
 			@$input.focus()
 
-	run: ()=>
+	run: (cb)=>
 		text = @$input.val()
 		responsiveVoice.speak text
+
+		cb()

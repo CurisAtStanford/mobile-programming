@@ -31,7 +31,7 @@ class BlockAnimation
 		console.log "yay got in blokc animation with #{@id}"
 		console.log @id
 		@create_HTML()
-		
+
 		@swiper_reg = @make_reg_swiper()
 		@swiper_hor = @make_horizontal_swiper()
 		@swiper_ver = @make_vertical_swiper()

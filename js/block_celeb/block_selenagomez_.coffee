@@ -1,32 +1,31 @@
-class @block_drake_
+class @block_selenagomez_
 
 	constructor: ()->
 		css = """
 		#instafeed {
 			display: none;
 		}
-		#drake-image {
-			height:100%;
+		#selena-image {
+			height:110%;
 			position: relative;
-			left: -50px;
-			top:0px;
+			left: -60px;
+			bottom:0;
 		}
 		"""
 		$('<style type="text/css"></style>').html(css).appendTo "head"
 
 		$("""
-		<div class="drag-wrap draggable" name="drake">
-			<img id="drake-image" src="img/drake.jpg">
+		<div class="drag-wrap draggable" name="selenagomez">
+			<img id="selena-image" src="img/selenagomez.jpg">
 			<div id="instafeed"></div>
 		</div>
 		""").appendTo ".drag-zone"
 
-		drake = 14455831
+		selenagomez = 460563723
 
 		feed = new Instafeed
 			get: 'user'
-			# tagName: 'awesome'
-			userId: drake
+			userId: selenagomez
 			accessToken: '2072221807.1677ed0.cfc898e6c7124300bb90d836f3e14e9d'
 			clientId: 'f41df43206564056b252ae8a5cb4019e'
 			error: ()->
@@ -37,6 +36,6 @@ class @block_drake_
 		feed.run()
 
 	run: ()=>
-		audio = new Audio "sound/headlines.mp3"
+		audio = new Audio "sound/goodforyou.mp3"
 		audio.play()
 		@images

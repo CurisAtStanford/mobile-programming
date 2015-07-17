@@ -1,6 +1,6 @@
-*, *:before, *:after {
+/**, *:before, *:after {
   box-sizing: border-box;
-}
+}*/
 
 html, body {
   height: 100%;
@@ -48,18 +48,18 @@ body {
 
 .can--drop:not(.caught--it):not(.can--catch) {
   /*animation: bounce 1.5s ease infinite;*/
-  animation: glow 1.5s ease infinite;
+  -webkit-animation: glow 1.5s ease infinite;
 }
 
-@keyframes glow {
+@-webkit-keyframes glow {
   50% {
     background: rgba(255,255,255,.6);
   }
 }
 
-@keyframes bounce {
+@-webkit-keyframes bounce {
   50% {
-    transform:
+    -webkit-transform:
       scale(.98)
       translateY(-5%);
   }
@@ -72,22 +72,22 @@ body {
   height: 100%;
   width: 100%;
   background: #6dc001;
-  transform-origin: center;
-  transform: scale(0);
+  -webkit-transform-origin: center;
+  -webkit-transform: scale(0.01);
   border-radius: 50%;
 }
 
 .can--catch:before {
-  animation: grow .75s ease infinite;
+  -webkit-animation: grow .75s ease infinite;
 }
 
-@keyframes grow {
+@-webkit-keyframes grow {
   from {
-    transform: scale(0);
+    -webkit-transform: scale(0.01);
   }
   to {
     opacity: 0;
-    transform: scale(1);
+    -webkit-transform: scale(1);
   }
 }
 
@@ -99,10 +99,11 @@ body {
   background: rgba(255,255,255,.3);
   border-top: 1px solid rgba(255,255,255,.5);
   padding-left: 360px;
-  left: -645px; /* centers bank on page */
+  left: -348px; /* centers bank on page */
 }
 
 .drag-wrap {
+  position: relative;
   background-color: #cccccc;
   width: 115px;
   height: 115px;
@@ -113,7 +114,7 @@ body {
   float: left;
   overflow: hidden;
   border-radius: 50%;
-  left: -645px;  /* centers bank on page */
+  left: -348px;  /* centers bank on page */
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
 

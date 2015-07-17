@@ -17,10 +17,11 @@ this.block_text_to_speech_ = (function() {
     })(this));
   }
 
-  block_text_to_speech_.prototype.run = function() {
+  block_text_to_speech_.prototype.run = function(cb) {
     var text;
     text = this.$input.val();
-    return responsiveVoice.speak(text);
+    responsiveVoice.speak(text);
+    return cb();
   };
 
   return block_text_to_speech_;
