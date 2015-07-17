@@ -163,3 +163,13 @@ body {
   top: 42.5%;
   position: fixed;
 }
+
+input {
+  font-size: 8px;
+  background-color: #cccccc;
+  border: 0px solid #f00;
+  color: #a1a1a1;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 9px;
+  text-align: center;
+}
