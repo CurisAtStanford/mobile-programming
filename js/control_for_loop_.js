@@ -72,15 +72,18 @@ this.control_for_loop_ = (function() {
   }
 
   control_for_loop_.prototype.run = function() {
-    var element, _i, _len, _ref, _results;
+    var a, i, t,
+      _this = this;
 
-    _ref = this.array.run();
-    _results = [];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      element = _ref[_i];
-      _results.push(this.action.run(element));
-    }
-    return _results;
+    a = this.array.run();
+    i = 0;
+    return t = doAndRepeat(3000, function() {
+      _this.action.run(a[i]);
+      if (i === a.length) {
+        clearTimeout(t);
+      }
+      return i++;
+    });
   };
 
   return control_for_loop_;
