@@ -99,7 +99,7 @@ body {
   background: rgba(255,255,255,.3);
   border-top: 1px solid rgba(255,255,255,.5);
   padding-left: 360px;
-  /*left: -645px;*/ /* centers bank on page */
+  left: -348px; /* centers bank on page */
 }
 
 .drag-wrap {
@@ -114,7 +114,7 @@ body {
   float: left;
   overflow: hidden;
   border-radius: 50%;
-  /*left: -645px;*/  /* centers bank on page */
+  left: -348px;  /* centers bank on page */
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
 
@@ -163,14 +163,4 @@ body {
   left: 7px;
   top: 42.5%;
   position: fixed;
-}
-
-input {
-  font-size: 8px;
-  background-color: #cccccc;
-  border: 0px solid #f00;
-  color: #a1a1a1;
-  font-family: 'PT Sans', sans-serif;
-  font-size: 9px;
-  text-align: center;
 }
