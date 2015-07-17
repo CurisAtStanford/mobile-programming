@@ -18,14 +18,12 @@ class @block_text_to_speech_
 		</div>
 		""").appendTo ".drag-zone"
 
-
 		@$input = $ "#text_to_speech_input"
 
-		interact("#drag16")
+		interact("[name=text_to_speech]")
 		.on 'tap', (event) =>
 			@$input.focus()
 
 	run: ()=>
-		console.log @$input.val()
 		text = @$input.val()
 		responsiveVoice.speak text

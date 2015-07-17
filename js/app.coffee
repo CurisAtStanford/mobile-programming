@@ -22,6 +22,37 @@ $ ->
 	# window.block_accelerometer
 
 
+	# async.series [
+	# 	(cb) => 
+	# 		console.log "start 1"
+	# 		wait 2000, =>
+	# 			console.log "stop 1"
+	# 			cb()
+
+	# 	(cb) => 
+	# 		console.log "start 2"
+	# 		wait 2000, =>
+	# 			console.log "stop 2"
+	# 			cb()
+	# ]
+
+	images = 
+		one: 1
+		two: 2
+		three: 3
+		four: 4
+
+	async.forEachOfSeries images, (key, value, cb) ->
+		console.log key
+		console.log value
+		wait 1000, =>
+			cb()
+		return
+	, (err) ->
+		console.log 'iterating done'
+
+
+
 # twitter
 # text messagnig
 # urban dictionary - speak back th edefinition to you

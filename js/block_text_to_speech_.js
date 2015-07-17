@@ -11,7 +11,7 @@ this.block_text_to_speech_ = (function() {
     $('<style type="text/css"></style>').html(css).appendTo("head");
     $("<div class=\"drag-wrap draggable\" name=\"text_to_speech\">\n	SPEAK TO ME\n	<input id=\"text_to_speech_input\" type=\"text\" name=\"image\" value=\"Enter Text\"><br>\n</div>").appendTo(".drag-zone");
     this.$input = $("#text_to_speech_input");
-    interact("#drag16").on('tap', function(event) {
+    interact("[name=text_to_speech]").on('tap', function(event) {
       return _this.$input.focus();
     });
   }
@@ -19,7 +19,6 @@ this.block_text_to_speech_ = (function() {
   block_text_to_speech_.prototype.run = function() {
     var text;
 
-    console.log(this.$input.val());
     text = this.$input.val();
     return responsiveVoice.speak(text);
   };

@@ -7,3 +7,4 @@ web_server.socket = ssl.wrap_socket (web_server.socket,
                                      certfile="./server/crt.crt",
                                      keyfile="./server/key.key")
 web_server.serve_forever()
+

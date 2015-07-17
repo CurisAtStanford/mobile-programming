@@ -1,0 +1,11 @@
+deps
+dist
+test
+perf
+.npmignore
+.gitmodules
+Makefile
+component.json
+bower.json
+.travis.yml
+.jshintrc
