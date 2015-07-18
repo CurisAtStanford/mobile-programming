@@ -1,60 +1,61 @@
 $ ->
-	# window.global_block_width = window.global_block_height = 290
-
 	window.counter = 0 # this is to separate logic between conditions
 
-	# ---------------------------
-	# BLOCKS
-	# ---------------------------
-	# Blocks
-	window.block_array = new block_array_()
-	window.block_beyonce = new block_beyonce_()
-	window.block_background_image = new block_background_image_()
-	# window.block_camera = new block_camera_()
-	# window.block_color = new block_color_()
-	window.block_ding = new block_ding_()
-	window.block_display_image = new block_display_image_()
-	# window.block_display_text = new block_display_text_()
-	# window.block_drake = new block_drake_()
-	# window.block_instagram = new block_instagram_()
-	# window.block_kimkardashian = new block_kimkardashian_()
-	# window.block_map = new block_map_()
-	# window.block_rihanna = new block_rihanna_()
-	# window.block_selenagomez = new block_selenagomez_()
-	# window.block_siren = new block_siren_()
-	# window.block_taylorswift = new block_taylorswift_()
-	# window.block_text_to_speech = new block_text_to_speech_()
-	window.block_time = new block_time_()
-	window.block_true = new block_true_()
-	window.block_weather = new block_weather_()
-
-	# BRAD
+	# -----------------------------
+	# BLOCKS (bank layout 11-10-11)
+	# -----------------------------
+	# Row 1
 	window.block_for_loop = new draggable_control_for_loop_()
 	window.block_if_then = new draggable_control_if_then_()
+	window.block_true = new block_true_()
+	window.block_array = new block_array_()
+	window.block_instagram = new block_instagram_()
+	window.block_camera = new block_camera_()
+	window.block_weather = new block_weather_()
+	window.block_map = new block_map_()
+	window.block_time = new block_time_()
+	window.block_ding = new block_ding_()
+	window.block_siren = new block_siren_()
 
-	# Place holders for future blocks (9x9 block bank)
-	# window.block_19 = new block_place_holder_() # change color (Caroline)
-	# window.block_20 = new block_place_holder_() # draggable for loop
-	window.block_21 = new block_place_holder_() # weather
-	window.block_22 = new block_place_holder_() # youtube
-	window.block_23 = new block_place_holder_() # accelerometer
-	window.block_24 = new block_place_holder_() # color senser
-	window.block_25 = new block_place_holder_() # nlp
-	window.block_26 = new block_place_holder_() # pic recognition
-	window.block_27 = new block_place_holder_() # image_recognition
+	# Row 2
+	window.block_display_image = new block_display_image_()
+	window.block_display_text = new block_display_text_()
+	window.block_text_to_speech = new block_text_to_speech_()
+	window.block_background_image = new block_background_image_()
+	window.block_beyonce = new block_beyonce_()
+	window.block_drake = new block_drake_()
+	window.block_kimkardashian = new block_kimkardashian_()
+	window.block_rihanna = new block_rihanna_()
+	window.block_selenagomez = new block_selenagomez_()
+	window.block_taylorswift = new block_taylorswift_()
+
+	# Row 3
+	# window.block_nlp = new block_nlp_()
+	window.block_pizza = new block_pizza_()
+	window.block_donut = new block_donut_()
+	window.block_vibrate = new block_vibrate_()
+	window.block_background_color = new block_background_color_()
+	window.block_block_color = new block_block_color_()
+	window.block_27 = new block_place_holder_()
+	window.block_28 = new block_place_holder_()
+	window.block_29 = new block_place_holder_()
+	window.block_30 = new block_place_holder_()
+	window.block_31 = new block_place_holder_()
+	window.block_32 = new block_place_holder_()
+	# top 40
+	# map
+	# youtube
+	# image_recognition
+	# orientation (accelerometer)
+	# pic recognition
+	# color senser
 
 	# Control statements
-	# control = new control_if_then_()
-	control = new control_for_loop_()
+	control = new control_if_then_()
+	# control = new control_for_loop_()
 
-	# NOT WORKING YET
-	# window.block_color = new block_color_()
-	# window.block_image_recognition = new block_image_recognition_()
-	# window.block_my_weather = new block_my_weather_()
+	# STILL DOING?
 	# window.block_text = new block_text_()
-	# window.block_weather = new block_weather_()
-	# window.block_youtube = new block_youtube_()
-	# window.block_accelerometer
 
 	# FUTURE BLOCKS?
 	# twitter
@@ -70,14 +71,14 @@ $ ->
 	# ---------------------------
 	# APPLE WATCH UI BLOCK BANK
 	# ---------------------------
-	items = document.querySelectorAll(".draggable")
+	items = document.querySelectorAll(".drag-wrap")
 
 	h = window.innerHeight
 	w = window.innerWidth
 
 	# center
 	c = items[Math.round(items.length / 2)]
-	c.style.background = '#777'
+	# c.style.background = '#777'
 	cr = c.getBoundingClientRect()
 
 	onScroll = ()=>
@@ -104,8 +105,8 @@ $ ->
 				restriction: 'body'
 				endOnly: true
 				elementRect:
-					left: 0.60
-					right: 0.40
+					left: 0.70
+					right: 0.30
 		onstart: (event) ->
 		onmove: (event) =>
 			console.log "dragMove GRID"
@@ -120,6 +121,8 @@ $ ->
 
 			$target.attr 'data-x', x
 			# $target.attr 'data-y', y
+
+			items = document.querySelectorAll(".drag-wrap")
 			onScroll()
 
 
@@ -179,6 +182,8 @@ $ ->
 	# ---------------------------
 	# BUTTONS
 	# ---------------------------
+	# cb = () =>
+	# 	console.log "HEY"
 	$("#button_run").click =>
 		control.run()
 

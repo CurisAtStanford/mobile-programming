@@ -68,7 +68,8 @@ this.control_for_loop_ = (function() {
               _this.action = window["block_" + block_name];
             }
           }
-          return $target.addClass('caught--it');
+          $target.addClass('caught--it');
+          return $related_target.removeClass('drag-wrap');
         };
       })(this),
       ondropdeactivate: function(event) {

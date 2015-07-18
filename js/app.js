@@ -2,29 +2,43 @@
 $(function() {
   var c, commands, control, cr, h, items, onScroll, put_text_in_block, startPos, w;
   window.counter = 0;
-  window.block_array = new block_array_();
-  window.block_beyonce = new block_beyonce_();
-  window.block_background_image = new block_background_image_();
-  window.block_ding = new block_ding_();
-  window.block_display_image = new block_display_image_();
-  window.block_time = new block_time_();
-  window.block_true = new block_true_();
-  window.block_weather = new block_weather_();
   window.block_for_loop = new draggable_control_for_loop_();
   window.block_if_then = new draggable_control_if_then_();
-  window.block_21 = new block_place_holder_();
-  window.block_22 = new block_place_holder_();
-  window.block_23 = new block_place_holder_();
-  window.block_24 = new block_place_holder_();
-  window.block_25 = new block_place_holder_();
-  window.block_26 = new block_place_holder_();
+  window.block_true = new block_true_();
+  window.block_array = new block_array_();
+  window.block_instagram = new block_instagram_();
+  window.block_camera = new block_camera_();
+  window.block_weather = new block_weather_();
+  window.block_map = new block_map_();
+  window.block_time = new block_time_();
+  window.block_ding = new block_ding_();
+  window.block_siren = new block_siren_();
+  window.block_display_image = new block_display_image_();
+  window.block_display_text = new block_display_text_();
+  window.block_text_to_speech = new block_text_to_speech_();
+  window.block_background_image = new block_background_image_();
+  window.block_beyonce = new block_beyonce_();
+  window.block_drake = new block_drake_();
+  window.block_kimkardashian = new block_kimkardashian_();
+  window.block_rihanna = new block_rihanna_();
+  window.block_selenagomez = new block_selenagomez_();
+  window.block_taylorswift = new block_taylorswift_();
+  window.block_pizza = new block_pizza_();
+  window.block_donut = new block_donut_();
+  window.block_vibrate = new block_vibrate_();
+  window.block_background_color = new block_background_color_();
+  window.block_block_color = new block_block_color_();
   window.block_27 = new block_place_holder_();
-  control = new control_for_loop_();
-  items = document.querySelectorAll(".draggable");
+  window.block_28 = new block_place_holder_();
+  window.block_29 = new block_place_holder_();
+  window.block_30 = new block_place_holder_();
+  window.block_31 = new block_place_holder_();
+  window.block_32 = new block_place_holder_();
+  control = new control_if_then_();
+  items = document.querySelectorAll(".drag-wrap");
   h = window.innerHeight;
   w = window.innerWidth;
   c = items[Math.round(items.length / 2)];
-  c.style.background = '#777';
   cr = c.getBoundingClientRect();
   onScroll = (function(_this) {
     return function() {
@@ -48,8 +62,8 @@ $(function() {
       restriction: 'body',
       endOnly: true,
       elementRect: {
-        left: 0.60,
-        right: 0.40
+        left: 0.70,
+        right: 0.30
       }
     },
     onstart: function(event) {},
@@ -63,6 +77,7 @@ $(function() {
           '-webkit-transform': "translate(" + x + "px)"
         });
         $target.attr('data-x', x);
+        items = document.querySelectorAll(".drag-wrap");
         return onScroll();
       };
     })(this)

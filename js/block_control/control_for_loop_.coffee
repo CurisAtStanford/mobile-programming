@@ -74,6 +74,9 @@ class @control_for_loop_
 
 				$target.addClass 'caught--it'
 
+				# remove block from drag zone! (NEEDS WORK)
+				$related_target.removeClass 'drag-wrap'
+
 			ondropdeactivate: (event) ->
 				# remove active dropzone feedback
 				$target = $ event.target
