@@ -10,22 +10,23 @@ $ ->
 	window.block_array = new block_array_()
 	window.block_beyonce = new block_beyonce_()
 	window.block_background_image = new block_background_image_()
-	window.block_camera = new block_camera_()
+	# window.block_camera = new block_camera_()
 	# window.block_color = new block_color_()
 	window.block_ding = new block_ding_()
 	window.block_display_image = new block_display_image_()
-	window.block_display_text = new block_display_text_()
-	window.block_drake = new block_drake_()
-	window.block_instagram = new block_instagram_()
-	window.block_kimkardashian = new block_kimkardashian_()
-	window.block_map = new block_map_()
-	window.block_rihanna = new block_rihanna_()
-	window.block_selenagomez = new block_selenagomez_()
-	window.block_siren = new block_siren_()
-	window.block_taylorswift = new block_taylorswift_()
-	window.block_text_to_speech = new block_text_to_speech_()
+	# window.block_display_text = new block_display_text_()
+	# window.block_drake = new block_drake_()
+	# window.block_instagram = new block_instagram_()
+	# window.block_kimkardashian = new block_kimkardashian_()
+	# window.block_map = new block_map_()
+	# window.block_rihanna = new block_rihanna_()
+	# window.block_selenagomez = new block_selenagomez_()
+	# window.block_siren = new block_siren_()
+	# window.block_taylorswift = new block_taylorswift_()
+	# window.block_text_to_speech = new block_text_to_speech_()
 	window.block_time = new block_time_()
 	window.block_true = new block_true_()
+	window.block_weather = new block_weather_()
 
 	# BRAD
 	window.block_for_loop = new draggable_control_for_loop_()
@@ -202,7 +203,7 @@ $ ->
 	# ---------------------------
 	# SWIPER LOGIC
 	# ---------------------------
-	swiper_reg = new Swiper '.swiper-container-reg',
+	###swiper_reg = new Swiper '.swiper-container-reg',
 		pagination: '.swiper-pagination'
 		nextButton: '.swiper-button-next'
 		prevButton: '.swiper-button-prev'
@@ -263,4 +264,4 @@ $ ->
 		swiper_reg.slidePrev()
 		swiper_ver.slidePrev()
 		swiper_hor.slidePrev()
-		console.log "BAM"
+		console.log "BAM"###

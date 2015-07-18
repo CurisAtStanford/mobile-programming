@@ -1,4 +1,6 @@
 ###
+README:
+
 The BlockAnimation class constucts a block that can
 perform neat slider animations. The following properties must be
 passed in:
@@ -19,19 +21,20 @@ Just put something like this in the index!
 </div>
 
 and type something like this in js:
-block = new BlockAnimation("test");
+block = new block_animation_("test");
 
 The id's in the divs that hold the content are for identifying them as active slides.
 For example, if the active slide on the block is the div with id="siren", then
 get_active_slide will return "siren"
 ###
 
-class BlockAnimation
+class block_animation_
 	constructor: (@id) ->
-		console.log "yay got in blokc animation with #{@id}"
+		console.log "yay got in block animation with #{@id}"
 		console.log @id
 		@create_HTML()
 
+		console.log "LOOK HERE FOR MAKE REG SWIPER"
 		@swiper_reg = @make_reg_swiper()
 		@swiper_hor = @make_horizontal_swiper()
 		@swiper_ver = @make_vertical_swiper()
@@ -40,12 +43,13 @@ class BlockAnimation
 		console.log @swiper_hor
 		console.log @swiper_ver
 
-		@add_interactors(@swiper_reg, @swiper_hor, @swiper_ver)
+		@add_interactors @swiper_reg, @swiper_hor, @swiper_ver
 
 	### Public Methods ###
 	get_active_slide: ->
-		active_slide= $("#{@id}-active")
-		active_slide.attr 'id'
+		$active_slide= $(".#{@id}-active")
+		console.log $active_slide[0]
+		$active_slide.attr 'id'
 
 
 	# PRIVATE METHODS #
@@ -58,31 +62,33 @@ class BlockAnimation
 		#overwrites the html content, but we saved it in slide_content
 		#This will be added in the html under the @id-content div
 		$main.html("""
-			<div class="swiper-container swiper-container-ver #{@id}-ver">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide stop-swiping">
-						<div id="vertical-frame"></div>
+			<div id="swiper-middle">
+				<div class="swiper-container swiper-container-ver #{@id}-ver">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide stop-swiping">
+							<div id="vertical-frame"></div>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- this is for the border that glides horizontally -->
-			<div class="swiper-container swiper-container-hor #{@id}-hor">
-				<div class="swiper-wrapper">
-					<div class="swiper-slide stop-swiping">
-						<div id="horizontal-frame"></div>
+				<!-- this is for the border that glides horizontally -->
+				<div class="swiper-container swiper-container-hor #{@id}-hor">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide stop-swiping">
+							<div id="horizontal-frame"></div>
+						</div>
 					</div>
 				</div>
-			</div>
 
-			<!-- this is for the actual pictures -->
-			<div id="swiper-container-reg" class="swiper-container swiper-container-reg #{@id}-reg">
-				<div id="#{@id}-content" class="swiper-wrapper">
-					#{slide_content}
+				<!-- this is for the actual pictures -->
+				<div id="swiper-container-reg" class="swiper-container swiper-container-reg #{@id}-reg">
+					<div id="#{@id}-content" class="swiper-wrapper">
+						#{slide_content}
+					</div>
+					<!-- Add Arrows -->
+					<div class="swiper-button-next #{@id}-next"><!--<i class="fa fa-chevron-right fa-3x"></i>--></div>
+					<div class="swiper-button-prev #{@id}-prev"><!--<i class="fa fa-chevron-left fa-3x"></i>--></div>
 				</div>
-				<!-- Add Arrows -->
-				<div class="swiper-button-next #{@id}-next"><i class="fa fa-chevron-right fa-3x"></i></div>
-				<div class="swiper-button-prev #{@id}-prev"><i class="fa fa-chevron-left fa-3x"></i></div>
 			</div>
 		""")
 
@@ -92,23 +98,28 @@ class BlockAnimation
 			$(this).addClass "swiper-slide stop-swiping"
 
 	add_interactors: ->
-		interact(".#{@id}-next").on 'tap', ->
+		swiper_reg = @swiper_reg
+		swiper_ver = @swiper_ver
+		swiper_hor = @swiper_hor
+		interact(".#{@id}-next").on 'tap', =>
 			console.log "got em in next"
 			console.log @swiper_reg
 			console.log @swiper_hor
 			console.log @swiper_ver
 			@swiper_reg.slideNext()
 			@swiper_ver.slideNext()
-			@swiper_hor.slideNext()
+			@swiper_hor.slidePrev()
+			console.log @get_active_slide()
 
-		interact(".#{@id}-prev").on 'tap', ->
+		interact(".#{@id}-prev").on 'tap', =>
 			console.log "got em in prev"
 			console.log @swiper_reg
 			console.log @swiper_hor
 			console.log @swiper_ver
 			@swiper_reg.slidePrev()
 			@swiper_ver.slidePrev()
-			@swiper_hor.slidePrev()
+			@swiper_hor.slideNext()
+			console.log @get_active_slide()
 
 	make_reg_swiper: ->
 		console.log "Got here at least"
@@ -121,12 +132,12 @@ class BlockAnimation
 			noSwiping: true
 			noSwipingClass: "stop-swiping"
 			slidesPerView: 3
-			spaceBetween: 30
+			spaceBetween: 10
 			speed: 800
 			loop: true
 			coverflow:
 				rotate: 50
-				stretch: 0
+				stretch: 100
 				depth: 100
 				modifier: 1
 				slideShadows : false
@@ -138,7 +149,7 @@ class BlockAnimation
 			noSwipingClass: 'stop-swiping'
 			effect: 'coverflow'
 			slidesPerView: 1
-			spaceBetween: 30
+			spaceBetween: 20
 			loop: true
 			direction: 'vertical'
 			speed: 800

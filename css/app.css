@@ -99,7 +99,8 @@ body {
   background: rgba(255,255,255,.3);
   border-top: 1px solid rgba(255,255,255,.5);
   padding-left: 360px;
-  left: -348px; /* centers bank on page */
+  /* -348px */
+  left:100px; /* centers bank on page */
 }
 
 .drag-wrap {
