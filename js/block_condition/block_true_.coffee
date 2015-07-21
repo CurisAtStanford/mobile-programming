@@ -11,5 +11,5 @@ class @block_true_
 		</div>
 		""").appendTo ".drag-zone"
 
-	run: ()=>
-		true
+	run: (cb, element)=>
+		cb true

@@ -5,7 +5,7 @@ this.block_time_ = (function() {
   function block_time_() {
     this.run = bind(this.run, this);
     var $hours, $minutes, $time, css, hours_counter, minutes_counter, morning;
-    css = ".arrowUp {\n	width: 10px;\n	position: absolute;\n	top: 15px;\n	left: 4px;\n	font-size: 110%;\n}\n\n.arrowDown {\n	width: 10px;\n	position: absolute;\n	top: 65px;\n	left: 4px;\n	font-size: 110%;\n}\n\ndiv[name='time'] {\n	font-family: 'Orbitron', sans-serif;\n	font-size: 140%;\n	position: relative;\n}\n\n#hoursBlock {\n	position: relative;\n	left: 7px;\n	width: 70px;\n}\n\n#minutesBlock {\n	position: relative;\n	left: 38px;\n	width: 10px;\n}\n\n#timeBlock {\n	position: relative;\n	left: 67px;\n	width: 10px;\n}\n\n#hours, #minutes, #time {\n	position: absolute;\n}\n\n#colon {\n	position: absolute;\n	font-weight: bold;\n	left: 33px;\n}\n\n#minutes {\n	position: absolute;\n}\n\n#time {\n	position: absolute;\n}";
+    css = ".arrowUp {\n	position: absolute;\n	width: 10px;\n	top: 10px;\n	left: 10px;\n	font-size: 110%;\n}\n\n.arrowDown {\n	position: absolute;\n	width: 10px;\n	top: 80px;\n	left: 10px;\n	font-size: 110%;\n}\n\ndiv[name='time'] {\n	position: relative;\n	font-family: 'Orbitron', sans-serif;\n	font-size: 140%;\n}\n\n#hoursBlock {\n	position: relative;\n	left: 7px;\n}\n\n#minutesBlock {\n	position: relative;\n	left: 37px;\n}\n\n#timeBlock {\n	position: relative;\n	left: 67px;\n}\n\n#hours, #minutes, #colon, #time {\n	position: absolute;\n	top: 5px;\n}\n\n#hours {\n	left: 4px;\n}\n\n#colon {\n	font-weight: bold;\n	left: 36px;\n}\n\n#minutes {\n	left: 10px;\n}\n\n#time {\n	position: absolute;\n	left: 5px;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
     $("<div class='drag-wrap draggable' name='time'>\n	<div id=\"hoursBlock\">\n		<div id=\"hours\">12</div>\n		<i class=\"arrowUp fa fa-arrow-up\"></i>\n		<i class=\"arrowDown fa fa-arrow-down\"></i>\n	</div>\n	<div id=\"colon\">:</div>\n	<div id=\"minutesBlock\">\n		<div id=\"minutes\">00</div>\n		<i class=\"arrowUp fa fa-arrow-up\"></i>\n		<i class=\"arrowDown fa fa-arrow-down\"></i>\n	</div>\n	<div id=\"timeBlock\">\n		<div id=\"time\">AM</div>\n		<i class=\"arrowUp fa fa-arrow-up\"></i>\n		<i class=\"arrowDown fa fa-arrow-down\"></i>\n	</div>\n</div>").appendTo(".drag-zone");
     $hours = $("#hours");
@@ -53,7 +53,9 @@ this.block_time_ = (function() {
     });
     interact('.arrowDown').on('tap', function(event) {
       var block, hours_text, minutes_text;
+      console.log('tap down');
       block = $(event.currentTarget).parent()[0].id.toString();
+      console.log(block);
       switch (block) {
         case "hoursBlock":
           hours_counter--;
@@ -90,7 +92,7 @@ this.block_time_ = (function() {
     });
   }
 
-  block_time_.prototype.run = function() {
+  block_time_.prototype.run = function(cb, element) {
     var clock_hours, clock_minutes, clock_time, time_clock, time_now;
     clock_hours = $("#hours").text();
     clock_minutes = $("#minutes").text();
@@ -98,9 +100,13 @@ this.block_time_ = (function() {
     if (clock_time === "PM") {
       clock_hours = parseInt(clock_hours) + 12;
     }
-    console.log(time_clock = clock_hours + ":" + clock_minutes);
-    console.log(time_now = moment().format('HH:mm'));
-    return time_now === time_clock;
+    time_clock = clock_hours + ":" + clock_minutes;
+    time_now = moment().format('HH:mm');
+    if (time_now === time_clock) {
+      return cb(true);
+    } else {
+      return cb(false);
+    }
   };
 
   return block_time_;

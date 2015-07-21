@@ -5,12 +5,15 @@ this.block_youtube_ = (function() {
   function block_youtube_() {
     this.run = bind(this.run, this);
     var css, extract_video_id;
-    css = "#youtube_pic{\n	position: absolute;\n	left:0px;\n	top: 0px;\n}\n\n#youtube_input {\n	position: absolute;\n	top: 150px;\n	left: 40px;\n	width: 200px;\n	font-size: 25px;\n}\n\n#youtube_player {\n	position: absolute;\n	top: 0px;\n	left: 0px;\n	width: 100%;\n	height: 100%;\n}";
+    css = "#youtube_pic{\n	position: absolute;\n	left: 6px;\n	top: 2px;\n	width: 100px;\n}\n\n#youtube_player {\n	position: absolute;\n	top: 0px;\n	left: 0px;\n	width: 100%;\n	height: 100%;\n}\n\n#youtube_input {\n	position: absolute;\n	top: 55%;\n	width: 80%;\n	left: 6%;\n	text-align: center;\n	font-size: 11px;\n	background: #ACF0F2;\n	opacity: 0.4;\n}\n";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div id=\"drag9\" class=\"draggable block3\">\n		<div id=\"youtube_player\"></div>\n		<img id=\"youtube_pic\" src=\"img/youtube-logo.png\">\n		<input id=\"youtube_input\" type=\"text\">\n</div>").appendTo(".block_bank_wrapper");
-    interact("#drag9").on('tap', function(event) {
-      return $("#youtube_input").focus();
-    });
+    $("<div class=\"drag-wrap draggable\" name=\"youtube\">\n	<div id=\"youtube_player\"></div>\n	<img id=\"youtube_pic\" src=\"img/youtube-logo.png\">\n	<input id=\"youtube_input\" type=\"text\" value=\"VIDEO URL\">\n</div>").appendTo(".drag-zone");
+    interact("[name=youtube]").on('tap', (function(_this) {
+      return function(event) {
+        $("#youtube_input").val("");
+        return $("#youtube_input").focus();
+      };
+    })(this));
     extract_video_id = function(url) {
       var match;
       match = url.match(/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/);
@@ -24,10 +27,10 @@ this.block_youtube_ = (function() {
       return function(event) {
         var youtube_url;
         youtube_url = $("#youtube_input").val();
-        _this.youtube_id = extract_video_id(youtube_url);
+        console.log(_this.youtube_id = extract_video_id(youtube_url));
         $("#youtube_input").remove();
         $("#youtube_pic").remove();
-        return $("#drag9").css({
+        return $("[name=youtube]").css({
           backgroundImage: "url(https://i1.ytimg.com/vi/" + _this.youtube_id + "/default.jpg)",
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
@@ -37,8 +40,30 @@ this.block_youtube_ = (function() {
     })(this));
   }
 
-  block_youtube_.prototype.run = function(cb) {
-    return cb();
+  block_youtube_.prototype.run = function() {
+    var firstScriptTag, tag;
+    console.log(" youtube run");
+    tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/player_api";
+    firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    return window.onYouTubeIframeAPIReady = (function(_this) {
+      return function() {
+        var player;
+        return player = new YT.Player('youtube_player', {
+          videoId: "CLAnuG1340g",
+          events: {
+            onStateChange: function(e) {
+              return console.log("youtube onStateChange");
+            },
+            onReady: function(e) {
+              console.log("youtube onReady");
+              return e.target.playVideo();
+            }
+          }
+        });
+      };
+    })(this);
   };
 
   return block_youtube_;

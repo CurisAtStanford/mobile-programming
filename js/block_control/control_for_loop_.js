@@ -5,7 +5,7 @@ this.control_for_loop_ = (function() {
   function control_for_loop_($target) {
     this.run = bind(this.run, this);
     var append_to_this, css;
-    css = "		";
+    css = "#array-zone {\n	left: 75px;\n}\n#do-text {\n	left: 115px;\n}\n#action-zone {\n	left: 255px;\n}";
     $("<style type='text/css'></style>").html(css).appendTo("head");
     append_to_this = null;
     if ($target != null) {
@@ -15,7 +15,8 @@ this.control_for_loop_ = (function() {
     }
     this.counter_id = window.counter;
     window.counter = this.counter_id + 1;
-    $("<div class='text'>FOR EACH</div>\n<div class='droppable steps droppable-" + this.counter_id + "' role='array'>LIST</div>\n<div class='text'>DO</div>\n<div class='droppable steps droppable-" + this.counter_id + "' role='action'>THIS</div>").appendTo(append_to_this);
+    $("<div id='for-each-text' class='text'>FOR EACH</div>\n<div id='array-zone' class='droppable steps droppable-" + this.counter_id + "' role='array'>LIST</div>\n<div id='do-text' class='text'>DO</div>\n<div id='action-zone' class='droppable steps droppable-" + this.counter_id + "' role='action'>THIS</div>").appendTo(append_to_this);
+    this.spot_filled = [false, false];
     interact(".droppable-" + this.counter_id).dropzone({
       accept: '.draggable',
       overlap: .1,
@@ -50,7 +51,7 @@ this.control_for_loop_ = (function() {
       },
       ondrop: (function(_this) {
         return function(event) {
-          var $related_target, block_name;
+          var $clone, $related_target, block_name, x, y;
           $target = $(event.target);
           $related_target = $(event.relatedTarget);
           block_name = _.trim($related_target.text().toLowerCase());
@@ -68,8 +69,23 @@ this.control_for_loop_ = (function() {
               _this.action = window["block_" + block_name];
             }
           }
+          $target.attr("filled", "true");
           $target.addClass('caught--it');
-          return $related_target.removeClass('drag-wrap');
+          if ($related_target.hasClass('drag-wrap')) {
+            $clone = $related_target.clone();
+            $clone.removeClass('drag-wrap');
+            $clone.removeClass('getting--dragged');
+            $clone.appendTo('.drop-zone');
+            x = $target.position().left + 5;
+            y = $target.position().top;
+            $clone.css({
+              '-webkit-transform': "translate(" + x + "px, " + y + "px)",
+              'position': 'absolute'
+            });
+            $clone.attr('data-x', x);
+            $clone.attr('data-y', y);
+            return $related_target.remove();
+          }
         };
       })(this),
       ondropdeactivate: function(event) {
@@ -93,11 +109,9 @@ this.control_for_loop_ = (function() {
     });
     control_condition = null;
     if (isLoop) {
-      console.log("Is a for loop");
       control_condition = new control_for_loop_($target);
       new draggable_control_for_loop_();
     } else {
-      console.log("Is an if consition");
       control_condition = new control_if_then_($target);
       new draggable_control_if_then_();
     }
@@ -105,13 +119,8 @@ this.control_for_loop_ = (function() {
   };
 
   control_for_loop_.prototype.run = function(outer_cb) {
-    console.log(this.array);
-    console.log("GOT IN FOR LOOP RUN");
-    console.log(this.action);
     return async.forEachOfSeries(this.array.run(), (function(_this) {
       return function(element, i, cb) {
-        console.log("Element: " + element);
-        console.log("Value: " + i);
         _this.action.run(cb, element);
       };
     })(this), function(err) {

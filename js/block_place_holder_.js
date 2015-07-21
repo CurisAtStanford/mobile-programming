@@ -7,7 +7,7 @@ this.block_place_holder_ = (function() {
     var css;
     css = "		";
     $("<style type='text/css'></style>").html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"extra\">\n</div>").appendTo(".drag-zone");
+    $("<div class=\"drag-wrap draggable\" name=\"extra\">\n	TBD\n</div>").appendTo(".drag-zone");
   }
 
   block_place_holder_.prototype.run = function() {

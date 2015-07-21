@@ -5,7 +5,7 @@ this.block_camera_ = (function() {
   function block_camera_() {
     this.run = bind(this.run, this);
     var css;
-    css = "#camera_video {\n	position: relative;\n	left: -15px;\n	transform: scaleX(-1);\n	height: 100%;\n}\n\n#camera_photo {\n	position: relative;\n	left: -15px;\n	transform: scaleX(-1);\n	height: 100%;\n	position: absolute;\n	top: 0px;\n}";
+    css = "#camera_video {\n	position: relative;\n	left: -15px;\n	transform: scaleX(-1);\n	height: 100%;\n}\n\n#camera_photo {\n	position: absolute;\n	left: -15px;\n	transform: scaleX(-1);\n	height: 100%;\n	top: 0px;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
     $("<div class=\"drag-wrap draggable\" name=\"camera\">\n	<video id='camera_video' autoplay>Video stream not available.</video>\n	<canvas id='camera_canvas'></canvas>\n	<img id='camera_photo'>\n</div>").appendTo(".drag-zone");
     this.video = $("#camera_video")[0];
@@ -32,6 +32,7 @@ this.block_camera_ = (function() {
     this.context.drawImage(this.video, 0, 0, 640, 480);
     data = this.canvas.toDataURL('image/png');
     this.photo.setAttribute('src', data);
+    console.log(this.photo);
     return cb();
   };
 

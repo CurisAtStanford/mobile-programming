@@ -7,6 +7,7 @@ class @block_place_holder_
 
 		$("""
 		<div class="drag-wrap draggable" name="extra">
+			TBD
 		</div>
 		""").appendTo ".drag-zone"
 

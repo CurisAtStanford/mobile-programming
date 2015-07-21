@@ -2,18 +2,25 @@ class @draggable_control_if_then_
 
 	constructor: ()->
 		css = """
+		#this-drop-zone {
+				left: 25px;
+			}
+		#then-text {
+				left: 115px;
+			}
+		#that-drop-zone {
+				left: 200px;
+			}
 		"""
 		$("<style type='text/css'></style>").html(css).appendTo "head"
 
 		$("""
 		<div class="drag-wrap draggable" name="ifthen">
 			IF THEN BLOCK
-			<!--<div id='if' class="text" >IF</div>
-			<div id='block1' class="dropzone">BLOCK1</div>
-			<div id='operator' class="dropzone">________</div>
-			<div id='block2' class='dropzone'>BLOCK2</div>
-			<div id='then' class='text'>THEN</div>
-			<div id='block3' class='dropzone'>DO THIS</div>-->
+			<div id='if-text' class='text'>IF</div>
+			<div id='this-drop-zone' class='droppable steps droppable-#{@counter_id}' role='condition'>THIS</div>
+			<div id='then-text' class='text'>THEN</div>
+			<div id='that-drop-zone' class='droppable steps droppable-#{@counter_id}' role='action'>THAT</div>
 		</div>
 		""").appendTo ".drag-zone"
 

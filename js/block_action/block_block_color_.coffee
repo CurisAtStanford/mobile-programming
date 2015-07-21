@@ -50,5 +50,4 @@ class @block_block_color_
 			when src is "./img/crayon_orange.png" then $(".drag-wrap").css(backgroundColor: "#FF9933")
 			when src is "./img/crayon_red.png" then $(".drag-wrap").css(backgroundColor: "#E62425")
 
-		# callback?
 		cb()

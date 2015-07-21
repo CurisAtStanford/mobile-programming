@@ -2,7 +2,7 @@ class @block_donut_
 
 	constructor: ()->
 		css = """
-			#drag_donuts {
+			#drag_donut {
 				background-image: url(img/dunkin-donuts.jpg);
 				background-size: cover;
 
@@ -11,7 +11,7 @@ class @block_donut_
 		$("<style type='text/css'></style>").html(css).appendTo "head"
 
 		$("""
-		<div id="drag_donuts" class="drag-wrap draggable" name="donuts">
+		<div id="drag_donut" class="drag-wrap draggable" name="donut">
 		</div>
 		""").appendTo ".drag-zone"
 

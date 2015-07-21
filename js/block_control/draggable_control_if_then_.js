@@ -5,9 +5,9 @@ this.draggable_control_if_then_ = (function() {
   function draggable_control_if_then_() {
     this.run = bind(this.run, this);
     var css;
-    css = "		";
+    css = "#this-drop-zone {\n		left: 25px;\n	}\n#then-text {\n		left: 115px;\n	}\n#that-drop-zone {\n		left: 200px;\n	}";
     $("<style type='text/css'></style>").html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"ifthen\">\n	IF THEN BLOCK\n	<!--<div id='if' class=\"text\" >IF</div>\n	<div id='block1' class=\"dropzone\">BLOCK1</div>\n	<div id='operator' class=\"dropzone\">________</div>\n	<div id='block2' class='dropzone'>BLOCK2</div>\n	<div id='then' class='text'>THEN</div>\n	<div id='block3' class='dropzone'>DO THIS</div>-->\n</div>").appendTo(".drag-zone");
+    $("<div class=\"drag-wrap draggable\" name=\"ifthen\">\n	IF THEN BLOCK\n	<div id='if-text' class='text'>IF</div>\n	<div id='this-drop-zone' class='droppable steps droppable-" + this.counter_id + "' role='condition'>THIS</div>\n	<div id='then-text' class='text'>THEN</div>\n	<div id='that-drop-zone' class='droppable steps droppable-" + this.counter_id + "' role='action'>THAT</div>\n</div>").appendTo(".drag-zone");
   }
 
   draggable_control_if_then_.prototype.run = function() {};

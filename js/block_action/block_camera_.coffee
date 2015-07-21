@@ -10,15 +10,13 @@ class @block_camera_
 		}
 
 		#camera_photo {
-			position: relative;
+			position: absolute;
 			left: -15px;
 			transform: scaleX(-1);
 			height: 100%;
-			position: absolute;
 			top: 0px;
 		}
 		"""
-
 		$('<style type="text/css"></style>').html(css).appendTo "head"
 
 		$("""
@@ -54,5 +52,6 @@ class @block_camera_
 		@context.drawImage @video, 0, 0, 640, 480
 		data = @canvas.toDataURL 'image/png'
 		@photo.setAttribute 'src', data
+		console.log @photo
 
 		cb()

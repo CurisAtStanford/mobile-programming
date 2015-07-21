@@ -5,12 +5,15 @@ this.block_background_image_ = (function() {
   function block_background_image_() {
     this.run = bind(this.run, this);
     var css;
-    css = "		";
+    css = "#background_image_input {\n	position: absolute;\n	top: 55%;\n	width: 80%;\n	left: 6%;\n	text-align: center;\n	font-size: 11px;\n	background: #ACF0F2;\n	opacity: 0.4;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"background_image\">\n	<input id=\"background_image_input\" type=\"text\"\"/>\n</div>").appendTo(".drag-zone");
-    interact("[name=background_image]").on('tap', function(event) {
-      return $("#background_image_input").focus();
-    });
+    $("<div class=\"drag-wrap draggable\" name=\"background_image\">\n	BACKGROUND\n	<input id=\"background_image_input\" type=\"text\" value=\"IMAGE URL\">\n</div>").appendTo(".drag-zone");
+    interact("[name=background_image]").on('tap', (function(_this) {
+      return function(event) {
+        $("#background_image_input").val("");
+        return $("#background_image_input").focus();
+      };
+    })(this));
   }
 
   block_background_image_.prototype.run = function(cb) {

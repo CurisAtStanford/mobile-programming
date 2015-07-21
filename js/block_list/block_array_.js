@@ -7,11 +7,11 @@ this.block_array_ = (function() {
     var css;
     css = "		";
     $("<style type='text/css'></style>").html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"array\">\n	ARRAY\n</div>").appendTo(".drag-zone");
+    $("<div class=\"drag-wrap draggable\" name=\"array\">\n	ARRAY [1, 2, 3, 4]\n</div>").appendTo(".drag-zone");
   }
 
   block_array_.prototype.run = function() {
-    return [1, 2, 3, 4, 5];
+    return ['yas', 'hey', 'yo', 'swag'];
   };
 
   return block_array_;

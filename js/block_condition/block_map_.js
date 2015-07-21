@@ -5,7 +5,7 @@ this.block_map_ = (function() {
   function block_map_() {
     this.run = bind(this.run, this);
     var css, get_rectangle_coords;
-    css = "#google_map{\n	width: 70px;\n	height: 70px;\n	left: 15px;\n	top: 15px;\n	line-height: 0px;\n}";
+    css = "#google_map{\n	width: 100px;\n	height: 100px;\n	left: 7px;\n	top: 7px;\n	line-height: 0px;\n	border-radius: 50%\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
     $("<div class=\"drag-wrap draggable\" name=\"map\">\n	<div id='google_map'></div>\n</div>").appendTo(".drag-zone");
     $("#google_map").bind('touchstart mousedown', function() {

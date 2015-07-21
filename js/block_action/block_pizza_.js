@@ -11,7 +11,7 @@ this.block_pizza_ = (function() {
   }
 
   block_pizza_.prototype.run = function(cb, element) {
-    window.open("https://order.dominos.com/en/pages/order/#/locations/search/");
+    window.open("http://order.dominos.com/en/pages/order/#/locations/search/");
     return cb();
   };
 

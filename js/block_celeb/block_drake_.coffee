@@ -9,7 +9,7 @@ class @block_drake_
 			height:100%;
 			position: relative;
 			left: -50px;
-			top:0px;
+			top: 0px;
 		}
 		"""
 		$('<style type="text/css"></style>').html(css).appendTo "head"

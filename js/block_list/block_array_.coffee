@@ -7,9 +7,9 @@ class @block_array_
 
 		$("""
 		<div class="drag-wrap draggable" name="array">
-			ARRAY
+			ARRAY [1, 2, 3, 4]
 		</div>
 		""").appendTo ".drag-zone"
 
 	run: ()=>
-		[1, 2, 3, 4, 5]
+		['yas', 'hey', 'yo', 'swag']

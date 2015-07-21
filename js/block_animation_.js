@@ -34,16 +34,10 @@ var block_animation_;
 block_animation_ = (function() {
   function block_animation_(id) {
     this.id = id;
-    console.log("yay got in block animation with " + this.id);
-    console.log(this.id);
     this.create_HTML();
-    console.log("LOOK HERE FOR MAKE REG SWIPER");
     this.swiper_reg = this.make_reg_swiper();
     this.swiper_hor = this.make_horizontal_swiper();
     this.swiper_ver = this.make_vertical_swiper();
-    console.log(this.swiper_reg);
-    console.log(this.swiper_hor);
-    console.log(this.swiper_ver);
     this.add_interactors(this.swiper_reg, this.swiper_hor, this.swiper_ver);
   }
 
@@ -60,12 +54,10 @@ block_animation_ = (function() {
   block_animation_.prototype.create_HTML = function() {
     var $main, slide_content;
     $main = $("#" + this.id);
-    console.log("" + this.id);
-    console.log($main[0]);
     slide_content = $main.html();
-    $main.html("<div id=\"swiper-middle\">\n	<div class=\"swiper-container swiper-container-ver " + this.id + "-ver\">\n		<div class=\"swiper-wrapper\">\n			<div class=\"swiper-slide stop-swiping\">\n				<div id=\"vertical-frame\"></div>\n			</div>\n		</div>\n	</div>\n\n	<!-- this is for the border that glides horizontally -->\n	<div class=\"swiper-container swiper-container-hor " + this.id + "-hor\">\n		<div class=\"swiper-wrapper\">\n			<div class=\"swiper-slide stop-swiping\">\n				<div id=\"horizontal-frame\"></div>\n			</div>\n		</div>\n	</div>\n\n	<!-- this is for the actual pictures -->\n	<div id=\"swiper-container-reg\" class=\"swiper-container swiper-container-reg " + this.id + "-reg\">\n		<div id=\"" + this.id + "-content\" class=\"swiper-wrapper\">\n			" + slide_content + "\n		</div>\n		<!-- Add Arrows -->\n		<div class=\"swiper-button-next " + this.id + "-next\"><!--<i class=\"fa fa-chevron-right fa-3x\"></i>--></div>\n		<div class=\"swiper-button-prev " + this.id + "-prev\"><!--<i class=\"fa fa-chevron-left fa-3x\"></i>--></div>\n	</div>\n</div>");
+    $main.html("\n<div class=\"swiper-container swiper-container-ver " + this.id + "-ver\">\n	<div class=\"swiper-wrapper\">\n		<div class=\"swiper-slide stop-swiping swiper-slide-not-reg\">\n			<div id=\"vertical-frame\"></div>\n		</div>\n	</div>\n</div>\n\n<!-- this is for the border that glides horizontally -->\n<div class=\"swiper-container swiper-container-hor " + this.id + "-hor\">\n	<div class=\"swiper-wrapper\">\n		<div class=\"swiper-slide stop-swiping swiper-slide-not-reg\">\n			<div id=\"horizontal-frame\"></div>\n		</div>\n	</div>\n</div>\n\n<!-- this is for the actual pictures -->\n<div id=\"swiper-container-reg\" class=\"swiper-container swiper-container-reg " + this.id + "-reg\">\n	<div id=\"" + this.id + "-content\" class=\"swiper-wrapper general-content\">\n		" + slide_content + "\n	</div>\n	<!-- Add Arrows -->\n	<div class=\"swiper-button-next " + this.id + "-next\"><!--<i class=\"fa fa-chevron-right fa-3x\"></i>--></div>\n	<div class=\"swiper-button-prev " + this.id + "-prev\"><!--<i class=\"fa fa-chevron-left fa-3x\"></i>--></div>\n</div>\n");
     return $("#" + this.id + "-content").children().each(function() {
-      return $(this).addClass("swiper-slide stop-swiping");
+      return $(this).addClass("swiper-slide stop-swiping set-picture-size");
     });
   };
 
@@ -76,33 +68,21 @@ block_animation_ = (function() {
     swiper_hor = this.swiper_hor;
     interact("." + this.id + "-next").on('tap', (function(_this) {
       return function() {
-        console.log("got em in next");
-        console.log(_this.swiper_reg);
-        console.log(_this.swiper_hor);
-        console.log(_this.swiper_ver);
         _this.swiper_reg.slideNext();
         _this.swiper_ver.slideNext();
-        _this.swiper_hor.slidePrev();
-        return console.log(_this.get_active_slide());
+        return _this.swiper_hor.slidePrev();
       };
     })(this));
     return interact("." + this.id + "-prev").on('tap', (function(_this) {
       return function() {
-        console.log("got em in prev");
-        console.log(_this.swiper_reg);
-        console.log(_this.swiper_hor);
-        console.log(_this.swiper_ver);
         _this.swiper_reg.slidePrev();
         _this.swiper_ver.slidePrev();
-        _this.swiper_hor.slideNext();
-        return console.log(_this.get_active_slide());
+        return _this.swiper_hor.slideNext();
       };
     })(this));
   };
 
   block_animation_.prototype.make_reg_swiper = function() {
-    console.log("Got here at least");
-    console.log($("." + this.id + "-reg")[0]);
     return new Swiper("." + this.id + "-reg", {
       nextButton: "." + this.id + "-next",
       prevButton: "." + this.id + "-prev",
@@ -111,7 +91,7 @@ block_animation_ = (function() {
       noSwiping: true,
       noSwipingClass: "stop-swiping",
       slidesPerView: 3,
-      spaceBetween: 10,
+      spaceBetween: 1,
       speed: 800,
       loop: true,
       coverflow: {
@@ -125,7 +105,6 @@ block_animation_ = (function() {
   };
 
   block_animation_.prototype.make_vertical_swiper = function() {
-    console.log("got to ver");
     return new Swiper("." + this.id + "-ver", {
       noSwiping: true,
       noSwipingClass: 'stop-swiping',
@@ -146,7 +125,6 @@ block_animation_ = (function() {
   };
 
   block_animation_.prototype.make_horizontal_swiper = function() {
-    console.log("got to hor");
     return new Swiper("." + this.id + "-hor", {
       effect: 'coverflow',
       noSwiping: true,

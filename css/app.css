@@ -2,7 +2,7 @@ html, body {
   height: 100%;
   color: #a1a1a1;
   font-family: 'PT Sans', sans-serif;
-  font-size: 11px;
+  font-size: 14px;
 }
 
 body {
@@ -17,32 +17,32 @@ body {
 }
 
 .drop-zone {
-  height: 50%;
   position: relative;
+  height: 50%;
 }
 
 .steps {
-  float: left;
-  position: relative;
+  position: absolute;
   height: 115px;
   width: 115px;
   background: white;
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
   text-align: center;
   line-height: 100px;
-  font-size: 11px;
   vertical-align: center;
   border-radius: 50%;
 }
 
 .text {
+  position: relative;
   float: left;
   padding: 10px;
-  position: relative;
+  color: #225378;
+  font-size: 16px;
+  font-weight: bold;
 }
 
 .can--drop:not(.caught--it):not(.can--catch) {
-  /*animation: bounce 1.5s ease infinite;*/
   -webkit-animation: glow 1.5s ease infinite;
 }
 
@@ -96,12 +96,13 @@ body {
 
 .drag-zone {
   position: fixed;
-  width: 1160px; /* increase to allow more blocks per row */
+  /*width: 1160px;*/ /* increase to allow more blocks per row */
+  width: 1000px;
   height: 50%;
 }
 
 .draggable {
-  background-color: #cccccc;
+  background-color: #E6E6E6;
   width: 115px;
   height: 115px;
   text-align: center;
@@ -125,7 +126,8 @@ body {
 }
 
 /* Block Bank ROWS */
-.draggable:nth-child(1),
+/* 11-10-11 */
+/*.draggable:nth-child(1),
 .draggable:nth-child(2),
 .draggable:nth-child(3),
 .draggable:nth-child(4),
@@ -146,6 +148,29 @@ body {
 
 .draggable:nth-child(22n+23) {
   clear: left;
+}
+*/
+
+/* 9-8-9 */
+.draggable:nth-child(1),
+.draggable:nth-child(2),
+.draggable:nth-child(3),
+.draggable:nth-child(4),
+.draggable:nth-child(5),
+.draggable:nth-child(6),
+.draggable:nth-child(7),
+.draggable:nth-child(8),
+.draggable:nth-child(9) {
+  margin-top: 0px;
+}
+
+.draggable:nth-child(18n+10) {
+  margin-left: 50px;
+  clear:left;
+}
+
+.draggable:nth-child(18n+19) {
+  clear:left;
 }
 
 #button_run {

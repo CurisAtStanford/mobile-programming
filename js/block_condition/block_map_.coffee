@@ -3,11 +3,12 @@ class @block_map_
 	constructor: ()->
 		css = """
 		#google_map{
-			width: 70px;
-			height: 70px;
-			left: 15px;
-			top: 15px;
+			width: 100px;
+			height: 100px;
+			left: 7px;
+			top: 7px;
 			line-height: 0px;
+			border-radius: 50%
 		}
 		"""
 

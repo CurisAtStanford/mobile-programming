@@ -2,60 +2,60 @@ $ ->
 	window.counter = 0 # this is to separate logic between conditions
 
 	# -----------------------------
-	# BLOCKS (bank layout 11-10-11)
+	# BLOCKS (bank layout 9-8-9)
 	# -----------------------------
 	# Row 1
-	window.block_for_loop = new draggable_control_for_loop_()
-	window.block_if_then = new draggable_control_if_then_()
 	window.block_true = new block_true_()
-	window.block_array = new block_array_()
-	window.block_instagram = new block_instagram_()
-	window.block_camera = new block_camera_()
-	window.block_weather = new block_weather_()
-	window.block_map = new block_map_()
-	window.block_time = new block_time_()
-	window.block_ding = new block_ding_()
-	window.block_siren = new block_siren_()
-
-	# Row 2
+	window.block_sound = new block_sound_()
 	window.block_display_image = new block_display_image_()
 	window.block_display_text = new block_display_text_()
+	window.block_time = new block_time_()
+	window.block_pizza = new block_pizza_()
+	window.block_donut = new block_donut_()
+	window.block_background_color = new block_background_color_()
+	window.block_block_color = new block_block_color_()
+
+	# Row 2
+	window.block_instagram = new block_instagram_()
+	window.block_youtube = new block_youtube_()
 	window.block_text_to_speech = new block_text_to_speech_()
 	window.block_background_image = new block_background_image_()
+	window.block_array = new block_array_()
+	window.block_weather = new block_weather_()
+	window.block_temp7 = new block_place_holder_()
+	window.block_temp8 = new block_place_holder_()
+
+	# Row 3
 	window.block_beyonce = new block_beyonce_()
 	window.block_drake = new block_drake_()
 	window.block_kimkardashian = new block_kimkardashian_()
 	window.block_rihanna = new block_rihanna_()
 	window.block_selenagomez = new block_selenagomez_()
 	window.block_taylorswift = new block_taylorswift_()
-
-	# Row 3
-	# window.block_nlp = new block_nlp_()
-	window.block_pizza = new block_pizza_()
-	window.block_donut = new block_donut_()
-	window.block_vibrate = new block_vibrate_()
-	window.block_background_color = new block_background_color_()
-	window.block_block_color = new block_block_color_()
-	window.block_27 = new block_place_holder_()
-	window.block_28 = new block_place_holder_()
-	window.block_29 = new block_place_holder_()
-	window.block_30 = new block_place_holder_()
-	window.block_31 = new block_place_holder_()
-	window.block_32 = new block_place_holder_()
-	# top 40
-	# map
-	# youtube
-	# image_recognition
-	# orientation (accelerometer)
-	# pic recognition
-	# color senser
+	window.block_nlp = new block_nlp_()
+	window.block_temp10 = new block_place_holder_()
+	window.block_temp11 = new block_place_holder_()
 
 	# Control statements
 	control = new control_if_then_()
 	# control = new control_for_loop_()
 
-	# STILL DOING?
-	# window.block_text = new block_text_()
+
+	# NOT WORKING
+	# window.block_for_loop = new draggable_control_for_loop_()
+	# window.block_if_then = new draggable_control_if_then_()
+	# window.block_map = new block_map_()
+	# window.block_camera = new block_camera_()
+	# window.block_nlp = new block_nlp_()
+	# window.block_vibrate = new block_vibrate_()
+
+	# IN PROGRESS
+	# phone block
+	# top 40
+	# image_recognition
+	# orientation (accelerometer)
+	# pic recognition
+	# color senser
 
 	# FUTURE BLOCKS?
 	# twitter
@@ -66,6 +66,9 @@ $ ->
 		# you are actually programming and not that someone is doing it for you
 		# want the user to have the power to make it feel like it is there
 	# voice recording
+
+	# STILL DOING?
+	# window.block_text = new block_text_()
 
 
 	# ---------------------------
@@ -78,7 +81,6 @@ $ ->
 
 	# center
 	c = items[Math.round(items.length / 2)]
-	# c.style.background = '#777'
 	cr = c.getBoundingClientRect()
 
 	onScroll = ()=>
@@ -92,6 +94,7 @@ $ ->
 				'-webkit-transform': "scale(#{s2})"
 			++i
 		return
+
 	# set up ui on load
 	onScroll cr.left - (w / 2) + cr.width / 2, cr.top - (h / 2) + cr.height / 2
 
@@ -109,8 +112,6 @@ $ ->
 					right: 0.30
 		onstart: (event) ->
 		onmove: (event) =>
-			console.log "dragMove GRID"
-
 			$target = $ event.target
 			x = (parseFloat($target.attr 'data-x') or 0) + event.dx
 			# y = (parseFloat($target.attr 'data-y') or 0) + event.dy
@@ -147,7 +148,7 @@ $ ->
 				x: 0.5
 				y: 0.5
 			} ]
-			range: 200
+			range: 100
 			endOnly: true
 
 		onstart: (event) ->
@@ -182,10 +183,10 @@ $ ->
 	# ---------------------------
 	# BUTTONS
 	# ---------------------------
-	# cb = () =>
-	# 	console.log "HEY"
+	cb = () =>
+		console.log "RUN"
 	$("#button_run").click =>
-		control.run()
+		control.run(cb)
 
 	$("#button_reset").click =>
 		location.reload()
@@ -203,70 +204,3 @@ $ ->
 	annyang.addCommands commands
 	annyang.start
 		continuous: true
-
-
-	# ---------------------------
-	# SWIPER LOGIC
-	# ---------------------------
-	###swiper_reg = new Swiper '.swiper-container-reg',
-		pagination: '.swiper-pagination'
-		nextButton: '.swiper-button-next'
-		prevButton: '.swiper-button-prev'
-		effect: 'coverflow'
-		slideActiveClass: 'fake-active-slide'
-		slideNextClass: 'real-active-slide'
-		noSwiping: true
-		noSwipingClass: 'stop-swiping'
-		slidesPerView: 3
-		spaceBetween: 30
-		speed: 800
-		loop: true
-		coverflow:
-			rotate: 50
-			stretch: 0
-			depth: 100
-			modifier: 1
-			slideShadows : false
-
-	swiper_ver = new Swiper '.swiper-container-ver',
-		noSwiping: true
-		noSwipingClass: 'stop-swiping'
-		effect: 'coverflow'
-		slidesPerView: 1
-		spaceBetween: 30
-		loop: true
-		direction: 'vertical'
-		speed: 800
-		coverflow:
-			rotate: 50
-			stretch: 0
-			depth: 100
-			modifier: 1
-			slideShadows : false
-
-	swiper_hor = new Swiper '.swiper-container-hor',
-		effect: 'coverflow'
-		noSwiping: true
-		noSwipingClass: 'stop-swiping'
-		slidesPerView: 1
-		spaceBetween: 30
-		speed: 800
-		loop: true
-		coverflow:
-			rotate: 50
-			stretch: 0
-			depth: 100
-			modifier: 1
-			slideShadows : false
-
-	interact(".swiper-button-next").on 'tap', ->
-		swiper_reg.slideNext()
-		swiper_ver.slideNext()
-		swiper_hor.slideNext()
-		console.log "BOOM"
-
-	interact(".swiper-button-prev").on 'tap', ->
-		swiper_reg.slidePrev()
-		swiper_ver.slidePrev()
-		swiper_hor.slidePrev()
-		console.log "BAM"###

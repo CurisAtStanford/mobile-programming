@@ -3,7 +3,6 @@ class @block_background_color_
 	constructor: ()->
 		css = """
 		"""
-
 		$('<style type="text/css"></style>').html(css).appendTo "head"
 
 		$("""
@@ -37,6 +36,7 @@ class @block_background_color_
 				when src is "./img/crayon_yellow.png" then $("#crayon").attr 'src',  "./img/crayon_orange.png"
 				when src is "./img/crayon_orange.png" then $("#crayon").attr 'src',  "./img/crayon_red.png"
 				when src is "./img/crayon_red.png" then $("#crayon").attr 'src',  "./img/crayon_grey.png"
+
 	run: (cb)=>
 		src = $("#crayon").attr('src')
 		switch
@@ -49,5 +49,4 @@ class @block_background_color_
 			when src is "./img/crayon_orange.png" then $("body").css(backgroundColor: "#FF9933")
 			when src is "./img/crayon_red.png" then $("body").css(backgroundColor: "#E62425")
 
-		# callback?
 		cb()

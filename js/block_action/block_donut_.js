@@ -5,9 +5,9 @@ this.block_donut_ = (function() {
   function block_donut_() {
     this.run = bind(this.run, this);
     var css;
-    css = "#drag_donuts {\n	background-image: url(img/dunkin-donuts.jpg);\n	background-size: cover;\n\n}";
+    css = "#drag_donut {\n	background-image: url(img/dunkin-donuts.jpg);\n	background-size: cover;\n\n}";
     $("<style type='text/css'></style>").html(css).appendTo("head");
-    $("<div id=\"drag_donuts\" class=\"drag-wrap draggable\" name=\"donuts\">\n</div>").appendTo(".drag-zone");
+    $("<div id=\"drag_donut\" class=\"drag-wrap draggable\" name=\"donut\">\n</div>").appendTo(".drag-zone");
   }
 
   block_donut_.prototype.run = function(cb, element) {

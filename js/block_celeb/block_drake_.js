@@ -5,7 +5,7 @@ this.block_drake_ = (function() {
   function block_drake_() {
     this.run = bind(this.run, this);
     var css, drake, feed;
-    css = "#instafeed {\n	display: none;\n}\n#drake-image {\n	height:100%;\n	position: relative;\n	left: -50px;\n	top:0px;\n}";
+    css = "#instafeed {\n	display: none;\n}\n#drake-image {\n	height:100%;\n	position: relative;\n	left: -50px;\n	top: 0px;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
     $("<div class=\"drag-wrap draggable\" name=\"drake\">\n	<img id=\"drake-image\" src=\"img/drake.jpg\">\n	<div id=\"instafeed\"></div>\n</div>").appendTo(".drag-zone");
     drake = 14455831;

@@ -1,8 +1,6 @@
 class @block_weather_
 
 	constructor: ()->
-		console.log "GOT IN BLOCK WEATHER"
-
 		css = """
 		"""
 
@@ -24,8 +22,33 @@ class @block_weather_
 
 		@weather_block = new block_animation_ "weather-block"
 
-	run: (action)=>
+	run: (cb, element)=>
 		active = @weather_block.get_active_slide()
-		return 'rainy' if active is "rainy-icon"
-		return 'cloudy' if active is "cloudy-icon"
-		return 'sunny' if active "sunny-icon"
+		condition = null
+		condition = 'rainy' if active is "rainy-icon"
+		condition = 'cloudy' if active is "cloudy-icon"
+		condition = 'sunny' if active is "sunny-icon"
+
+		rain_codes = [3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 35, 37, 38, 39, 40, 41, 42, 43, 45, 46, 47]
+		cloudy_codes = [19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 44]
+		sunny_codes = [31, 32, 33, 34, 36]
+
+		navigator.geolocation.getCurrentPosition (position) =>
+			myLat = position.coords.latitude
+			myLng = position.coords.longitude
+
+			$.simpleWeather
+				async: false
+
+				location: "#{myLat},#{myLng}"
+				unit: 'f'
+				success: (weather) =>
+					code = parseInt weather.todayCode
+					if ((condition is "rainy") and (code in rain_codes)) or ((condition is "cloudy") and (code in cloudy_codes)) or ((condition is "sunny") and (code in sunny_codes))
+						cb true
+					else cb false
+
+				error: (error) ->
+					alert 'my_weather error'
+					console.log error
+					cb false

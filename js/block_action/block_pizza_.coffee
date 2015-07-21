@@ -16,5 +16,5 @@ class @block_pizza_
 		""").appendTo ".drag-zone"
 
 	run: (cb, element)=>
-		window.open "https://order.dominos.com/en/pages/order/#/locations/search/"
+		window.open "http://order.dominos.com/en/pages/order/#/locations/search/"
 		cb()

@@ -3,7 +3,6 @@ class @block_display_text_
 	constructor: ()->
 		css = """
 		"""
-
 		$('<style type="text/css"></style>').html(css).appendTo "head"
 
 		$("""

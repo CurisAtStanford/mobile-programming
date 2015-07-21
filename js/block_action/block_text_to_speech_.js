@@ -5,21 +5,20 @@ this.block_text_to_speech_ = (function() {
   function block_text_to_speech_() {
     this.run = bind(this.run, this);
     var css;
-    css = "#text_to_speech_input {\n	position: absolute;\n	top: 60%;\n	width: 90%;\n	left: 5%;\n}";
+    css = "#speak_pic {\n	position: absolute;\n	width: 40%;\n	top: 3%;\n	left: 28%;\n	opacity: 0.2;\n}\n\n#speak_text {\n	position: absolute;\n	top: 10%;\n	left: 13%;\n}\n\n#text_to_speech_input {\n	position: absolute;\n	top: 60%;\n	width: 80%;\n	left: 6%;\n	text-align: center;\n	font-size: 11px;\n	background: #ACF0F2;\n	opacity: 0.4;\n}\n";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"text_to_speech\">\n	SPEAK TO ME\n	<input id=\"text_to_speech_input\" value=\"ENTER TEXT\">\n</div>").appendTo(".drag-zone");
-    this.$input = $("#text_to_speech_input");
+    $("<div class=\"drag-wrap draggable\" name=\"text_to_speech\">\n	<img id=\"speak_pic\" src=\"img/speak.png\">\n	<div id=\"speak_text\">SPEAK TO ME</div>\n	<input id=\"text_to_speech_input\" type=\"text\" value=\"TEXT\">\n</div>").appendTo(".drag-zone");
     interact("[name=text_to_speech]").on('tap', (function(_this) {
       return function(event) {
-        _this.$input.val("");
-        return _this.$input.focus();
+        $("#text_to_speech_input").val("");
+        return $("#text_to_speech_input").focus();
       };
     })(this));
   }
 
   block_text_to_speech_.prototype.run = function(cb) {
     var text;
-    text = this.$input.val();
+    text = $("#text_to_speech_input").val();
     responsiveVoice.speak(text);
     return cb();
   };

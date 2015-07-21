@@ -5,7 +5,7 @@ this.control_if_then_ = (function() {
   function control_if_then_($target) {
     this.run = bind(this.run, this);
     var append_to_this, css;
-    css = "		";
+    css = "#this-drop-zone {\n	left: 25px;\n}\n#then-text {\n	left: 115px;\n}\n#that-drop-zone {\n	left: 200px;\n}";
     $("<style type='text/css'></style>").html(css).appendTo("head");
     append_to_this = null;
     if ($target != null) {
@@ -13,18 +13,15 @@ this.control_if_then_ = (function() {
     } else {
       append_to_this = '.drop-zone';
     }
-    console.log(append_to_this);
     this.counter_id = window.counter;
     window.counter = this.counter_id + 1;
-    $("<div class='text'>IF</div>\n<div class='droppable steps droppable-" + this.counter_id + "' role='condition'>THIS</div>\n<div class='text'>THEN</div>\n<div class='droppable steps droppable-" + this.counter_id + "' role='action'>THAT</div>").appendTo(append_to_this);
+    $("<div id='if-text' class='text'>IF</div>\n<div id='this-drop-zone' class='droppable steps droppable-" + this.counter_id + "' role='condition'>THIS</div>\n<div id='then-text' class='text'>THEN</div>\n<div id='that-drop-zone' class='droppable steps droppable-" + this.counter_id + "' role='action'>THAT</div>").appendTo(append_to_this);
     this.spot_filled = [false, false];
-    console.log("Got em in $target");
     interact(".droppable-" + this.counter_id).dropzone({
       accept: '.draggable',
       overlap: .1,
       ondropactivate: function(event) {
-        $target = $(event.target);
-        return $target.addClass('can--drop');
+        return $target = $(event.target);
       },
       ondragenter: function(event) {
         var $draggableElement, dropCenter, dropRect, dropzoneElement;
@@ -35,13 +32,11 @@ this.control_if_then_ = (function() {
           x: dropRect.left + dropRect.width / 2,
           y: dropRect.top + dropRect.height / 2
         };
-        event.draggable.draggable({
+        return event.draggable.draggable({
           snap: {
             targets: [dropCenter]
           }
         });
-        dropzoneElement.classList.add('can--catch');
-        return $draggableElement.addClass('drop--me');
       },
       ondragleave: function(event) {
         var $relatedTarget;
@@ -53,18 +48,14 @@ this.control_if_then_ = (function() {
       },
       ondrop: (function(_this) {
         return function(event) {
-          var $related_target, block_name;
+          var $clone, $related_target, block_name, x, y;
           $target = $(event.target);
           $related_target = $(event.relatedTarget);
-
-          /* This checks to see if there's a duplicate */
           if ($target.attr('role') === 'condition') {
-            console.log("condition dropped");
             block_name = $related_target.attr("name");
             _this.condition = window["block_" + block_name];
           }
           if ($target.attr('role') === 'action') {
-            console.log("action dropped");
             block_name = $related_target.attr("name");
             if (block_name === "ifthen") {
               _this.transform_action_area($target, $related_target, false);
@@ -76,12 +67,26 @@ this.control_if_then_ = (function() {
           }
           $target.attr("filled", "true");
           $target.addClass('caught--it');
-          return $related_target.removeClass('drag-wrap');
+          if ($related_target.hasClass('drag-wrap')) {
+            $clone = $related_target.clone();
+            $clone.removeClass('drag-wrap');
+            $clone.addClass('drop-wrap');
+            $clone.removeClass('getting--dragged');
+            $clone.appendTo('.drop-zone');
+            x = $target.position().left + 5;
+            y = $target.position().top;
+            $clone.css({
+              '-webkit-transform': "translate(" + x + "px, " + y + "px)",
+              'position': 'absolute'
+            });
+            $clone.attr('data-x', x);
+            $clone.attr('data-y', y);
+            return $related_target.remove();
+          }
         };
       })(this),
       ondropdeactivate: function(event) {
-        $target = $(event.target);
-        return $target.removeClass('can--drop', 'can--catch');
+        return $target = $(event.target);
       }
     });
   }
@@ -100,11 +105,9 @@ this.control_if_then_ = (function() {
     });
     control_condition = null;
     if (isLoop) {
-      console.log("Is a for loop");
       control_condition = new control_for_loop_($target);
       new draggable_control_for_loop_();
     } else {
-      console.log("Is an if condition");
       control_condition = new control_if_then_($target);
       new draggable_control_if_then_();
     }
@@ -112,15 +115,17 @@ this.control_if_then_ = (function() {
   };
 
   control_if_then_.prototype.run = function(outer_cb, element) {
-    if (this.condition.run()) {
-      console.log("Running");
-      console.log(this.action);
-      return this.action.run(outer_cb, element);
-    } else {
-      if (outer_cb != null) {
-        return outer_cb();
-      }
-    }
+    return this.condition.run((function(_this) {
+      return function(true_or_false) {
+        if (true_or_false) {
+          return _this.action.run(outer_cb, element);
+        } else {
+          if (outer_cb != null) {
+            return outer_cb();
+          }
+        }
+      };
+    })(this));
   };
 
   return control_if_then_;

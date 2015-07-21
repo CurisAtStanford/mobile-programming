@@ -10,8 +10,8 @@ this.block_true_ = (function() {
     $("<div class=\"drag-wrap draggable\" name=\"true\">\n	TRUE\n</div>").appendTo(".drag-zone");
   }
 
-  block_true_.prototype.run = function() {
-    return true;
+  block_true_.prototype.run = function(cb, element) {
+    return cb(true);
   };
 
   return block_true_;

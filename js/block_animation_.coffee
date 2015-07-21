@@ -30,18 +30,10 @@ get_active_slide will return "siren"
 
 class block_animation_
 	constructor: (@id) ->
-		console.log "yay got in block animation with #{@id}"
-		console.log @id
 		@create_HTML()
-
-		console.log "LOOK HERE FOR MAKE REG SWIPER"
 		@swiper_reg = @make_reg_swiper()
 		@swiper_hor = @make_horizontal_swiper()
 		@swiper_ver = @make_vertical_swiper()
-
-		console.log @swiper_reg
-		console.log @swiper_hor
-		console.log @swiper_ver
 
 		@add_interactors @swiper_reg, @swiper_hor, @swiper_ver
 
@@ -55,17 +47,15 @@ class block_animation_
 	# PRIVATE METHODS #
 	create_HTML: ->
 		$main = $("##{@id}")
-		console.log "#{@id}"
-		console.log $main[0]
 		slide_content = $main.html()
 		#Adds the animations to the DOM first
 		#overwrites the html content, but we saved it in slide_content
 		#This will be added in the html under the @id-content div
 		$main.html("""
-			<div id="swiper-middle">
+
 				<div class="swiper-container swiper-container-ver #{@id}-ver">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide stop-swiping">
+						<div class="swiper-slide stop-swiping swiper-slide-not-reg">
 							<div id="vertical-frame"></div>
 						</div>
 					</div>
@@ -74,7 +64,7 @@ class block_animation_
 				<!-- this is for the border that glides horizontally -->
 				<div class="swiper-container swiper-container-hor #{@id}-hor">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide stop-swiping">
+						<div class="swiper-slide stop-swiping swiper-slide-not-reg">
 							<div id="horizontal-frame"></div>
 						</div>
 					</div>
@@ -82,48 +72,36 @@ class block_animation_
 
 				<!-- this is for the actual pictures -->
 				<div id="swiper-container-reg" class="swiper-container swiper-container-reg #{@id}-reg">
-					<div id="#{@id}-content" class="swiper-wrapper">
+					<div id="#{@id}-content" class="swiper-wrapper general-content">
 						#{slide_content}
 					</div>
 					<!-- Add Arrows -->
 					<div class="swiper-button-next #{@id}-next"><!--<i class="fa fa-chevron-right fa-3x"></i>--></div>
 					<div class="swiper-button-prev #{@id}-prev"><!--<i class="fa fa-chevron-left fa-3x"></i>--></div>
 				</div>
-			</div>
+
 		""")
 
 		# Adds classes to the content divs
 		#This is for styling
 		$("##{@id}-content").children().each ->
-			$(this).addClass "swiper-slide stop-swiping"
+			$(this).addClass "swiper-slide stop-swiping set-picture-size"
 
 	add_interactors: ->
 		swiper_reg = @swiper_reg
 		swiper_ver = @swiper_ver
 		swiper_hor = @swiper_hor
 		interact(".#{@id}-next").on 'tap', =>
-			console.log "got em in next"
-			console.log @swiper_reg
-			console.log @swiper_hor
-			console.log @swiper_ver
 			@swiper_reg.slideNext()
 			@swiper_ver.slideNext()
 			@swiper_hor.slidePrev()
-			console.log @get_active_slide()
 
 		interact(".#{@id}-prev").on 'tap', =>
-			console.log "got em in prev"
-			console.log @swiper_reg
-			console.log @swiper_hor
-			console.log @swiper_ver
 			@swiper_reg.slidePrev()
 			@swiper_ver.slidePrev()
 			@swiper_hor.slideNext()
-			console.log @get_active_slide()
 
 	make_reg_swiper: ->
-		console.log "Got here at least"
-		console.log $(".#{@id}-reg")[0]
 		new Swiper ".#{@id}-reg",
 			nextButton: ".#{@id}-next"
 			prevButton: ".#{@id}-prev"
@@ -132,7 +110,7 @@ class block_animation_
 			noSwiping: true
 			noSwipingClass: "stop-swiping"
 			slidesPerView: 3
-			spaceBetween: 10
+			spaceBetween: 1
 			speed: 800
 			loop: true
 			coverflow:
@@ -143,7 +121,6 @@ class block_animation_
 				slideShadows : false
 
 	make_vertical_swiper: ->
-		console.log "got to ver"
 		new Swiper ".#{@id}-ver",
 			noSwiping: true
 			noSwipingClass: 'stop-swiping'
@@ -161,7 +138,6 @@ class block_animation_
 				slideShadows : false
 
 	make_horizontal_swiper: ->
-		console.log "got to hor"
 		new Swiper ".#{@id}-hor",
 			effect: 'coverflow'
 			noSwiping: true
