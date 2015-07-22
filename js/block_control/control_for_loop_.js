@@ -4,7 +4,7 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 this.control_for_loop_ = (function() {
   function control_for_loop_($target) {
     this.run = bind(this.run, this);
-    var append_to_this, css;
+    var append_to_this, css, onScroll;
     css = "#array-zone {\n	left: 75px;\n}\n#do-text {\n	left: 115px;\n}\n#action-zone {\n	left: 255px;\n}";
     $("<style type='text/css'></style>").html(css).appendTo("head");
     append_to_this = null;
@@ -16,6 +16,21 @@ this.control_for_loop_ = (function() {
     this.counter_id = window.counter;
     window.counter = this.counter_id + 1;
     $("<div id='for-each-text' class='text'>FOR EACH</div>\n<div id='array-zone' class='droppable steps droppable-" + this.counter_id + "' role='array'>LIST</div>\n<div id='do-text' class='text'>DO</div>\n<div id='action-zone' class='droppable steps droppable-" + this.counter_id + "' role='action'>THIS</div>").appendTo(append_to_this);
+    onScroll = (function(_this) {
+      return function() {
+        var i, pos, s2;
+        i = 0;
+        while (i < items.length) {
+          pos = items[i].getBoundingClientRect();
+          s2 = (pos.left + pos.width / 2 - (window.innerWidth / 2)) / (window.innerWidth / 1.2);
+          s2 = 1 - Math.abs(s2);
+          $(items[i]).css({
+            '-webkit-transform': "scale(" + s2 + ")"
+          });
+          ++i;
+        }
+      };
+    })(this);
     this.spot_filled = [false, false];
     interact(".droppable-" + this.counter_id).dropzone({
       accept: '.draggable',
@@ -51,7 +66,7 @@ this.control_for_loop_ = (function() {
       },
       ondrop: (function(_this) {
         return function(event) {
-          var $clone, $related_target, block_name, x, y;
+          var $clone, $related_target, block_name, items, x, y;
           $target = $(event.target);
           $related_target = $(event.relatedTarget);
           block_name = _.trim($related_target.text().toLowerCase());
@@ -84,7 +99,9 @@ this.control_for_loop_ = (function() {
             });
             $clone.attr('data-x', x);
             $clone.attr('data-y', y);
-            return $related_target.remove();
+            $related_target.remove();
+            items = document.querySelectorAll(".drag-wrap");
+            return onScroll();
           }
         };
       })(this),

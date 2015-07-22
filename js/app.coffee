@@ -83,7 +83,7 @@ $ ->
 	c = items[Math.round(items.length / 2)]
 	cr = c.getBoundingClientRect()
 
-	onScroll = ()=>
+	onScroll = () =>
 		i=0
 		while i < items.length
 			pos = items[i].getBoundingClientRect()

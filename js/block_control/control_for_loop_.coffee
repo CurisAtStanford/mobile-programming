@@ -29,6 +29,20 @@ class @control_for_loop_
 		<div id='action-zone' class='droppable steps droppable-#{@counter_id}' role='action'>THIS</div>
 		""").appendTo append_to_this
 
+
+		# block bank ui
+		onScroll = () =>
+			i=0
+			while i < items.length
+				pos = items[i].getBoundingClientRect()
+				s2 = (pos.left + pos.width / 2 - (window.innerWidth / 2)) / (window.innerWidth/1.2)
+				s2 = 1 - Math.abs(s2)
+
+				$(items[i]).css
+					'-webkit-transform': "scale(#{s2})"
+				++i
+			return
+
 		# This is for telling whether something is a duplicate
 		# index 0 is the condition, index 1 is the action
 		# The action will go away if something is dragged into it
@@ -106,6 +120,9 @@ class @control_for_loop_
 
 					# remove original block
 					$related_target.remove()
+
+					items = document.querySelectorAll(".drag-wrap")
+					onScroll()
 
 			ondropdeactivate: (event) ->
 				$target = $ event.target

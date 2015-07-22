@@ -4,7 +4,7 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 this.control_if_then_ = (function() {
   function control_if_then_($target) {
     this.run = bind(this.run, this);
-    var append_to_this, css;
+    var append_to_this, css, items, onScroll;
     css = "#this-drop-zone {\n	left: 25px;\n}\n#then-text {\n	left: 115px;\n}\n#that-drop-zone {\n	left: 200px;\n}";
     $("<style type='text/css'></style>").html(css).appendTo("head");
     append_to_this = null;
@@ -16,6 +16,22 @@ this.control_if_then_ = (function() {
     this.counter_id = window.counter;
     window.counter = this.counter_id + 1;
     $("<div id='if-text' class='text'>IF</div>\n<div id='this-drop-zone' class='droppable steps droppable-" + this.counter_id + "' role='condition'>THIS</div>\n<div id='then-text' class='text'>THEN</div>\n<div id='that-drop-zone' class='droppable steps droppable-" + this.counter_id + "' role='action'>THAT</div>").appendTo(append_to_this);
+    items = document.querySelectorAll(".drag-wrap");
+    onScroll = (function(_this) {
+      return function() {
+        var i, pos, s2;
+        i = 0;
+        while (i < items.length) {
+          pos = items[i].getBoundingClientRect();
+          s2 = (pos.left + pos.width / 2 - (window.innerWidth / 2)) / (window.innerWidth / 1.2);
+          s2 = 1 - Math.abs(s2);
+          $(items[i]).css({
+            '-webkit-transform': "scale(" + s2 + ")"
+          });
+          ++i;
+        }
+      };
+    })(this);
     this.spot_filled = [false, false];
     interact(".droppable-" + this.counter_id).dropzone({
       accept: '.draggable',
@@ -81,7 +97,9 @@ this.control_if_then_ = (function() {
             });
             $clone.attr('data-x', x);
             $clone.attr('data-y', y);
-            return $related_target.remove();
+            $related_target.remove();
+            items = document.querySelectorAll(".drag-wrap");
+            return onScroll();
           }
         };
       })(this),
