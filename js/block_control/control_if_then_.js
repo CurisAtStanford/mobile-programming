@@ -16,7 +16,7 @@ this.control_if_then_ = (function() {
     this.counter_id = window.counter;
     window.counter = this.counter_id + 1;
     $("<div id='if-text' class='text'>IF</div>\n<div id='this-drop-zone' class='droppable steps droppable-" + this.counter_id + "' role='condition'>THIS</div>\n<div id='then-text' class='text'>THEN</div>\n<div id='that-drop-zone' class='droppable steps droppable-" + this.counter_id + "' role='action'>THAT</div>").appendTo(append_to_this);
-    items = document.querySelectorAll(".drag-wrap");
+    items = $(".drag-wrap");
     onScroll = (function(_this) {
       return function() {
         var i, pos, s2;
@@ -84,9 +84,8 @@ this.control_if_then_ = (function() {
           $target.attr("filled", "true");
           $target.addClass('caught--it');
           if ($related_target.hasClass('drag-wrap')) {
-            $clone = $related_target.clone();
+            $clone = $related_target.detach();
             $clone.removeClass('drag-wrap');
-            $clone.addClass('drop-wrap');
             $clone.removeClass('getting--dragged');
             $clone.appendTo('.drop-zone');
             x = $target.position().left + 5;
@@ -97,8 +96,7 @@ this.control_if_then_ = (function() {
             });
             $clone.attr('data-x', x);
             $clone.attr('data-y', y);
-            $related_target.remove();
-            items = document.querySelectorAll(".drag-wrap");
+            items = $(".drag-wrap");
             return onScroll();
           }
         };

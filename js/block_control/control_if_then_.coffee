@@ -31,7 +31,7 @@ class @control_if_then_
 
 
 		# block bank ui
-		items = document.querySelectorAll(".drag-wrap")
+		items = $(".drag-wrap")
 		onScroll = () =>
 			i=0
 			while i < items.length
@@ -105,9 +105,8 @@ class @control_if_then_
 				# Clone block and remove from drag zone
 				if $related_target.hasClass('drag-wrap')
 					# clone block and append to drop zone
-					$clone = $related_target.clone()
+					$clone = $related_target.detach()
 					$clone.removeClass('drag-wrap')
-					$clone.addClass('drop-wrap')
 					$clone.removeClass('getting--dragged')
 					$clone.appendTo('.drop-zone')
 
@@ -120,10 +119,7 @@ class @control_if_then_
 					$clone.attr 'data-x', x
 					$clone.attr 'data-y', y
 
-					# remove original block
-					$related_target.remove()
-
-					items = document.querySelectorAll(".drag-wrap")
+					items = $(".drag-wrap")
 					onScroll()
 
 			ondropdeactivate: (event) ->
