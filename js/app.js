@@ -5,7 +5,7 @@ $(function() {
   window.block_true = new block_true_();
   window.block_sound = new block_sound_();
   window.block_display_image = new block_display_image_();
-  window.block_display_text = new block_display_text_();
+  window.block_display_image_fade = new block_display_image_fade_();
   window.block_time = new block_time_();
   window.block_pizza = new block_pizza_();
   window.block_donut = new block_donut_();
@@ -17,8 +17,8 @@ $(function() {
   window.block_background_image = new block_background_image_();
   window.block_array = new block_array_();
   window.block_weather = new block_weather_();
-  window.block_temp7 = new block_place_holder_();
   window.block_temp8 = new block_place_holder_();
+  window.block_temp9 = new block_place_holder_();
   window.block_beyonce = new block_beyonce_();
   window.block_drake = new block_drake_();
   window.block_kimkardashian = new block_kimkardashian_();
@@ -26,9 +26,9 @@ $(function() {
   window.block_selenagomez = new block_selenagomez_();
   window.block_taylorswift = new block_taylorswift_();
   window.block_nlp = new block_nlp_();
-  window.block_temp10 = new block_place_holder_();
-  window.block_temp11 = new block_place_holder_();
-  control = new control_if_then_();
+  window.block_spotify = new block_spotify_();
+  window.block_tinder = new block_tinder_();
+  control = new control_for_loop_();
   items = document.querySelectorAll(".drag-wrap");
   h = window.innerHeight;
   w = window.innerWidth;

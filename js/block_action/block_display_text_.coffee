@@ -31,3 +31,6 @@ class @block_display_text_
 			alignHoriz:true
 			multiLine: true
 			maxFontSize: 300
+
+		# callback?
+		# cb()

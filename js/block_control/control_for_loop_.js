@@ -4,7 +4,7 @@ var bind = function(fn, me){ return function(){ return fn.apply(me, arguments); 
 this.control_for_loop_ = (function() {
   function control_for_loop_($target) {
     this.run = bind(this.run, this);
-    var append_to_this, css, onScroll;
+    var append_to_this, css, items, onScroll;
     css = "#array-zone {\n	left: 75px;\n}\n#do-text {\n	left: 115px;\n}\n#action-zone {\n	left: 255px;\n}";
     $("<style type='text/css'></style>").html(css).appendTo("head");
     append_to_this = null;
@@ -16,6 +16,7 @@ this.control_for_loop_ = (function() {
     this.counter_id = window.counter;
     window.counter = this.counter_id + 1;
     $("<div id='for-each-text' class='text'>FOR EACH</div>\n<div id='array-zone' class='droppable steps droppable-" + this.counter_id + "' role='array'>LIST</div>\n<div id='do-text' class='text'>DO</div>\n<div id='action-zone' class='droppable steps droppable-" + this.counter_id + "' role='action'>THIS</div>").appendTo(append_to_this);
+    items = document.querySelectorAll(".drag-wrap");
     onScroll = (function(_this) {
       return function() {
         var i, pos, s2;
@@ -66,7 +67,7 @@ this.control_for_loop_ = (function() {
       },
       ondrop: (function(_this) {
         return function(event) {
-          var $clone, $related_target, block_name, items, x, y;
+          var $clone, $related_target, block_name, x, y;
           $target = $(event.target);
           $related_target = $(event.relatedTarget);
           block_name = _.trim($related_target.text().toLowerCase());
@@ -87,7 +88,7 @@ this.control_for_loop_ = (function() {
           $target.attr("filled", "true");
           $target.addClass('caught--it');
           if ($related_target.hasClass('drag-wrap')) {
-            $clone = $related_target.clone();
+            $clone = $related_target.detach();
             $clone.removeClass('drag-wrap');
             $clone.removeClass('getting--dragged');
             $clone.appendTo('.drop-zone');
