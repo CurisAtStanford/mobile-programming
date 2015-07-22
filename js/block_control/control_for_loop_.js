@@ -16,7 +16,7 @@ this.control_for_loop_ = (function() {
     this.counter_id = window.counter;
     window.counter = this.counter_id + 1;
     $("<div id='for-each-text' class='text'>FOR EACH</div>\n<div id='array-zone' class='droppable steps droppable-" + this.counter_id + "' role='array'>LIST</div>\n<div id='do-text' class='text'>DO</div>\n<div id='action-zone' class='droppable steps droppable-" + this.counter_id + "' role='action'>THIS</div>").appendTo(append_to_this);
-    items = document.querySelectorAll(".drag-wrap");
+    items = $(".drag-wrap");
     onScroll = (function(_this) {
       return function() {
         var i, pos, s2;
@@ -100,8 +100,7 @@ this.control_for_loop_ = (function() {
             });
             $clone.attr('data-x', x);
             $clone.attr('data-y', y);
-            $related_target.remove();
-            items = document.querySelectorAll(".drag-wrap");
+            items = $(".drag-wrap");
             return onScroll();
           }
         };

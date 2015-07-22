@@ -28,8 +28,8 @@ $(function() {
   window.block_nlp = new block_nlp_();
   window.block_spotify = new block_spotify_();
   window.block_tinder = new block_tinder_();
-  control = new control_for_loop_();
-  items = document.querySelectorAll(".drag-wrap");
+  control = new control_if_then_();
+  items = $(".drag-wrap");
   h = window.innerHeight;
   w = window.innerWidth;
   c = items[Math.round(items.length / 2)];
@@ -70,7 +70,7 @@ $(function() {
           '-webkit-transform': "translate(" + x + "px)"
         });
         $target.attr('data-x', x);
-        items = document.querySelectorAll(".drag-wrap");
+        items = $(".drag-wrap");
         return onScroll();
       };
     })(this)

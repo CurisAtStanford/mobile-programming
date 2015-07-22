@@ -31,7 +31,7 @@ class @control_for_loop_
 
 
 		# block bank ui
-		items = document.querySelectorAll(".drag-wrap")
+		items = $(".drag-wrap")
 		onScroll = () =>
 			i=0
 			while i < items.length
@@ -102,7 +102,6 @@ class @control_for_loop_
 				$target.attr "filled", "true"
 				$target.addClass 'caught--it'
 
-
 				# Clone block and remove from drag zone
 				if $related_target.hasClass('drag-wrap')
 					# clone block and append to drop zone
@@ -120,10 +119,7 @@ class @control_for_loop_
 					$clone.attr 'data-x', x
 					$clone.attr 'data-y', y
 
-					# remove original block
-					$related_target.remove()
-
-					items = document.querySelectorAll(".drag-wrap")
+					items = $(".drag-wrap")
 					onScroll()
 
 			ondropdeactivate: (event) ->

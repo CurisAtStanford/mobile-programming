@@ -39,8 +39,8 @@ $ ->
 	# window.block_text = new block_text_()
 
 	# Control statements
-	# control = new control_if_then_()
-	control = new control_for_loop_()
+	control = new control_if_then_()
+	# control = new control_for_loop_()
 
 
 	# NOT WORKING
@@ -76,7 +76,7 @@ $ ->
 	# ---------------------------
 	# APPLE WATCH UI BLOCK BANK
 	# ---------------------------
-	items = document.querySelectorAll(".drag-wrap")
+	items = $(".drag-wrap")
 
 	h = window.innerHeight
 	w = window.innerWidth
@@ -125,7 +125,7 @@ $ ->
 			$target.attr 'data-x', x
 			# $target.attr 'data-y', y
 
-			items = document.querySelectorAll(".drag-wrap")
+			items = $(".drag-wrap")
 			onScroll()
 
 
