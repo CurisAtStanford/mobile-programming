@@ -5,7 +5,7 @@ this.block_tinder_ = (function() {
   function block_tinder_() {
     this.run = bind(this.run, this);
     var css;
-    css = "#tinder_drag {\n  background-image: url(http://media.bestofmicro.com/K/U/423246/original/mini.png);\n  background-size: cover;\n}\n\n#viewport {\n  width: 100%;\n  height: 100%;\n  position: relative;\n  left: auto;\n  right: auto;\n}\n\n#viewport li {\n  width: 250px;\n  height: 350px;\n  list-style: none;\n  background: #fff;\n  border-radius: 5px;\n  top:0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  margin: auto;\n  position: absolute;\n  text-align: center;\n  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);\n  line-height: 300px;\n  text-align: center;\n  font-size: 100px;\n  border: 15px solid #ECECEC;\n  box-sizing: border-box;\n  cursor: default;\n}";
+    css = "#tinder_drag {\n  background-image: url(http://media.bestofmicro.com/K/U/423246/original/mini.png);\n  background-size: cover;\n}\n\n#viewport {\n  width: 100%;\n  height: 100%;\n  position: relative;\n  left: auto;\n  right: auto;\n}\n\n#description {\n  top: 0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  margin-top: 0;\n  margin: auto;\n  position: absolute;\n  font-size: 12px;\n  margin-top: 220px;\n  width: 220px;\n}\n\n#viewport li {\n  width: 250px;\n  height: 350px;\n  list-style: none;\n  background: #ff6666;\n  border-radius: 5px;\n  top:0;\n  bottom: 0;\n  left: 0;\n  right: 0;\n  margin: auto;\n  position: absolute;\n  text-align: center;\n  box-shadow: 0 0 2px rgba(0, 0, 0, 0.2), 1px 1px 1px rgba(0, 0, 0, 0.2);\n  text-align: center;\n  border: 15px solid #ECECEC;\n  box-sizing: border-box;\n  cursor: default;\n}\n\n#viewport li.added {\n  background: white;\n}\n\n#viewport li.in-deck:nth-child(3) {\n  top: 2px;\n  transform: translate(2px, 2px) rotate(0.4deg);\n}\n\n#viewport li.in-deck:nth-child(2) {\n  top: 4px;\n  transform: translate(-4px, -2px) rotate(-1deg);\n}\n\n#viewport li.in-deck:nth-child(4) {\n  top: 2px;\n  transform: translate(5px, 5px) rotate(1deg);\n}\n\n#viewport li.in-deck:nth-child(5) {\n  top: 4px;\n  transform: translate(-5px, -5px) rotate(-1deg);\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
     $("<div id = \"tinder_drag\" class=\"drag-wrap draggable\" name=\"tinder\">\n</div>").appendTo(".drag-zone");
   }
@@ -15,18 +15,19 @@ this.block_tinder_ = (function() {
   window.tinder_no_entries = [];
 
   block_tinder_.prototype.run = function(cb, entry) {
-    var audio, description, elem, stack, url;
+    var audio, description, stack, url;
+    console.log(entry);
     audio = new Audio();
     audio.src = entry.preview_url;
     audio.play();
     if (entry.album === void 0) {
       url = entry.images.standard_resolution.url;
-      description = "";
+      description = entry.caption.text;
     } else {
       url = entry.album.images[0].url;
       description = "Track: " + entry.name;
     }
-    $('<div id="white-background"></div><div id="image-div"></div><div id="viewport"> <ul class="stack"> </ul> </div>').appendTo("body");
+    $('<div id="white-background"></div><div id="image-div"></div><div id="viewport"> <ul class="stack"> <li class="in-deck"></li> <li class="in-deck"></li> <li class="in-deck"></li> <li class="in-deck"></li> <li class="in-deck"></li> <li class="in-deck"></li> </ul> </div>').appendTo("body");
     $('#white-background').css({
       backgroundColor: 'white',
       backgroundSize: 'cover',
@@ -69,15 +70,9 @@ this.block_tinder_ = (function() {
       top: 0,
       zIndex: 110
     });
+    $(".stack").prepend("<li id = 'active-entry' class='in-deck added'><img src=" + url + " width='100%'; height='200px'><div id='description'>" + description + "</div></li>");
     stack = gajus.Swing.Stack();
-    elem = $("<li id = 'active-entry' class='clubs in-deck'><img src=" + url + " width='100%'; height='70%'><div id='description' style='text-align:center; position: absolute; width: 230px; right: auto;top: 100px; font-size: 20px'>" + description + "</div></li>");
-    $(".stack").append(elem);
-    [].forEach.call($('.stack li'), (function(_this) {
-      return function(targetElement) {
-        stack.createCard(targetElement);
-        return targetElement.classList.add('in-deck');
-      };
-    })(this));
+    stack.createCard(document.querySelector('.stack li.in-deck'));
     return stack.on('throwout', (function(_this) {
       return function(e) {
         audio.pause();
@@ -87,8 +82,8 @@ this.block_tinder_ = (function() {
         if (e.throwDirection !== 1) {
           window.tinder_yes_entries.push(entry);
         }
-        e.target.classList.remove('in-deck');
         e.target.remove();
+        e.target.classList.remove("in-deck");
         return cb();
       };
     })(this));
