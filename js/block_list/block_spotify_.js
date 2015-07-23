@@ -5,9 +5,9 @@ this.block_spotify_ = (function() {
   function block_spotify_() {
     this.run = bind(this.run, this);
     var css;
-    css = "#youtube_celeb {\n	background-image: url(img/spotify.png);\n	background-size: cover;\n}\n\n#spotify_input {\n	position: absolute;\n	top: 50px;\n	left: 10px;\n	right: 10px;\n	width: 80%;\n	text-align: center;\n	font-size: 10px;\n}";
+    css = "#spotify {\n	background-image: url(img/spotify.png);\n	background-size: cover;\n}\n\n#spotify_input {\n	position: absolute;\n	top: 50px;\n	left: 10px;\n	right: 10px;\n	width: 80%;\n	text-align: center;\n	font-size: 10px;\n}";
     $("<style type='text/css'></style>").html(css).appendTo("head");
-    $("<div id=\"youtube_celeb\" class=\"drag-wrap draggable\" name=\"spotify\">\n	<input id=\"spotify_input\" type=\"text\">\n	<div id=\"video_frame\"></div>\n</div>").appendTo(".drag-zone");
+    $("<div id=\"spotify\" class=\"drag-wrap draggable\" name=\"spotify\">\n	<input id=\"spotify_input\" type=\"text\">\n	<div id=\"video_frame\"></div>\n</div>").appendTo(".drag-zone");
     interact("#spotify_input").on('tap', function(event) {
       return $("#spotify_input").focus();
     });
@@ -36,15 +36,7 @@ this.block_spotify_ = (function() {
   }
 
   block_spotify_.prototype.run = function(element) {
-    $("#spotify_input").hide();
-    console.log(this.track);
-    $("#youtube_celeb").html("<img style='width: 115px; height: 115px' src=" + this.image + ">");
-
-    /*audio = new Audio()
-    		console.log @track.preview_url
-    		audio.src = @track.preview_url
-    		audio.play()
-     */
+    $("#spotify").html("<img style='width: 115px; height: 115px' src=" + this.image + ">");
     return this.entries;
   };
 

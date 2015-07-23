@@ -5,9 +5,9 @@ this.block_instagram_ = (function() {
   function block_instagram_() {
     this.run = bind(this.run, this);
     var css, feed;
-    css = "#instagram_pic {\n	position: absolute;\n	left: 18px;\n	top: 16px;\n	width: 80px;\n}\n\n# #insta_tag_input {\n# 	position: absolute;\n# 	top: 70%;\n# 	width: 60%;\n# 	left: 17%;\n# 	text-align: center;\n# 	font-size: 11px;\n# 	background: #ACF0F2;\n# 	opacity: 0.4;\n# }\n\n#instafeed {\n	display: none;\n}";
+    css = "#instagram_pic {\n	position: absolute;\n	left: 18px;\n	top: 16px;\n	width: 80px;\n}";
     $('<style type="text/css"></style>').html(css).appendTo("head");
-    $("<div class=\"drag-wrap draggable\" name=\"instagram\">\n	<img id=\"instagram_pic\" src=\"img/instagram.png\">\n	# <input id=\"insta_tag_input\" type=\"text\" value=\"ENTER TAG\">\n</div>\n<div id=\"instafeed\"></div>").appendTo(".drag-zone");
+    $("<div class=\"drag-wrap draggable\" name=\"instagram\">\n	<img id=\"instagram_pic\" src=\"img/instagram.png\">\n</div>\n<div id=\"instafeed\"></div>").appendTo(".drag-zone");
     feed = new Instafeed({
       get: 'tagged',
       tagName: 'awesome',
@@ -26,7 +26,6 @@ this.block_instagram_ = (function() {
   }
 
   block_instagram_.prototype.run = function() {
-    console.log(this.images);
     return this.images;
   };
 
