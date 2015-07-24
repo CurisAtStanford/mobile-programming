@@ -16,6 +16,12 @@ body {
   background-position:-2px -2px, -2px -2px, -1px -1px, -1px -1px
 }
 
+/* disables highlighting */
+::selection {
+    background-color: Transparent;
+    color :#000;
+}
+
 .drop-zone {
   position: relative;
   height: 50%;

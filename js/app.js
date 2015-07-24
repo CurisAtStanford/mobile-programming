@@ -28,7 +28,7 @@ $(function() {
   window.block_nlp = new block_nlp_();
   window.block_spotify = new block_spotify_();
   window.block_tinder = new block_tinder_();
-  control = new control_for_loop_();
+  control = new control_if_then_();
   items = $(".drag-wrap");
   h = window.innerHeight;
   w = window.innerWidth;
